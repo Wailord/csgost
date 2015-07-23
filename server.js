@@ -5,7 +5,7 @@ var express = require('express'),
 
 var app = express();
 
-app.get('/matches', matches.findMatches);
+app.get('/hltv/findWith', matches.findMatches);
 
 console.log('starting up script to scrape hltv...');
 console.log('starting up ' + __dirname + '/scripts/parsehltv.py');

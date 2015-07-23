@@ -50,34 +50,26 @@ exports.findMatches = function(req, res)
 		var seconds = days * 3600 * 24;
 		var today = Math.floor(Date.now() / 1000);
 		days = today - seconds;
-	}
-	else
-	{
-		console.log("server received request w/o days param...");
-		days = 0;
-	}
 
-	var results = Match.find({date: {$gt: days}});
+		var results = Match.find({date: {$gt: days}});
 
-	console.log('using ' + days + ' as minimum time...');
-	results.exec(function (err, matches)
-	{
-		if(err)
+		console.log('using ' + days + ' as minimum time...');
+		results.exec(function (err, matches)
 		{
-			res.send(err);
-		}
-		else
-		{
-			if(matches)
+			if(err)
+			{
+				res.send(err);
+			}
+			else
 			{
 				res.setHeader('Content-Type','application/json');
 				res.send(matches);
 			}
-			else
-			{
-				res.statusCode = 404;
-				res.send('Invalid timestamp.');
-			}
-		}
-	});
+		});
+	}
+	else
+	{
+		res.statusCode = 404;
+		res.send('Days field required.')
+	}
 };
