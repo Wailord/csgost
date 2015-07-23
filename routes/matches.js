@@ -57,7 +57,7 @@ exports.findMatches = function(req, res)
 		days = 0;
 	}
 
-	var results = Match.find({date: {$gt: days}}).limit(50);
+	var results = Match.find({date: {$gt: days}});
 
 	console.log('using ' + days + ' as minimum time...');
 	results.exec(function (err, matches)
