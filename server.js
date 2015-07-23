@@ -7,8 +7,6 @@ var app = express();
 
 app.get('/matches', matches.findMatches);
 
-app.listen(8080);
-
 console.log('starting up script to scrape hltv...');
 console.log('starting up ' + __dirname + '/scripts/parsehltv.py');
 var scraper = cron.job('0 * * * * *', function ()
@@ -26,3 +24,6 @@ var scraper = cron.job('0 * * * * *', function ()
 scraper.start();
 
 console.log('Listening on port 3000...');
+
+app.use(express.static(__dirname + '/public'));
+app.listen(3000);
