@@ -3,7 +3,7 @@ var express = require('express'),
 
 var app = express();
 
-app.get('/matches/:id', matches.findById);
+app.get('/matches', matches.findMatches);
 
 app.listen(3000);
 

@@ -39,17 +39,45 @@ db.once('open', function (callback)
 	console.log("Successfully connected to 'hltv' database.")
 });;
 
-exports.findById = function(req, res)
+
+
+exports.findMatches = function(req, res)
 {
-	var id = req.params.id;
-	console.log('Retrieving match: ' + id);
-	Match.findOne({'_id': id}, function (err, match)
+	var days = req.query.days;
+	if(days)
+	{
+		console.log("server received request for days = " + days + "...");
+		var seconds = days * 3600 * 24;
+		var today = Math.floor(Date.now() / 1000);
+		days = today - seconds;
+	}
+	else
+	{
+		console.log("server received request w/o days param...");
+		days = 0;
+	}
+
+	var results = Match.find({date: {$gt: days}}).limit(50);
+
+	console.log('using ' + days + ' as minimum time...');
+	results.exec(function (err, matches)
 	{
 		if(err)
+		{
 			res.send(err);
-		else if(!match)
-			res.status(404).send('Match not found.');
+		}
 		else
-			res.send(match);
+		{
+			if(matches)
+			{
+				res.setHeader('Content-Type','application/json');
+				res.send(matches);
+			}
+			else
+			{
+				res.statusCode = 404;
+				res.send('Invalid timestamp.');
+			}
+		}
 	});
 };
