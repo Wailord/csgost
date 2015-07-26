@@ -99,6 +99,7 @@ exports.findMatches = function(req, res)
 	}
 	else
 	{
-+		res.status(400).send('Error 400: Malformed query; found ' + suppliedParams + ' parameters but only ' + acceptedParams + ' valid parameters. Valid query parameters are days, teams_or, and teams_and, and maps.')
+		res.status(400).send('Error 400: Malformed query; found ' + suppliedParams
+	+ ' parameters but only ' + acceptedParams + ' valid parameters. Valid query parameters are days, teams_or, and teams_and, and maps.')
 	}
 };
