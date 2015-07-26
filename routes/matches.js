@@ -44,14 +44,32 @@ db.once('open', function (callback)
 exports.findMatches = function(req, res)
 {
 	var days = req.query.days;
-	if(days)
+	var map = req.query.map;
+	var teamsParam = req.query.teams;
+	var teams = teamsParam.split(",");
+
+	console.log(teams);
+
+	if(!days)
+		days = 0;
+
+	if(map && teams)
 	{
-		console.log("server received request for days = " + days + "...");
+		console.log("server received request for:\ndays = " + days + "\nmap = " + map + "\nteams: " + teams);
+		console.log(teams[0]);
 		var seconds = days * 3600 * 24;
 		var today = Math.floor(Date.now() / 1000);
 		days = today - seconds;
 
-		var results = Match.find({date: {$gt: days}});
+		var results = Match.find({
+			date: {$gt: days},
+			map: map,
+			$or:
+				[
+					{ "team1.name": {$in: teams} },
+					{ "team2.name": {$in: teams} }
+				]
+		});
 
 		console.log('using ' + days + ' as minimum time...');
 		results.exec(function (err, matches)
@@ -70,6 +88,6 @@ exports.findMatches = function(req, res)
 	else
 	{
 		res.statusCode = 404;
-		res.send('Days field required.')
+		res.send('Days and map field required.')
 	}
 };
