@@ -47,6 +47,8 @@ exports.findMatches = function(req, res)
 	var mapsParam = req.query.maps;
 	var teamsOr = req.query.teams_or;
 	var teamsAnd = req.query.teams_and;
+
+	var acceptedParams = 0;
 	
 	var query = Match.find();
 
@@ -56,34 +58,47 @@ exports.findMatches = function(req, res)
 		var today = Math.floor(Date.now() / 1000);
 		days = today - seconds;
 		query = query.where('date').gt(days);
+		acceptedParams++;
 	}
 
 	if(mapsParam)
 	{ 
 		var maps = mapsParam.split(",");
 		query = query.where('map').in(maps);
+		acceptedParams++;
 	}
 
-	if(teamsOr && !teamsAnd)
+	if(teamsOr)
 	{
 		var teams = teamsOr.split(",");
 		query = query.or([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
+		acceptedParams++;
 	}
 
-	else if(teamsAnd && !teamsOr)
+	if(teamsAnd)
 	{
 		var teams = teamsAnd.split(",");
-		var team1match = query.and([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
+		query = query.and([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
+		acceptedParams++;
 	}
 
-	query.exec(function (err, matches)
+	var suppliedParams = Object.keys(req.query).length;
+
+	if(suppliedParams == acceptedParams)
 	{
-		if(err)
-			res.send(err);
-		else
+		query.exec(function (err, matches)
 		{
-			res.setHeader('Content-Type','application/json');
-			res.send(matches);
-		}
-	});
+			if(err)
+				res.send(err);
+			else
+			{
+				res.setHeader('Content-Type','application/json');
+				res.send(matches);
+			}
+		});
+	}
+	else
+	{
++		res.status(400).send('Error 400: Malformed query; found ' + suppliedParams + ' parameters but only ' + acceptedParams + ' valid parameters. Valid query parameters are days, teams_or, and teams_and, and maps.')
+	}
 };
