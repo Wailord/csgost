@@ -44,50 +44,46 @@ db.once('open', function (callback)
 exports.findMatches = function(req, res)
 {
 	var days = req.query.days;
-	var map = req.query.map;
-	var teamsParam = req.query.teams;
-	var teams = teamsParam.split(",");
+	var mapsParam = req.query.maps;
+	var teamsOr = req.query.teams_or;
+	var teamsAnd = req.query.teams_and;
+	
+	var query = Match.find();
 
-	console.log(teams);
-
-	if(!days)
-		days = 0;
-
-	if(map && teams)
+	if(days)
 	{
-		console.log("server received request for:\ndays = " + days + "\nmap = " + map + "\nteams: " + teams);
-		console.log(teams[0]);
 		var seconds = days * 3600 * 24;
 		var today = Math.floor(Date.now() / 1000);
 		days = today - seconds;
-
-		var results = Match.find({
-			date: {$gt: days},
-			map: map,
-			$or:
-				[
-					{ "team1.name": {$in: teams} },
-					{ "team2.name": {$in: teams} }
-				]
-		});
-
-		console.log('using ' + days + ' as minimum time...');
-		results.exec(function (err, matches)
-		{
-			if(err)
-			{
-				res.send(err);
-			}
-			else
-			{
-				res.setHeader('Content-Type','application/json');
-				res.send(matches);
-			}
-		});
+		query = query.where('date').gt(days);
 	}
-	else
+
+	if(mapsParam)
+	{ 
+		var maps = mapsParam.split(",");
+		query = query.where('map').in(maps);
+	}
+
+	if(teamsOr && !teamsAnd)
 	{
-		res.statusCode = 404;
-		res.send('Days and map field required.')
+		var teams = teamsOr.split(",");
+		query = query.or([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
 	}
+
+	else if(teamsAnd && !teamsOr)
+	{
+		var teams = teamsAnd.split(",");
+		var team1match = query.and([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
+	}
+
+	query.exec(function (err, matches)
+	{
+		if(err)
+			res.send(err);
+		else
+		{
+			res.setHeader('Content-Type','application/json');
+			res.send(matches);
+		}
+	});
 };
