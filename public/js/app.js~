@@ -1,0 +1,1 @@
+angular.module('csghost', ['ngRoute', 'appRoutes', 'MainController', 'MatchController', 'MatchService']);

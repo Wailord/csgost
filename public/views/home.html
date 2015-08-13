@@ -1,0 +1,22 @@
+<div class="jumbotron text-center">
+    <h1>HLTV Made Easy</h1>
+    <p>{{ tagline }}</p>
+    <form class="form-horizontal" role="form" method="post">
+	    <select name="team_a" ng-model="team_a">
+			<option ng-repeat="team in teams" value = "{{team.id}}">{{team.name}}</option>
+	    </select>
+	    versus
+	    <select name="team_b" ng-model="team_b">
+			<option ng-repeat="team in teams" value = "{{team.id}}">{{team.name}}</option>
+	    </select>
+	    on
+	    <select name="map" ng-model="Map">
+			<option ng-repeat="map in maps" value = "{{map.id}}">{{map.name}}</option>
+		</select>
+		<br>
+		<br>
+      	<button type="submit" class="btn btn-primary">Get History</button>
+      	<br>
+      	<br>
+    </form>
+</div>
