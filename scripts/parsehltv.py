@@ -78,7 +78,7 @@ def ParseHLTVPage(pageUrl):
             return False
         else:
             collection.insert(match)
-            print 'added match ' + str(match['_id']) + '...'
+            print 'Added new HLTV match: ' + str(match['_id'])
 
         match = {}
         score = {}
@@ -131,7 +131,7 @@ def ParseHLTVPage(pageUrl):
             return False
         else:
             collection.insert(match)
-            print 'added match ' + str(match['_id']) + '...'
+            print 'Added new HLTV match: ' + str(match['_id'])
 
     return True
 
@@ -139,7 +139,7 @@ x = 0;
 while(True):
     if not ParseHLTVPage('http://www.hltv.org/?pageid=188&offset=' + str(x * 50)):
         break
-    print 'Parsed page ' + str(x + 1) + '...'
+    #print 'Parsed page ' + str(x + 1) + '...'
     x = x + 1
     sleep(1)
-print 'Done parsing HLTV.'
+#print 'Done parsing HLTV.'

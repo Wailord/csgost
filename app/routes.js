@@ -3,12 +3,14 @@ var path = require('path');
 
 module.exports = function(app)
 {
-	app.get('/api/matches', function(req, res) 
+	app.post('/api/matches', function(req, res) 
 	{
-		var days = req.query.days;
-		var mapsParam = req.query.maps;
-		var teamsOr = req.query.teams_or;
-		var teamsAnd = req.query.teams_and;
+		var days = req.body.days;
+		var mapsParam = req.body.maps;
+		var teamsOr = req.body.teams_or;
+		var teamsAnd = req.body.teams_and;
+
+		console.log('received a query');
 
 		var acceptedParams = 0;
 
@@ -16,8 +18,9 @@ module.exports = function(app)
 
 		if(days)
 		{
-			var seconds = days * 3600 * 24;
+			var seconds = (days) * 3600 * 24;
 			var today = Math.floor(Date.now() / 1000);
+			
 			days = today - seconds;
 			query = query.where('date').gt(days);
 			acceptedParams++;
@@ -25,44 +28,36 @@ module.exports = function(app)
 
 		if(mapsParam)
 		{ 
-			var maps = mapsParam.split(",");
+			var maps = mapsParam
 			query = query.where('map').in(maps);
 			acceptedParams++;
 		}
 
 		if(teamsOr)
 		{
-			var teams = teamsOr.split(",");
+			var teams = teamsOr;
+			console.log('teams = ' + teams[0] + ', ' + teams[1]);
 			query = query.or([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
 			acceptedParams++;
 		}
 
 		if(teamsAnd)
 		{
-			var teams = teamsAnd.split(",");
+			var teams = teamsAnd;
 			query = query.and([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
 			acceptedParams++;
 		}
 
-		var suppliedParams = Object.keys(req.query).length;
-
-		if(suppliedParams == acceptedParams && suppliedParams != 0)
+		query.exec(function (err, matches)
 		{
-			query.exec(function (err, matches)
+			if(err)
+				res.status(400).send(err);
+			else
 			{
-				if(err)
-					res.send(err);
-				else
-				{
-					res.setHeader('Content-Type','application/json');
-					res.send(matches);
-				}
-			});
-		}
-		else
-		{
-			res.status(400).send('Error 400: Malformed query; valid query parameters are days, teams_or, and teams_and, and maps.')
-		}
+				res.setHeader('Content-Type','application/json');
+				res.send(matches);
+			}
+		});
 	});
 
 	// frontend routes =========================================================

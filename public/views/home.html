@@ -1,22 +1,44 @@
 <div class="jumbotron text-center">
-    <h1>HLTV Made Easy</h1>
+    <h1>CSGO Stats Made Simple</h1>
     <p>{{ tagline }}</p>
     <form class="form-horizontal" role="form" method="post">
 	    <select name="team_a" ng-model="team_a">
-			<option ng-repeat="team in teams" value = "{{team.id}}">{{team.name}}</option>
+			<option ng-repeat="team in teams" value = "{{team}}">{{team}}</option>
 	    </select>
 	    versus
 	    <select name="team_b" ng-model="team_b">
-			<option ng-repeat="team in teams" value = "{{team.id}}">{{team.name}}</option>
+			<option ng-repeat="team in teams" value = "{{team}}">{{team}}</option>
 	    </select>
 	    on
-	    <select name="map" ng-model="Map">
-			<option ng-repeat="map in maps" value = "{{map.id}}">{{map.name}}</option>
+	    <select name="map" ng-model="map">
+			<option ng-repeat="map in maps" value = "{{map}}">{{map}}</option>
 		</select>
+	    over the last
+	    <input type="number" class="" ng-model="days" min="0"> days
 		<br>
 		<br>
-      	<button type="submit" class="btn btn-primary">Get History</button>
+      	<button type="submit" ng-click="getAllMatches()" class="btn btn-primary">Get History</button>
       	<br>
       	<br>
+      	<table class="table table-striped">
+			<tr>
+				<td><b>Date</b></td>
+				<td><b>Team</b></td>
+				<td><b></b></td>
+				<td><b>Team</b></td>
+				<td><b></b></td>
+				<td><b>Map</b></td>
+				<td><b>Event</b></td>
+			</tr>
+		  	<tr ng-repeat="match in matches">
+		    	<td>{{ match.date * 1000 | date:'yyyy-MM-dd'}}</td>
+		    	<td><a href={{match.team1[0].url}}>{{ match.team1[0].name }}</a></td>
+		    	<td>{{ match.score[0].team_1 }}</td>
+		    	<td><a href={{match.team2[0].url}}>{{ match.team2[0].name }}</td>
+		    	<td>{{ match.score[0].team_2 }}</td>
+		    	<td>{{ match.map }}</td>
+		    	<td><a href={{match.event[0].url}}>{{ match.event[0].name }}</td>
+		  </tr>
+		</table>
     </form>
 </div>
