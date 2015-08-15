@@ -9,7 +9,7 @@ var express = require('express'),
 
 // connect to the match database
 var dbURL = process.env.MONGOLAB_URI || db.url;
-mongoose.connect(db.url);
+mongoose.connect(dbURL);
 
 // server the public folder
 app.use(express.static(__dirname + '/public'));
