@@ -8,6 +8,7 @@ var express = require('express'),
 	port = process.env.PORT || 8080; 
 
 // connect to the match database
+var dbURL = process.env.MONGOLAB_URI || db.url;
 mongoose.connect(db.url);
 
 // server the public folder
