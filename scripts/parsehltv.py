@@ -7,19 +7,22 @@ from time import sleep
 from lxml import html
 import datetime
 import time
-import pymongo
+from pymongo import MongoClient
 import requests
 
-if process.env.MONGOLAB_URI
-    server = process.env.MONGOLAB_URI
-    dbName = process.env.REMOTE_HLTV_DB_NAME
-else
-    server = pymongo.MongoClient()
-    dbName = hltv
+if os.environ.get('MONGOLAB_URI'):
+    server = str(os.environ['MONGOLAB_URI'])
+    dbName = str(os.environ['REMOTE_HLTV_DB_NAME'])
+else:
+    server = 'mongodb://localhost/hltv'
+    dbName = 'hltv'
 
-port = process.env.PORT || 8080; 
+if os.environ.get('PORT'):
+    port = os.environ['PORT']
+else:
+    port = 8080 
 
-conn = Connection(server, port)
+conn = MongoClient(server, port)
 db = conn[dbName]
 collection = db.matches
 
