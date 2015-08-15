@@ -48,7 +48,7 @@ app.controller('MainController', function($scope, MatchService)
 	    	'overpass'
 		];
 
-		$scope.getAllMatches = function()
+		$scope.getMatches = function()
 		{
 			MatchService.getAllMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
 				.then(function(response) {

@@ -3,7 +3,7 @@ angular.module('MatchService', [])
     var urlBase = '/api/matches';
     var matchFactory = {};
 
-    matchFactory.getAllMatches = function(days, team1, team2, map)
+    matchFactory.getMatches = function(days, team1, team2, map)
     {
     	var data = {};
     	data.days = days;

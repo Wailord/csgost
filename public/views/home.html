@@ -30,7 +30,7 @@
 				<td><b>Map</b></td>
 				<td><b>Event</b></td>
 			</tr>
-		  	<tr ng-repeat="match in matches">
+		  	<tr ng-repeat="match in matches | reverse">
 		    	<td>{{ match.date * 1000 | date:'yyyy-MM-dd'}}</td>
 		    	<td><a href={{match.team1[0].url}}>{{ match.team1[0].name }}</a></td>
 		    	<td>{{ match.score[0].team_1 }}</td>
