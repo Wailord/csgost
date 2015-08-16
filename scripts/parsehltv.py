@@ -18,7 +18,7 @@ else:
 if os.environ.get('MONGOLAB_URI'):
     server = str(os.environ['MONGOLAB_URI'])
     dbName = str(os.environ['REMOTE_HLTV_DB_NAME'])
-    conn = MongoClient(server, port)
+    conn = MongoClient(server, int(port))
     db = conn[dbName]
 else:
     conn = MongoClient()
