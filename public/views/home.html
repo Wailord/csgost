@@ -1,20 +1,21 @@
 <div class="jumbotron text-center">
     <h1>CSGO Stats Made Simple</h1>
     <p>{{ tagline }}</p>
-    <form class="form-horizontal" role="form" method="post">
+    <form class="form-inline" role="form" method="post">
 	    <select name="team_a" ng-model="team_a">
 			<option ng-repeat="team in teams" value = "{{team}}">{{team}}</option>
 	    </select>
-	    versus
+	    &nbsp;vs&nbsp;
 	    <select name="team_b" ng-model="team_b">
 			<option ng-repeat="team in teams" value = "{{team}}">{{team}}</option>
 	    </select>
-	    on
+	    &nbsp;on&nbsp;			    
 	    <select name="map" ng-model="map">
 			<option ng-repeat="map in maps" value = "{{map}}">{{map}}</option>
 		</select>
-	    over the last
-	    <input type="number" class="" ng-model="days" min="0"> days
+	    &nbsp;over the last&nbsp;
+	    <input type="number" class="input-small" ng-model="days" min="0">
+	    days
 		<br>
 		<br>
       	<button type="submit" ng-click="getMatches()" class="btn btn-primary">Get History</button>

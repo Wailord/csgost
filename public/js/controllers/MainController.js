@@ -47,10 +47,20 @@ app.controller('MainController', function($scope, MatchService)
 		$scope.team_b = 'any team';
 
 	    $scope.maps = [
-	    	'any map',
 	    	'cobblestone',
-	    	'overpass'
-		];
+	    	'overpass',
+	    	'nuke',
+	    	'cache',
+	    	'season',
+	    	'dust2',
+	    	'mirage',
+	    	'inferno',
+	    	'train'
+		].sort(function (a, b) 
+			{
+				return a.toLowerCase().localeCompare(b.toLowerCase());	
+			});
+		$scope.maps.unshift('any map');
 
 		$scope.getMatches = function()
 		{
