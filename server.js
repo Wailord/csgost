@@ -14,6 +14,7 @@ mongoose.connect(dbURL);
 // server the public folder
 app.use(express.static(__dirname + '/public'));
 
+/*
 // start up the cron job to parse through HLTV
 var scraper = cron.job('0 * * * * *', function ()
 {
@@ -28,6 +29,7 @@ var scraper = cron.job('0 * * * * *', function ()
     	});
 }); 
 scraper.start();
+*/
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
