@@ -13,6 +13,7 @@ import requests
 if os.environ.get('MONGOLAB_URI'):
     server = str(os.environ['MONGOLAB_URI'])
     dbName = str(os.environ['REMOTE_HLTV_DB_NAME'])
+    print 'connecting to ' + server
     conn = MongoClient(server)
     db = conn[dbName]
 else:
