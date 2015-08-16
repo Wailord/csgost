@@ -4,6 +4,7 @@ app.controller('MainController', function($scope, MatchService)
 		$scope.days = 7;
 		$scope.map = 'any map';
 	    $scope.tagline = 'Choose your parameters and get the requested history from HLTV\'s match listing.';
+	    $scope.resultCount = -2;
 
 	    // these are intentionally hardcoded so it's not cluttered with hundreds of teams that don't exist
 	    $scope.teams = [
@@ -67,10 +68,11 @@ app.controller('MainController', function($scope, MatchService)
 			MatchService.getMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
 				.then(function(response) {
 						$scope.matches = response.data;
+						$scope.resultCount = response.data.length;
 						console.log(response);
 					},
 					function(errorResponse) {
-						$scope.resultText = "Error";
+						$scope.resultCount = -1;
 						console.log(errorResponse);
 				});
 		}
