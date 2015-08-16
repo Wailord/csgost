@@ -3,7 +3,7 @@ app.controller('MainController', function($scope, MatchService)
 	{
 		$scope.days = 7;
 		$scope.map = 'any map';
-	    $scope.tagline = 'Choose your parameters and get the requested history from HLTV\'s match listing.';
+	    $scope.tagline = 'Choose your parameters below and get lightning-quick results from the HLTV database.';
 	    $scope.resultCount = -2;
 
 	    // these are intentionally hardcoded so it's not cluttered with hundreds of teams that don't exist
