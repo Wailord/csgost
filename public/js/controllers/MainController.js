@@ -35,8 +35,12 @@ app.controller('MainController', function($scope, MatchService)
 	    	'Method',
 	    	'PENTA',
 	    	'ACE',
-	    	'x6tence'
-		].sort();
+	    	'x6tence',
+	    	'TSM'
+		].sort(function (a, b) 
+			{
+				return a.toLowerCase().localeCompare(b.toLowerCase());	
+			});
 		$scope.teams.unshift('any team');
 
 		$scope.team_a = 'any team';
