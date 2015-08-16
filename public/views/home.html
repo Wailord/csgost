@@ -19,98 +19,101 @@
 		<br>
 		<br>
       	<button type="submit" ng-click="getMatches()" class="btn btn-primary">Get History</button>
-      	<br>
-      	<br>
-    	</label>
     </form>
-  	<table class="table table-striped">
-		<tr>
-			<td><b>Date</b></td>
-			<td><b>Team</b></td>
-			<td><b></b></td>
-			<td><b>Team</b></td>
-			<td><b></b></td>
-			<td><b>Map</b></td>
-			<td><b>Event</b></td>
-		</tr>
-	  	<tr ng-repeat="match in matches | reverse">
-	    	<td>{{ match.date * 1000 | date:'yyyy-MM-dd'}}</td>
-	    	<td>
-	    		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
-		    		<div ng-switch-when="true">
-	    				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team1[0].url}}>
-	    					{{ match.team1[0].name }}
-	    				</a>
-		    		</div>
-		    		<div ng-switch-when="false">
-	    				<a style="color:#FF5C5C;" href={{match.team1[0].url}}>
-	    					{{ match.team1[0].name }}
-	    				</a>
-		    		</div>
-	    		</div>
-	    	</td>
-	    	<td>
-	    		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
-		    		<div ng-switch-when="true">
-		    			<span style="font-weight: bold;">
-		    				{{ match.score[0].team_1 }}
-		    			</span>
-					</div>
-		    		<div ng-switch-when="false">
-		    			<span style="">
-		    				{{ match.score[0].team_1 }}
-		    			</span>
-					</div>
-				</div>
-		    </td>
-	    	<td>
-	    		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
-		    		<div ng-switch-when="true">
-	    				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team2[0].url}}>
-	    					{{ match.team2[0].name }}
-	    				</a>
-		    		</div>
-		    		<div ng-switch-when="false">
-	    				<a style="color:#FF5C5C;" href={{match.team2[0].url}}>
-	    					{{ match.team2[0].name }}
-	    				</a>
-		    		</div>
-	    		</div>
-	    	</td>
-	    	<td>
-	    		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
-		    		<div ng-switch-when="true">
-		    			<span style="font-weight: bold;">
-		    				{{ match.score[0].team_2 }}
-		    			</span>
-					</div>
-		    		<div ng-switch-when="false">
-		    			<span style="">
-		    				{{ match.score[0].team_2 }}
-		    			</span>
-					</div>
-				</div>
-		    </td>
-	    	<td>{{ match.map }}</td>
-	    	<td>
-	    		<a href={{match.event[0].url}}>
-	    			{{ match.event[0].name }}
+</div>
+<table class="table table-striped" style="width:100%">
+	<thead style="text-center">
+	<tr>
+		<th>Date</th>
+		<th>Team</th>
+		<th></th>
+		<th>Team</th>
+		<th></th>
+		<th>Map</th>
+		<th>Event</th>
+	</tr>
+</thead>
+	<tr ng-repeat="match in matches | reverse ">
+	<td>{{ match.date * 1000 | date:'MM/dd/yyyy'}}</td>
+	<td>
+		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
+    		<div ng-switch-when="true">
+				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team1[0].url}}>
+					{{ match.team1[0].name }}
 				</a>
-	    	</td>
-	  </tr>
-	</table>
-	<div ng-show="resultCount != -2">
-		<div ng-switch on="resultCount != 0">
-			<div ng-switch-when="true">
-				<label style="text-align:center; color:green;">
-					found {{ resultCount }} matches
-				</label>
+    		</div>
+    		<div ng-switch-when="false">
+				<a style="color:#FF5C5C;" href={{match.team1[0].url}}>
+					{{ match.team1[0].name }}
+				</a>
+    		</div>
+		</div>
+	</td>
+	<td>
+		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
+    		<div ng-switch-when="true">
+    			<span style="font-weight: bold;">
+    				{{ match.score[0].team_1 }}
+    			</span>
 			</div>
-			<div ng-switch-when="false">
-				<label style="text-align:center; color:red;">
-					no matches found :(
-				</label>
+    		<div ng-switch-when="false">
+    			<span style="">
+    				{{ match.score[0].team_1 }}
+    			</span>
 			</div>
 		</div>
+    </td>
+	<td>
+		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
+    		<div ng-switch-when="true">
+				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team2[0].url}}>
+					{{ match.team2[0].name }}
+				</a>
+    		</div>
+    		<div ng-switch-when="false">
+				<a style="color:#FF5C5C;" href={{match.team2[0].url}}>
+					{{ match.team2[0].name }}
+				</a>
+    		</div>
+		</div>
+	</td>
+	<td>
+		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
+    		<div ng-switch-when="true">
+    			<span style="font-weight: bold;">
+    				{{ match.score[0].team_2 }}
+    			</span>
+			</div>
+    		<div ng-switch-when="false">
+    			<span style="">
+    				{{ match.score[0].team_2 }}
+    			</span>
+			</div>
+		</div>
+    </td>
+	<td>{{ match.map }}</td>
+	<td>
+		<a href={{match.event[0].url}}>
+			{{ match.event[0].name }}
+		</a>
+	</td>
+</tr>
+</table>
+<pagination total-items="resultCount" ng-model="currentPage"
+max-size="5" boundary-links="true"
+items-per-page="numPerPage" class="pagination-sm">
+</pagination>
+<div ng-show="resultCount != -2">
+<div ng-switch on="resultCount != 0">
+	<div ng-switch-when="true">
+		<label style="text-align:center; color:green;">
+			found {{ resultCount }} matches
+		</label>
 	</div>
+	<div ng-switch-when="false">
+		<label style="text-align:center; color:red;">
+			no matches found :(
+		</label>
+	</div>
+</div>
 </div>
