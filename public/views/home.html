@@ -32,12 +32,68 @@
 			</tr>
 		  	<tr ng-repeat="match in matches | reverse">
 		    	<td>{{ match.date * 1000 | date:'yyyy-MM-dd'}}</td>
-		    	<td><a href={{match.team1[0].url}}>{{ match.team1[0].name }}</a></td>
-		    	<td>{{ match.score[0].team_1 }}</td>
-		    	<td><a href={{match.team2[0].url}}>{{ match.team2[0].name }}</td>
-		    	<td>{{ match.score[0].team_2 }}</td>
+		    	<td>
+		    		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
+			    		<div ng-switch-when="true">
+		    				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team1[0].url}}>
+		    					{{ match.team1[0].name }}
+		    				</a>
+			    		</div>
+			    		<div ng-switch-when="false">
+		    				<a style="color:#FF5C5C;" href={{match.team1[0].url}}>
+		    					{{ match.team1[0].name }}
+		    				</a>
+			    		</div>
+		    		</div>
+		    	</td>
+		    	<td>
+		    		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
+			    		<div ng-switch-when="true">
+			    			<span style="font-weight: bold;">
+			    				{{ match.score[0].team_1 }}
+			    			</span>
+						</div>
+			    		<div ng-switch-when="false">
+			    			<span style="">
+			    				{{ match.score[0].team_1 }}
+			    			</span>
+						</div>
+					</div>
+			    </td>
+		    	<td>
+		    		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
+			    		<div ng-switch-when="true">
+		    				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team2[0].url}}>
+		    					{{ match.team2[0].name }}
+		    				</a>
+			    		</div>
+			    		<div ng-switch-when="false">
+		    				<a style="color:#FF5C5C;" href={{match.team2[0].url}}>
+		    					{{ match.team2[0].name }}
+		    				</a>
+			    		</div>
+		    		</div>
+		    	</td>
+		    	<td>
+		    		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
+			    		<div ng-switch-when="true">
+			    			<span style="font-weight: bold;">
+			    				{{ match.score[0].team_2 }}
+			    			</span>
+						</div>
+			    		<div ng-switch-when="false">
+			    			<span style="">
+			    				{{ match.score[0].team_2 }}
+			    			</span>
+						</div>
+					</div>
+			    </td>
 		    	<td>{{ match.map }}</td>
-		    	<td><a href={{match.event[0].url}}>{{ match.event[0].name }}</td>
+		    	<td>
+		    		<a href={{match.event[0].url}}>
+		    			{{ match.event[0].name }}
+					</a>
+		    	</td>
 		  </tr>
 		</table>
     </form>

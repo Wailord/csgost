@@ -23,7 +23,6 @@ if os.environ.get('MONGOLAB_URI'):
 else:
     conn = MongoClient()
     db = conn['hltv']
-    print "connecting to a local hltv database"
 
 collection = db.matches
 
