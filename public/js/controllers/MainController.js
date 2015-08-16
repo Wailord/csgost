@@ -1,4 +1,4 @@
-var app = angular.module('MainController', []);
+var app = angular.module('MainController', ['angularUtils.directives.dirPagination']);
 app.controller('MainController', function($scope, MatchService)
 	{
 		$scope.days = 7;
@@ -63,18 +63,26 @@ app.controller('MainController', function($scope, MatchService)
 			});
 		$scope.maps.unshift('any map');
 
+		$scope.currentPage = 1;
+		$scope.pageSize = 10;
 		$scope.getMatches = function()
 		{
-			MatchService.getMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
-				.then(function(response) {
-						$scope.matches = response.data;
-						$scope.resultCount = response.data.length;
-						console.log(response);
-					},
-					function(errorResponse) {
-						$scope.resultCount = -1;
-						console.log(errorResponse);
-				});
+	        if(!isNaN($scope.days) && isFinite($scope.days))
+	        {
+				MatchService.getMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
+					.then(function(response) {
+							$scope.matches =
+								response.data.sort(function(a, b) {
+									return parseInt(a.date) - parseInt(b.date);
+								});
+							$scope.resultCount = response.data.length;
+							console.log(response);
+						},
+						function(errorResponse) {
+							$scope.resultCount = -1;
+							console.log(errorResponse);
+					});
+			}
 		}
 	}
 );

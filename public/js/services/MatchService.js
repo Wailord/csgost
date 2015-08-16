@@ -6,7 +6,8 @@ angular.module('MatchService', [])
     matchFactory.getMatches = function(days, team1, team2, map)
     {
     	var data = {};
-    	data.days = days;
+    	
+        data.days = days;
     	maps = [];
     	teams = [];
     	if(team1 != 'any team')

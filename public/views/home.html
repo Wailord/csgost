@@ -33,7 +33,7 @@
 		<th>Event</th>
 	</tr>
 </thead>
-	<tr ng-repeat="match in matches | reverse ">
+	<tr dir-paginate="match in matches | reverse | itemsPerPage: 25">
 	<td>{{ match.date * 1000 | date:'MM/dd/yyyy'}}</td>
 	<td>
 		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
@@ -99,10 +99,7 @@
 	</td>
 </tr>
 </table>
-<pagination total-items="resultCount" ng-model="currentPage"
-max-size="5" boundary-links="true"
-items-per-page="numPerPage" class="pagination-sm">
-</pagination>
+<center><dir-pagination-controls></dir-pagination-controls></center>
 <div ng-show="resultCount != -2">
 <div ng-switch on="resultCount != 0">
 	<div ng-switch-when="true">
