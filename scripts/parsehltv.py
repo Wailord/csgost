@@ -16,6 +16,7 @@ if os.environ.get('MONGOLAB_URI'):
     print 'connecting to ' + server
     conn = MongoClient(server)
     db = conn[dbName]
+    db.authenticate(os.environ['REMOTE_HLTV_DB_USER'], os.environ['REMOTE_HLTV_DB_PASS'])
 else:
     conn = MongoClient()
     db = conn['hltv']
