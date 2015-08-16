@@ -50,7 +50,7 @@ app.controller('MainController', function($scope, MatchService)
 
 		$scope.getMatches = function()
 		{
-			MatchService.getAllMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
+			MatchService.getMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
 				.then(function(response) {
 						$scope.matches = response.data;
 						console.log(response);

@@ -10,20 +10,21 @@ import time
 from pymongo import MongoClient
 import requests
 
-if os.environ.get('MONGOLAB_URI'):
-    server = str(os.environ['MONGOLAB_URI'])
-    dbName = str(os.environ['REMOTE_HLTV_DB_NAME'])
-else:
-    server = 'mongodb://localhost/hltv'
-    dbName = 'hltv'
-
 if os.environ.get('PORT'):
     port = os.environ['PORT']
 else:
     port = 8080 
 
-conn = MongoClient(server, port)
-db = conn[dbName]
+if os.environ.get('MONGOLAB_URI'):
+    server = str(os.environ['MONGOLAB_URI'])
+    dbName = str(os.environ['REMOTE_HLTV_DB_NAME'])
+    conn = MongoClient(server, port)
+    db = conn[dbName]
+else:
+    conn = MongoClient()
+    db = conn['hltv']
+    print "connecting to a local hltv database"
+
 collection = db.matches
 
 def ParseHLTVPage(pageUrl):
