@@ -5,6 +5,8 @@
     "express" : "~4.13.1",
     "mongoose" : "~4.0.8",
     "body-parser" : "~1.13.3",
-    "cron": "~1.0.9"
+    "node-schedule" : "~0.2.9",
+    "cheerio" : "latest",
+    "request" : "latest"
   }
 }

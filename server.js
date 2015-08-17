@@ -2,10 +2,10 @@ var express = require('express'),
 	app = express();
 	mongoose = require('mongoose');
 	bodyParser = require('body-parser');
- 	cron = require('cron');
-	exec = require('child_process').exec;
-	db = require('./config/db');
-	port = process.env.PORT || 8080; 
+ 	schedule = require('node-schedule');
+    db = require('./config/db');
+    hltvparser = require('./scripts/hltvparser');
+	port = process.env.PORT || 8080;
 
 // connect to the match database
 var dbURL = process.env.MONGOLAB_URI || db.url;
@@ -13,23 +13,6 @@ mongoose.connect(dbURL);
 
 // server the public folder
 app.use(express.static(__dirname + '/public'));
-
-/*
-// start up the cron job to parse through HLTV
-var scraper = cron.job('0 * * * * *', function ()
-{
-    exec('python ' + __dirname + '/scripts/parsehltv.py', function (err, stdout, stderr)
-    	{
-    		if(err)
-    			console.log("ParseHLTV.py failed to run: " + err);
-    		else if(stderr)
-    			console.log("Error during ParseHLTV.py: " + stderr);
-    		else if(stdout)
-    			process.stdout.write("ParseHLTV.py ran successfully: " + stdout);
-    	});
-}); 
-scraper.start();
-*/
 
 // get all data/stuff of the body (POST) parameters
 // parse application/json 
@@ -43,6 +26,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public')); 
+
+/*
+var scraper = schedule.scheduleJob('* * * * *',
+    function() {
+        console.log("about to run scraper");
+        hltvparser.runScraper();
+        console.log("done running scraper");
+    });
+*/
+
+hltvparser.runScraper();
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
