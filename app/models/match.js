@@ -8,13 +8,9 @@ var eventSchema = mongoose.Schema({
 	name: String,
 });
 
-var scoreSchema = mongoose.Schema({
-	team1: Number,
-	team2: Number,
-});
-
 var playerSchema = mongoose.Schema({
 	id: Number,
+	url: String,
 	handle: String,
 	kills: Number,
 	headshots: Number,
@@ -24,17 +20,18 @@ var playerSchema = mongoose.Schema({
 
 var teamSchema = mongoose.Schema({
 	id: String,
+	score: Number,
+	url: String,
 	players: [playerSchema],
 });
 
 var matchSchema = mongoose.Schema({
-	_id: String,
+	id: String,
 	map: String,
 	url: String,
 	date: Number,
 	team1: [teamSchema],
 	team2: [teamSchema],
-	score: [scoreSchema],
 	event: [eventSchema],
 });
 
