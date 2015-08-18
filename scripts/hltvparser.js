@@ -1,78 +1,90 @@
 var request = require('request');
 	cheerio = require('cheerio');
 	sleep = require('sleep');
+	Match = require('../app/models/match');
+	async = require('async');
+	lupus = require('lupus');
 
 var hltvparser = module.exports = {};
 
 hltvparser.runScraper = function()
 {
 	// while you can get HLTV pages
-	var pageNum = 0;
+	var pageNum = -1;
 	var moreData = true;
-	while(moreData)
-	{
-		var page = getHLTVPage(pageNum);
-		//var matches = parseHLTVPage(page);
-		//matches.forEach(function(match)) {
-			//var match = parseHLTVMatch();
-			//updateMatchInDatabase(match);
-			//match.team1.players.forEach(function(player)) {
-			//	updatePlayerInDatabase(player);
-			//}
-			//match.team2.players.forEach(function(player)) {
-			//	updatePlayerInDatabase(player);
-			//}
-		//}
-
-		pageNum++;
-		if(pageNum > 0) moreData = false; 
-	}
+	async.whilst(
+		function() { pageNum++; return moreData; },
+		function()
+		{
+			console.log('scraping page #' + pageNum);
+			moreData = scrapeHLTVPage(pageNum)
+		},
+		function() { console.log('done parsing hltv pages') }
+	);
 };
 
-var getHLTVPage = function(pageNum) {
+var scrapeHLTVPage = function(pageNum) {
 	var url = 'http://www.hltv.org/?pageid=188&offset=' + (pageNum * 50);
 
 	var parsedMatches = [];
-
+	var ok = false;
 	request(url, function(err, response, html) {
 		if(!err) {
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
-			var x;
-			for(x = 6; x < (matches.length); x += 5)
-			{
-				var dateLink = $(matches[x]);
+			lupus(0, (matches.length - 6) / 5, function(x) {
+				var dateLink = $(matches[x * 5 + 6]);
 				var matchURL = 'http://www.hltv.org' + dateLink.parent().attr('href');
-				var date = dateLink.text();
+				var unparseddate = dateLink.text();
 				var matchID = matchURL.substring(matchURL.lastIndexOf('=') + 1);
 
-				var match = parseHLTVMatch(matchID);
-				//match.date = date;
-				console.log(JSON.stringify(match, null, 2));
+				var day = unparseddate.substring(0, unparseddate.indexOf('/'));
+				var month = unparseddate.substring(unparseddate.indexOf('/') + 1, unparseddate.indexOf(' '));
+				var year = unparseddate.substring(unparseddate.indexOf(' ') + 1);
+				year = '20' + year;
 
-				parsedMatches.push(match);
-			}
+				var date = new Date(month + "/" + day + "/" + year).getTime();
+
+				Match.count({id: matchID}, function(err, count) {
+					if(count > 0)
+					{
+						console.log('found duplicate, stopping');
+						ok = false;
+					}
+					else
+					{
+						(function(matchID, date) {
+							scrapeHLTVMatch(matchID, date);
+						})(matchID, date);
+						ok = true;
+					}
+				});
+			});
 		}
 		else
 		{
 			console.log("Error accessing match list page: " + pageNum);
 		}
-	}
-)}
 
-var parseHLTVMatch = function(hltvMatchID) {
+		return ok;
+	})
+
+	return parsedMatches;
+}
+
+var scrapeHLTVMatch = function(hltvMatchID, date) {
 	var hltvMatchURL = 'http://www.hltv.org/?pageid=188&matchid=' + hltvMatchID;
 
 	request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
-			console.log('parsing ' + hltvMatchURL);
-
 			var match = {};
 			var matchEvent = {};
 			var team1 = {};
 			var team1players = [];
+			var team1halves = [];
 			var team2 = {};
 			var team2players = [];
+			var team2halves = [];
 
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
@@ -122,59 +134,84 @@ var parseHLTVMatch = function(hltvMatchID) {
 			matchEvent.url = 'http://www.hltv.org' + eventurl;
 
 			// 7 = score
-			var team1score = $(matches[7]).children().text();
-			var team2score = $(matches[7]).children().next().text();
+			var scoreline = $(matches[9]).find('span');
+
+			var t1startedCT = ($(scoreline[2]).attr('style') == 'color:blue;');
+			var team1score = $(scoreline[0]).text();
+			var team2score = $(scoreline[1]).text();
 
 			var t1half1 = {};
-			var t1h1s = $(matches[7]).children().next().next().text();
+			var t1h1s = $(scoreline[2]).text()
 			t1half1.score = t1h1s;
+			if(t1startedCT)
+				t1half1.side = "ct";
+			else
+				t1half2.side = "t";
 
 			var t2half1 = {};
-			var t2h1s = $(matches[7]).children().next().next().next().text();
+			var t2h1s = $(scoreline[3]).text()
 			t2half1.score = t2h1s;
+			if(t1startedCT)
+				t2half1.side = "t";
+			else
+				t2half1.side = "ct";
 
 			var t1half2 = {};
-			var t1h2s = $(matches[7]).children().next().next().next().next().text();
+			var t1h2s = $(scoreline[4]).text()
 			t1half2.score = t1h2s;
+			if(t1startedCT)
+				t1half2.side = "t";
+			else
+				t1half2.side = "ct";
 
 			var t2half2 = {};
-			var t2h2s = $(matches[7]).children().next().next().next().next().next().text();
+			var t2h2s = $(scoreline[5]).text()
 			t2half2.score = t2h2s;
-
-			var t1ot = {};
-			var team1ot = $(matches[7]).children().next().next().next().next().next().next().next().text();
-			t1ot.score = team1ot;
-
-			var t2ot = {};
-			var team2ot = $(matches[7]).children().next().next().next().next().next().next().next().next().text();
-			t2ot.score = team2ot;
+			if(t1startedCT)
+				t2half2.side = "ct";
+			else
+				t2half2.side = "t";
 
 			team1halves.push(t1half1);
 			team1halves.push(t1half2);
-			team1halves.push(t1ot);
 
 			team2halves.push(t2half1);
 			team2halves.push(t2half2);
-			team2halves.push(t2ot);
+
+			if(scoreline.length > 6)
+			{
+				var team1ot = $(scoreline[6]).text()
+				var t1ot = {};
+				t1ot.score = team1ot;
+				t1ot.side = "ot";
+				team1halves.push(t1ot);
+
+				var team2ot = $(scoreline[7]).text()
+				var t2ot = {};
+				t2ot.score = team2ot;
+				t2ot.side = "ot";
+				team2halves.push(t2ot);
+			}
 
 			// assign the general data we got above to our match object
 			team1.halves = team1halves;
+			team1.score = team1score;
 			team2.halves = team2halves;
+			team2.score = team2score;
 			match.event = matchEvent;
 			match.map = map;
 			match.team1 = team1;
 			match.team2 = team2;
+			match.date = date;
 
 			// get all player info
-			for(x = 34; x < (matches.length); x += 8)
-			{
+			lupus(0, (matches.length - 34) / 8, function(x) {
 				var player = {};
-
-				var playerelement = $(matches[x]);
-				var teamelement = $(matches[x+1]);
-				var killelement = $(matches[x+2]);
-				var assistelement = $(matches[x+3]);
-				var deathelement = $(matches[x+4]);
+				var playerelement = $(matches[x * 8 + 34]);
+				var teamelement = $(matches[x* 8+1 + 34]);
+				var killelement = $(matches[x* 8+2 + 34]);
+				var assistelement = $(matches[x* 8+3 + 34]);
+				var deathelement = $(matches[x* 8+4 + 34]);
 
 				var playerName = playerelement.text().substring(1);
 				var playerURL = 'http://www.hltv.org' + playerelement.children().next().attr('href');
@@ -201,7 +238,7 @@ var parseHLTVMatch = function(hltvMatchID) {
 
 				var playerID = playerURL.substring(playerURL.indexOf('&') + 10);
 
-				player.ID = playerID;
+				player.id = playerID;
 				player.name = playerName;
 				player.url = playerURL;
 				player.kills = playerKills;
@@ -214,33 +251,24 @@ var parseHLTVMatch = function(hltvMatchID) {
 				else if(playerTeam == team2name)
 					team2players.push(player);
 				else
-					console.log("error: player " + player.name + " on " + hltvMatchURL + " not playing for either of the provided teams");				
-			}
+					console.log("error: player " + player.name + " on " + hltvMatchURL + " not playing for " + team1name + " or " + team2name);	
+			}, function() {
+				match.id = hltvMatchID;
+				match.map = map;
+				match.url = hltvMatchURL;
+				match.team1.players = team1players;
+				match.team2.players = team2players;
 
-			match.id = hltvMatchID;
-			match.map = map;
-			match.url = hltvMatchURL;
-			match.team1.players = team1players;
-			match.team2.players = team2players;
-			sleep.sleep(2);
+				console.log(team1players);
 
-			return match;
+				//sleep.sleep(2);
+				Match.collection.insert(match);
+				console.log('inserted match id ' + match.id);
+			});
 		}
 		else
 		{
 			console.log("Error accessing match page: " + hltvMatchURL);
 		}
 	})
-}
-
-var parseHLTVPlayer = function(hltvPlayer) {
-
-}
-
-var updatePlayerInDatabase = function(player) {
-
-}
-
-var updateMatchInDatabase = function(player) {
-
 }

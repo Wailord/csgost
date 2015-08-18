@@ -1,27 +1,33 @@
 var mongoose = require('mongoose');
-var ObjectId = require('mongoose').Types.ObjectId; 
 
 var db = mongoose.connection;
 
 var eventSchema = mongoose.Schema({
+	id: Number,
 	url: String,
 	name: String,
 });
 
 var playerSchema = mongoose.Schema({
 	id: Number,
+	name: String,
 	url: String,
-	handle: String,
 	kills: Number,
 	headshots: Number,
 	assists: Number,
 	deaths: Number,
 });
 
+var halvesSchema = mongoose.Schema({
+	score: Number,
+	side: String,
+});
+
 var teamSchema = mongoose.Schema({
 	id: String,
+	name: Number,
+	url: [halvesSchema],
 	score: Number,
-	url: String,
 	players: [playerSchema],
 });
 
