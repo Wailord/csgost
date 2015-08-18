@@ -41,87 +41,131 @@ var getHLTVPage = function(pageNum) {
 			var x;
 			for(x = 6; x < (matches.length); x += 5)
 			{
-				var match = {};
-				var team1 = {};
-				var team2 = {};
-				var matchEvent = {};
-
 				var dateLink = $(matches[x]);
-				var date = dateLink.text();
 				var matchURL = 'http://www.hltv.org' + dateLink.parent().attr('href');
-				var matchID = matchURL.substring(matchURL.indexOf('&') + 9);
+				var date = dateLink.text();
+				var matchID = matchURL.substring(matchURL.lastIndexOf('=') + 1);
 
-				var team1element = $(matches[x+1]);
-				var team1namescore = team1element.text();
-				var lastParen = team1namescore.lastIndexOf('(');
-				var team1score = team1namescore.substring(lastParen + 1);
-				team1score = team1score.substring(0, team1score.length - 1);
+				var match = parseHLTVMatch(matchID);
+				//match.date = date;
+				console.log(JSON.stringify(match, null, 2));
 
-				var team1URL = 'http://www.hltv.org' + team1element.parent().attr('href');
-				var team1ID = team1URL.substring(team1URL.indexOf('&') + 9);
-				team1name = team1namescore.substring(1, lastParen - 1);
-
-				team1.id = team1ID;
-				team1.url = team1URL;
-				team1.name = team1name;
-				team1.score = team1score;
-
-				var team2element = $(matches[x+2]);
-				var team2namescore = team2element.text();
-				var lastParen = team2namescore.lastIndexOf('(');
-				var team2score = team2namescore.substring(lastParen + 1);
-				team2score = team2score.substring(0, team2score.length - 1);
-
-				var team2URL = 'http://www.hltv.org' + team2element.parent().attr('href');
-				var team2ID = team2URL.substring(team2URL.indexOf('&') + 9);
-				team2name = team2namescore.substring(1, lastParen - 1);
-
-				team2.id = team2ID;
-				team2.url = team2URL;
-				team2.name = team2name;
-				team2.score = team2score;
-
-				var map = $(matches[x+3]).text();
-
-				var eventLink = $(matches[x+4]);
-				var eventTitle = eventLink.children().next().attr('title');
-				var eventURL = 'http://www.hltv.org' + eventLink.parent().attr('href');
-
-				matchEvent.url = eventURL;
-				matchEvent.name = eventTitle;
-
-				match.id = matchID;
-				match.map = map;
-				match.url = matchURL;
-				match.date = date;
-				match.team1 = team1;
-				match.team2 = team2;
-				match.event = matchEvent;
-
-				var players = parseHLTVMatch(matchURL, team1.name, team2.name);
-				//console.log(match);
 				parsedMatches.push(match);
 			}
 		}
 		else
 		{
-			console.log("Error accessing match list: " + url);
+			console.log("Error accessing match list page: " + pageNum);
 		}
-	})
-}
+	}
+)}
 
-var parseHLTVMatch = function(hltvMatchURL, team1name, team2name) {
-
-	var parsedPlayers = {};
-	var team1players = [];
-	var team2players = [];
+var parseHLTVMatch = function(hltvMatchID) {
+	var hltvMatchURL = 'http://www.hltv.org/?pageid=188&matchid=' + hltvMatchID;
 
 	request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
-			console.log('parsing ' + hltvMatchURL)
+			console.log('parsing ' + hltvMatchURL);
+
+			var match = {};
+			var matchEvent = {};
+			var team1 = {};
+			var team1players = [];
+			var team2 = {};
+			var team2players = [];
+
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
 			var x;
+
+			var team1id = "";
+			var team1name = "";
+			var team1URL = "";
+			var team2score = "";
+
+			var team2id = "";
+			var team2name = "";
+			var team2URL = "";
+			var team2score = "";
+
+			var eventname = "";
+			var eventurl = "";
+			var eventid = "";
+			
+			// get all match info
+
+			// 1 = team1 vs team2
+			var split = $(matches[1]).text().indexOf(' vs  ');
+			team1name = $(matches[1]).text().substring(1, split);
+			team1URL = $(matches[1]).children().attr('href');
+			team1id = team1URL.substring(team1URL.lastIndexOf('=') + 1);
+			team1.id = team1id;
+			team1.name = team1name;
+			team1.url = 'http://www.hltv.org' + team1URL;
+			
+			team2name = $(matches[1]).text().substring(split + 5);
+			team2URL = $(matches[1]).children().next().attr('href');
+			team2id = team2URL.substring(team2URL.lastIndexOf('=') + 1);
+			team2.id = team2id;
+			team2.name = team2name;
+			team2.url = 'http://www.hltv.org' + team2URL;
+			
+			// 3 = map name
+			var map = $(matches[3]).text();
+
+			// 5 = event name
+			eventname = $(matches[5]).children().attr('title');
+			eventurl = $(matches[5]).children().children().attr('href');
+			eventid = eventurl.substring(eventurl.lastIndexOf('=') + 1);
+			matchEvent.id = eventid;
+			matchEvent.name = eventname;
+			matchEvent.url = 'http://www.hltv.org' + eventurl;
+
+			// 7 = score
+			var team1score = $(matches[7]).children().text();
+			var team2score = $(matches[7]).children().next().text();
+
+			var t1half1 = {};
+			var t1h1s = $(matches[7]).children().next().next().text();
+			t1half1.score = t1h1s;
+
+			var t2half1 = {};
+			var t2h1s = $(matches[7]).children().next().next().next().text();
+			t2half1.score = t2h1s;
+
+			var t1half2 = {};
+			var t1h2s = $(matches[7]).children().next().next().next().next().text();
+			t1half2.score = t1h2s;
+
+			var t2half2 = {};
+			var t2h2s = $(matches[7]).children().next().next().next().next().next().text();
+			t2half2.score = t2h2s;
+
+			var t1ot = {};
+			var team1ot = $(matches[7]).children().next().next().next().next().next().next().next().text();
+			t1ot.score = team1ot;
+
+			var t2ot = {};
+			var team2ot = $(matches[7]).children().next().next().next().next().next().next().next().next().text();
+			t2ot.score = team2ot;
+
+			team1halves.push(t1half1);
+			team1halves.push(t1half2);
+			team1halves.push(t1ot);
+
+			team2halves.push(t2half1);
+			team2halves.push(t2half2);
+			team2halves.push(t2ot);
+
+			// assign the general data we got above to our match object
+			team1.halves = team1halves;
+			team2.halves = team2halves;
+			match.event = matchEvent;
+			match.map = map;
+			match.team1 = team1;
+			match.team2 = team2;
+
+			// get all player info
 			for(x = 34; x < (matches.length); x += 8)
 			{
 				var player = {};
@@ -140,12 +184,20 @@ var parseHLTVMatch = function(hltvMatchURL, team1name, team2name) {
 				var lastParen = playerKillHS.lastIndexOf('(');
 				var playerHeadshots = playerKillHS.substring(lastParen + 1);
 				playerHeadshots = playerHeadshots.substring(0, playerHeadshots.length - 1);
+				if(playerHeadshots == "-")
+					playerHeadshots = 0;
+
 				var playerKills = playerKillHS.substring(0, lastParen - 1);
+				if(playerKills == "-")
+					playerKills = 0;
 
 				var playerAssists = assistelement.text();
 				if(playerAssists == "-")
 					playerAssists = 0;
+
 				var playerDeaths = deathelement.text();
+				if(playerDeaths == "-")
+					playerDeaths = 0;
 
 				var playerID = playerURL.substring(playerURL.indexOf('&') + 10);
 
@@ -164,11 +216,15 @@ var parseHLTVMatch = function(hltvMatchURL, team1name, team2name) {
 				else
 					console.log("error: player " + player.name + " on " + hltvMatchURL + " not playing for either of the provided teams");				
 			}
-			parsedPlayers.team1 = team1players;
-			parsedPlayers.team2 = team2players;
-			
-			console.log(parsedPlayers);
+
+			match.id = hltvMatchID;
+			match.map = map;
+			match.url = hltvMatchURL;
+			match.team1.players = team1players;
+			match.team2.players = team2players;
 			sleep.sleep(2);
+
+			return match;
 		}
 		else
 		{
