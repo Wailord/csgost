@@ -14,10 +14,10 @@ hltvparser.runScraper = function()
 	var moreData = true;
 	async.whilst(
 		function() { pageNum++; return moreData; },
-		function()
+		function(callback)
 		{
-			console.log('scraping page #' + pageNum);
-			moreData = scrapeHLTVPage(pageNum)
+			moreData = scrapeHLTVPage(pageNum);
+			setTimeout(callback, 11000);
 		},
 		function() { console.log('done parsing hltv pages') }
 	);
@@ -30,6 +30,7 @@ var scrapeHLTVPage = function(pageNum) {
 	var ok = false;
 	request(url, function(err, response, html) {
 		if(!err) {
+			console.log('scraping page #' + pageNum);
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
 			lupus(0, (matches.length - 6) / 5, function(x) {
@@ -259,9 +260,7 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 				match.team1.players = team1players;
 				match.team2.players = team2players;
 
-				console.log(team1players);
-
-				//sleep.sleep(2);
+				sleep.sleep(2);
 				Match.collection.insert(match);
 				console.log('inserted match id ' + match.id);
 			});
