@@ -8,6 +8,8 @@
     "node-schedule" : "~0.2.9",
     "cheerio" : "latest",
     "request" : "latest",
-    "sleep" : "latest"
+    "sleep" : "latest",
+    "async" : "latest",
+    "lupus" : "latest"
   }
 }
