@@ -30,7 +30,7 @@ app.use(express.static(__dirname + '/public'));
 var scraper = schedule.scheduleJob("*/2 * * * *",
     function() {
         hltvparser.runScraper();
-        console.log(new Date() / 1000 + ": done running scraper.");
+        console.log(Math.floor(new Date() / 1000) + ": done running scraper.");
     });
 
 // routes ==================================================

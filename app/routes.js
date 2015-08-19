@@ -8,7 +8,29 @@ module.exports = function(app)
 	{
 		var id = req.body.id;
 
-		console.log('received a full query');
+		console.log('received a full query (POST match id ' + id + ')');
+
+		var acceptedParams = 0;
+
+		var query = Match.find();
+		query = query.findOne({'id': id})
+
+		query.exec(function (err, match)
+		{
+			if(err)
+				res.status(400).send(err);
+			else
+			{
+				res.setHeader('Content-Type','application/json');
+				res.send(match);
+			}
+		});
+	});
+
+	app.get('/api/matches/:id', function(req, res) 
+	{
+		var id = req.params.id;
+		console.log('received a full query (GET match id ' + id + ')');
 
 		var acceptedParams = 0;
 
