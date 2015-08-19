@@ -1,6 +1,6 @@
 angular.module('MatchService', [])
 	.factory('MatchService', ['$http', function($http) {
-    var urlBase = '/api/matches';
+    var urlBase = '/api/match_summaries';
     var matchFactory = {};
 
     matchFactory.getMatches = function(days, team1, team2, map)

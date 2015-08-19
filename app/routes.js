@@ -5,12 +5,35 @@ module.exports = function(app)
 {
 	app.post('/api/matches', function(req, res) 
 	{
+		var id = req.body.id;
+
+		console.log('received a full query');
+
+		var acceptedParams = 0;
+
+		var query = Match.find();
+		query = query.findOne({'id': id})
+
+		query.exec(function (err, match)
+		{
+			if(err)
+				res.status(400).send(err);
+			else
+			{
+				res.setHeader('Content-Type','application/json');
+				res.send(match);
+			}
+		});
+	});
+
+	app.post('/api/match_summaries', function(req, res) 
+	{
 		var days = req.body.days;
 		var mapsParam = req.body.maps;
 		var teamsOr = req.body.teams_or;
 		var teamsAnd = req.body.teams_and;
 
-		console.log('received a query');
+		console.log('received a summary query');
 
 		var acceptedParams = 0;
 

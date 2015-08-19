@@ -10,14 +10,14 @@ var hltvparser = module.exports = {};
 hltvparser.runScraper = function()
 {
 	// while you can get HLTV pages
-	var pageNum = -1;
+	var pageNum = 122;
 	var moreData = true;
 	async.whilst(
 		function() { pageNum++; return moreData; },
 		function(callback)
 		{
 			moreData = scrapeHLTVPage(pageNum);
-			setTimeout(callback, 11000);
+			setTimeout(callback, 2000);
 		},
 		function() { console.log('done parsing hltv pages') }
 	);
@@ -49,7 +49,7 @@ var scrapeHLTVPage = function(pageNum) {
 				Match.count({id: matchID}, function(err, count) {
 					if(count > 0)
 					{
-						console.log('found duplicate, stopping');
+						console.log('found duplicate');
 						ok = false;
 					}
 					else
@@ -64,10 +64,12 @@ var scrapeHLTVPage = function(pageNum) {
 		}
 		else
 		{
-			console.log("Error accessing match list page: " + pageNum);
+			console.log("Error accessing match list page: " + pageNum + ". Requeuing.");
+			sleep.sleep(4);
+			scrapeHLTVPage(pageNum);
 		}
 
-		return ok;
+		return true;
 	})
 
 	return parsedMatches;
@@ -110,19 +112,37 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 			// 1 = team1 vs team2
 			var split = $(matches[1]).text().indexOf(' vs  ');
 			team1name = $(matches[1]).text().substring(1, split);
-			team1URL = $(matches[1]).children().attr('href');
-			team1id = team1URL.substring(team1URL.lastIndexOf('=') + 1);
-			team1.id = team1id;
 			team1.name = team1name;
-			team1.url = 'http://www.hltv.org' + team1URL;
-			
+
+			team1URL = $(matches[1]).children().attr('href');
+			if(team1URL != "")
+			{
+				team1id = team1URL.substring(team1URL.lastIndexOf('=') + 1);
+				team1.url = 'http://www.hltv.org' + team1URL;
+				team1.id = team1id;
+			}
+			else
+			{
+				team1.url = "";
+				team1.id = "";
+			}
+
 			team2name = $(matches[1]).text().substring(split + 5);
-			team2URL = $(matches[1]).children().next().attr('href');
-			team2id = team2URL.substring(team2URL.lastIndexOf('=') + 1);
-			team2.id = team2id;
 			team2.name = team2name;
-			team2.url = 'http://www.hltv.org' + team2URL;
-			
+
+			team2URL = $(matches[1]).children().next().attr('href');
+			if(team2URL != "")
+			{
+				team2id = team2URL.substring(team2URL.lastIndexOf('=') + 1);
+				team2.id = team2id;
+				team2.url = 'http://www.hltv.org' + team2URL;
+			}
+			else
+			{
+				team2.id = "";
+				team2.url = "";
+			}
+
 			// 3 = map name
 			var map = $(matches[3]).text();
 
@@ -267,7 +287,8 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 		}
 		else
 		{
-			console.log("Error accessing match page: " + hltvMatchURL);
+			console.log("Error accessing match page: " + hltvMatchURL + ". Requeuing.");
+			scrapeHLTVMatch(hltvMatchID, date);
 		}
 	})
 }
