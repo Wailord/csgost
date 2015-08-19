@@ -19,7 +19,7 @@ var scrapeHLTVPage = function(pageNum) {
 	var parsedMatches = [];
 	request(url, function(err, response, html) {
 		if(!err) {
-			console.log('scraping page #' + pageNum);
+			//console.log('scraping page #' + pageNum);
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
 			lupus(0, (matches.length - 6) / 5, function(x) {

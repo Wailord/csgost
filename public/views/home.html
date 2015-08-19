@@ -34,39 +34,39 @@
 	</tr>
 </thead>
 	<tr dir-paginate="match in matches | reverse | itemsPerPage: 25">
-	<td>{{ match.date * 1000 | date:'MM/dd/yyyy'}}</td>
+	<td>{{ match.date | date:'MM/dd/yyyy'}}</td>
 	<td>
-		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
+		<div ng-switch on="match.team1[0].score > match.team2[0].score">
     		<div ng-switch-when="true">
 				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team1[0].url}}>
 					{{ match.team1[0].name }}
 				</a>
     		</div>
     		<div ng-switch-when="false">
-				<a style="color:#FF5C5C;" href={{match.team1[0].url}}>
+				<a style="color:#FF5C5C; text-decoration: line-through;" href={{match.team1[0].url}}>
 					{{ match.team1[0].name }}
 				</a>
     		</div>
 		</div>
 	</td>
 	<td>
-		<div ng-switch on="match.score[0].team_1 > match.score[0].team_2">
+		<div ng-switch on="match.team1[0].score > match.team2[0].score">
     		<div ng-switch-when="true">
     			<span style="font-weight: bold;">
-    				{{ match.score[0].team_1 }}
+    				{{ match.team_1[0].score }}
     			</span>
 			</div>
     		<div ng-switch-when="false">
     			<span style="">
-    				{{ match.score[0].team_1 }}
+    				{{ match.team1[0].score }}
     			</span>
 			</div>
 		</div>
     </td>
 	<td>
-		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
+		<div ng-switch on="match.team1[0].score < match.team2[0].score">
     		<div ng-switch-when="true">
-				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team2[0].url}}>
+				<a style="color:#4A7B6F; font-weight:bold; text-decoration: line-through;" href={{match.team2[0].url}}>
 					{{ match.team2[0].name }}
 				</a>
     		</div>
@@ -78,15 +78,15 @@
 		</div>
 	</td>
 	<td>
-		<div ng-switch on="match.score[0].team_1 < match.score[0].team_2">
+		<div ng-switch on="match.team1[0].score < match.team2[0].score">
     		<div ng-switch-when="true">
     			<span style="font-weight: bold;">
-    				{{ match.score[0].team_2 }}
+    				{{ match.team2[0].score }}
     			</span>
 			</div>
     		<div ng-switch-when="false">
     			<span style="">
-    				{{ match.score[0].team_2 }}
+    				{{ match.team2[0].score }}
     			</span>
 			</div>
 		</div>
