@@ -2,6 +2,7 @@ var request = require('request');
 	cheerio = require('cheerio');
 	sleep = require('sleep');
 	Match = require('../app/models/match');
+	MatchSummary = require('../app/models/match_summary');
 	async = require('async');
 	lupus = require('lupus');
 
@@ -66,11 +67,14 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 	request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
 			var match = {};
+			var matchSummary = {};
 			var matchEvent = {};
 			var team1 = {};
+			var team1summary = {};
 			var team1players = [];
 			var team1halves = [];
 			var team2 = {};
+			var team2summary = {};
 			var team2players = [];
 			var team2halves = [];
 
@@ -98,6 +102,7 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 			var split = $(matches[1]).text().indexOf(' vs  ');
 			team1name = $(matches[1]).text().substring(1, split);
 			team1.name = team1name;
+			team1summary.name = team1name;
 
 			team1URL = $(matches[1]).children().attr('href');
 			if(team1URL != "")
@@ -105,15 +110,21 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 				team1id = team1URL.substring(team1URL.lastIndexOf('=') + 1);
 				team1.url = 'http://www.hltv.org' + team1URL;
 				team1.id = team1id;
+				team1summary.url = team1.url;
+				team1summary.id = team1.id;
 			}
 			else
 			{
 				team1.url = "";
 				team1.id = "";
+				team1summary.id = "";
+				team1summary.url = "";
 			}
 
 			team2name = $(matches[1]).text().substring(split + 5);
 			team2.name = team2name;
+			team1.name = team1name;
+			team2summary.name = team2name;
 
 			team2URL = $(matches[1]).children().next().attr('href');
 			if(team2URL != "")
@@ -121,11 +132,15 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 				team2id = team2URL.substring(team2URL.lastIndexOf('=') + 1);
 				team2.id = team2id;
 				team2.url = 'http://www.hltv.org' + team2URL;
+				team2summary.url = team2.url;
+				team2summary.id = team2.id;
 			}
 			else
 			{
 				team2.id = "";
 				team2.url = "";
+				team2summary.id = "";
+				team2summary.url = "";
 			}
 
 			// 3 = map name
@@ -202,13 +217,23 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 			// assign the general data we got above to our match object
 			team1.halves = team1halves;
 			team1.score = team1score;
+			team1summary.score = team1score;
+
 			team2.halves = team2halves;
 			team2.score = team2score;
+			team2summary.score = team2score;
+
 			match.event = matchEvent;
 			match.map = map;
 			match.team1 = team1;
 			match.team2 = team2;
 			match.date = date;
+
+			matchSummary.event = matchEvent;
+			matchSummary.map = map;
+			matchSummary.team1 = team1summary;
+			matchSummary.team2 = team2summary;
+			matchSummary.date = date;
 
 			// get all player info
 			lupus(0, (matches.length - 34) / 8, function(x) {
@@ -266,7 +291,10 @@ var scrapeHLTVMatch = function(hltvMatchID, date) {
 				match.team2.players = team2players;
 
 				sleep.sleep(2);
+
 				Match.collection.insert(match);
+				MatchSummary.collection.insert(matchSummary);
+
 				console.log('inserted match id ' + match.id);
 			});
 		}

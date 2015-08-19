@@ -1,4 +1,5 @@
 var Match = require('./models/match');
+	MatchSummary = require('./models/match_summary');
 var path = require('path');
 
 module.exports = function(app)
@@ -37,7 +38,7 @@ module.exports = function(app)
 
 		var acceptedParams = 0;
 
-		var query = Match.find();
+		var query = MatchSummary.find();
 
 		if(days)
 		{
