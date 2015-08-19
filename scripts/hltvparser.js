@@ -9,18 +9,8 @@ var hltvparser = module.exports = {};
 
 hltvparser.runScraper = function()
 {
-	// while you can get HLTV pages
-	var pageNum = 122;
-	var moreData = true;
-	async.whilst(
-		function() { pageNum++; return moreData; },
-		function(callback)
-		{
-			moreData = scrapeHLTVPage(pageNum);
-			setTimeout(callback, 2000);
-		},
-		function() { console.log('done parsing hltv pages') }
-	);
+	scrapeHLTVPage(0);
+	scrapeHLTVPage(1);
 };
 
 var scrapeHLTVPage = function(pageNum) {
