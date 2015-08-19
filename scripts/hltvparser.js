@@ -17,7 +17,6 @@ var scrapeHLTVPage = function(pageNum) {
 	var url = 'http://www.hltv.org/?pageid=188&offset=' + (pageNum * 50);
 
 	var parsedMatches = [];
-	var ok = false;
 	request(url, function(err, response, html) {
 		if(!err) {
 			console.log('scraping page #' + pageNum);
@@ -39,15 +38,13 @@ var scrapeHLTVPage = function(pageNum) {
 				Match.count({id: matchID}, function(err, count) {
 					if(count > 0)
 					{
-						console.log('found duplicate');
-						ok = false;
+						//console.log('found duplicate');
 					}
 					else
 					{
 						(function(matchID, date) {
 							scrapeHLTVMatch(matchID, date);
 						})(matchID, date);
-						ok = true;
 					}
 				});
 			});
@@ -58,8 +55,6 @@ var scrapeHLTVPage = function(pageNum) {
 			sleep.sleep(4);
 			scrapeHLTVPage(pageNum);
 		}
-
-		return true;
 	})
 
 	return parsedMatches;
