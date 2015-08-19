@@ -25,8 +25,9 @@ var halvesSchema = mongoose.Schema({
 
 var teamSchema = mongoose.Schema({
 	id: String,
-	name: Number,
-	url: [halvesSchema],
+	name: String,
+	halves: [halvesSchema],
+	url: String,
 	score: Number,
 	players: [playerSchema],
 });

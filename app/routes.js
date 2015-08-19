@@ -33,7 +33,7 @@ module.exports = function(app)
 		var teamsOr = req.body.teams_or;
 		var teamsAnd = req.body.teams_and;
 
-		console.log('received a summary query');
+		console.log('received a summary query, days = ' + days + ', maps = ' + mapsParam + ', teamsOr = ' + teamsOr);
 
 		var acceptedParams = 0;
 
@@ -41,34 +41,29 @@ module.exports = function(app)
 
 		if(days)
 		{
-			var seconds = (days) * 3600 * 24;
-			var today = Math.floor(Date.now() / 1000);
+			var milliseconds = days * 3600 * 1000 * 24;
+			var today = Date.now();
 			
-			days = today - seconds;
+			days = today - milliseconds;
 			query = query.where('date').gt(days);
-			acceptedParams++;
 		}
 
 		if(mapsParam)
 		{ 
 			var maps = mapsParam
 			query = query.where('map').in(maps);
-			acceptedParams++;
 		}
 
 		if(teamsOr)
 		{
 			var teams = teamsOr;
-			console.log('teams = ' + teams[0] + ', ' + teams[1]);
 			query = query.or([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
-			acceptedParams++;
 		}
 
 		if(teamsAnd)
 		{
 			var teams = teamsAnd;
 			query = query.and([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
-			acceptedParams++;
 		}
 
 		query.exec(function (err, matches)
