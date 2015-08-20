@@ -27,11 +27,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // set the static files location /public/img will be /img for users
 app.use(express.static(__dirname + '/public')); 
 
-var scraper = schedule.scheduleJob("*/2 * * * *",
-    function() {
-        hltvparser.runScraper();
-        console.log(Math.floor(new Date() / 1000) + ": done running scraper.");
-    });
+//var scraper = schedule.scheduleJob("*/2 * * * *",
+//    function() {
+//        hltvparser.runScraper();
+//        console.log(Math.floor(new Date() / 1000) + ": done running scraper.");
+//    });
+
+hltvparser.runScraper();
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes

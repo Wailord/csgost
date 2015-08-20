@@ -1,0 +1,1568 @@
+
+
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html;charset=iso-8859-1" />
+	<meta name="description" content="HLTV.org is the leading csgo coverage site in the world, featuring news, demos, pictures, statistics, on-site coverage and much much more!" />
+	<meta name="keywords" content="hltv, hltv.org, hltvorg, news, brackets, statistics, stats gaming, esport, esports, cs, counter-strike, counter strike, csgo, cs go, global offensive, 1.6, go, demo, esl, extreme masters, eswc, vod, vods, photos"/>
+
+	<meta property="fb:page_id" content="249997999009" />
+
+	<meta property="og:title" content="HLTV.org - Hot Match: ESC vs Teamless.gg"/>	<meta property="og:site_name" content="HLTV.org"/>
+
+	<title>HLTV.org - Hot Match: ESC vs Teamless.gg</title>
+	        <link rel="stylesheet" href="http://static.hltv.org//css/new-top-main.css?beta4" type="text/css" />
+          <link rel="stylesheet" href="/res/font-awesome-4.4.0/css/font-awesome.min.css">
+
+
+  <link type="text/css" href="http://static.hltv.org//css/smoothness/jquery-ui-1.8.6.custom.css" rel="stylesheet" />
+
+	<link rel="alternate" type="application/rss+xml" title="News" href="http://www.hltv.org/news.rss.php"/>
+	<link rel="alternate" type="application/rss+xml" title="Forum" href="http://www.hltv.org/forum.rss.php"/>
+	<link rel="alternate" type="application/rss+xml" title="Hot matches" href="http://www.hltv.org/hltv.rss.php?pri=15"/>
+	<link rel="alternate" type="application/rss+xml" title="All Matches" href="http://www.hltv.org/hltv.rss.php"/>
+	<link rel="alternate" type="application/rss+xml" title="Demos" href="http://www.hltv.org/demo.rss.php"/>
+	<link rel="alternate" type="application/rss+xml" title="Blogs" href="http://www.hltv.org/blog.rss.php"/>
+	<!--
+	<script type="text/javascript" src="http://static.hltv.org//js/ypSlideOutMenusC.js?NT"></script>
+	<script type="text/javascript" src="http://static.hltv.org//js/menus_001.js?NT1"></script>
+	<script type="text/javascript" src="http://static.hltv.org//js/spandsjslib.js"></script>
+	<script type="text/javascript" src="http://static.hltv.org//js/default.js?newForumFixedReply"></script>	
+	-->
+
+	<script type="application/javascript">
+		var numCoverageEvents = 3	</script>
+
+	<script type="text/javascript" src="http://static.hltv.org//js/menuAndDefault.js?dropdownFixed2"></script>
+	<script type="text/javascript" src="http://static.hltv.org//js/sorttable.js"></script>
+			<script type="text/javascript" src="http://static.hltv.org//js/scriptaculous/prototype.js"></script>
+		<script type="text/javascript" src="http://static.hltv.org//js/scriptaculous/scriptaculous.js"></script>
+			<script src="http://static.hltv.org//js/jquery-1.4.3.min.js"></script>
+
+		<script type="text/javascript" src="http://static.hltv.org//js/jquery-ui-1.8.6.custom.min.js"></script>
+		<script>
+			var $q = jQuery.noConflict();
+		</script>
+			
+
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+
+
+	<script>
+		var _prum = [['id', '534523faabe53d001560dbc1'],
+			['mark', 'firstbyte', (new Date()).getTime()]];
+		(function() {
+			var s = document.getElementsByTagName('script')[0]
+				, p = document.createElement('script');
+			p.async = 'async';
+			p.src = '//rum-static.pingdom.net/prum.min.js';
+			s.parentNode.insertBefore(p, s);
+		})();
+	</script>
+
+
+	
+</head>
+<body id="body">
+
+<script type="text/javascript">
+	var foo = window.open;
+</script>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	ga('create', 'UA-270327-1', 'auto');
+	ga('require', 'displayfeatures');
+	ga('send', 'pageview');
+
+</script>
+
+<script type="text/javascript" src="http://static.hltv.org//js/wz_tooltip/wz_tooltip.js"></script>
+
+<script type="application/javascript">
+  $q('html').click(function() {
+    $q('.topBarFloatingNotifications').hide();
+    $q('.topBarFloatingUserSettings').hide();
+    $q('.topBarFloatingInbox').hide();
+  });
+
+  function toggleInbox(event) {
+    $q('.topBarFloatingNotifications').hide();
+    $q('.topBarFloatingUserSettings').hide();
+    $q('.topBarFloatingInbox').toggle();
+    event.stopPropagation();
+  }
+  function toggleNotifications(event) {
+    $q('.topBarFloatingInbox').hide();
+    $q('.topBarFloatingUserSettings').hide();
+    $q('.topBarFloatingNotifications').toggle();
+    event.stopPropagation();
+
+    $q.ajax({
+      url: "/?noticesRead",
+      context: document.body,
+      success: function(){
+        if(!$q('#notificationsCount').hasClass('noNotifications')) {
+          $q('#notificationsCount').addClass('noNotifications');
+          $q('#notificationsCount').text(0);
+        }
+      }
+    });
+
+  }
+  function toggleUserSettings(event) {
+    $q('.topBarFloatingInbox').hide();
+    $q('.topBarFloatingNotifications').hide();
+    $q('.topBarFloatingUserSettings').toggle();
+    $q('#usernameArrow').toggleClass('partiallyHidden');
+    event.stopPropagation();
+  }
+
+  function logout() {
+    $q('#logoutForm').submit();
+  }
+</script>
+
+
+<div class="topLoginBar">
+	<div style="width:930px;margin:auto">
+					<div style="float:left">
+			</div>
+			<div style="float:right">
+				<div style="display:inline;cursor:pointer;padding-right:25px;" id="signUpButton" class="signup">Sign up</div>
+				<div style="display:inline;cursor:pointer;" id="loginButton" class="login">Log in</div>
+			</div>
+				</div>
+</div>
+
+
+<div id="loginDialog" class="loginDialog">
+	<div class="loginDialogBox">
+		<div class="closeButton">x</div>
+    		<form method="post">
+			<input type="text" name="username" placeholder="Username" class="loginInput"/>
+			<input type="password" name="password" placeholder="Password" class="loginInput"/>
+
+			<div class="rememberMe"><input type="checkbox" name="autologin" checked/> Remember me</div>
+			<div class="forgotPassword"><a href="/?pageid=70">Forgot password</a></div>
+			<button type="submit" class="loginButton" style="width:100%;padding:0;" type="button" name="login">Log in
+			</button>
+		</form>
+		<hr class="loginTypeDivider"/>
+		<div>No account? <a class="signup" style="cursor: pointer;">Sign up</a></div>
+	</div>
+</div>
+
+<div id="signUpDialog" class="signUpDialog">
+  <div class="signUpDialogBox">
+    <div class="closeButton">x</div>
+        <form method="post">
+      <input type="hidden" value="" name="steamid" id="steamId" />
+      <input id="signupNickname" type="text" name="nickname" placeholder="Username" class="loginInput" required/>
+      <input id="signupEmail" type="email" name="email" placeholder="Email" class="loginInput" required/>
+      <input type="password" name="password" placeholder="Password" class="loginInput"/>
+      <input type="password" name="passwordagain" placeholder="Password again" class="loginInput"/>
+
+		<div style="text-align: center;width:298px;margin-top: 10px;">
+			<div class="g-recaptcha" data-sitekey="6LdC-eESAAAAAGjTB5dN7dNg4eUR2TGKYCAvh2Mb"></div>
+		</div>
+
+      <button type="submit" class="loginButton" style="width:100%;padding:0;" type="button" name="createAccount">Sign up
+      </button>
+    </form>
+    <hr class="loginTypeDivider"/>
+    <div id="accountAlreadyQuestion">Already have an account? <a class="login" style="cursor: pointer;">Sign in</a></div>
+  </div>
+</div>
+
+
+<script type="application/javascript">
+	$q('.login').click(function() {
+		$q('#signUpDialog').hide();
+		$q('#loginDialog').show();
+	})
+	$q('#loginDialog').click(function(){
+		$q('#loginDialog').hide();
+	})
+	$q('.closeButton').click(function(){
+		$q('#loginDialog').hide();
+		$q('#signUpDialog').hide();
+	})
+	$q('.loginDialogBox').click(function(event){
+		event.stopPropagation();
+	})
+	$q('.signUpDialogBox').click(function(event){
+		event.stopPropagation();
+	})
+
+	$q('#signUpDialog').click(function(){
+		$q('#signUpDialog').hide();
+	})
+
+	$q('.signup').click(function() {
+    $q.getScript( "https://www.google.com/recaptcha/api.js", function( data, textStatus, jqxhr ) {
+    });
+
+		$q('#loginDialog').hide();
+		$q('#signUpDialog').show();
+	})
+
+
+</script>
+
+<div id="back">
+	
+		<div style="left:-175px;right:0px;top:162px;bottom:0px;position:relative;width:0px;height:600px;display:inline;float:left;">
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- frontpage leftside -->
+			<ins class="adsbygoogle"
+				 style="display:inline-block;width:160px;height:600px"
+				 data-ad-client="ca-pub-9716958403859443"
+				 data-ad-slot="3943815893"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+		</div>
+
+		<div style="left:5px;right:-175px;top:162px;bottom:0px;position:relative;width:0px;height:600px;display:inline;float:right;">
+
+			<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<!-- Responsive large -->
+			<ins class="adsbygoogle"
+				 style="display:inline-block;width:160px;height:600px"
+				 data-ad-client="ca-pub-9716958403859443"
+				 data-ad-slot="2793753897"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+
+		</div>
+			<script type="application/javascript">
+		menuDef = {
+    "menu": {
+        "News": {
+            "<div>Top news today<\/div>": {
+                "0": [
+                    "\/news\/15721-gaming-paradise-list-finalised",
+                    "Gaming Paradise list finalised"
+                ],
+                "1": [
+                    "\/news\/15723-cloud9-wont-be-happy-unless-we-win",
+                    "Cloud9: Won't be happy unless we win"
+                ],
+                "2": [
+                    "\/news\/15719-video-mimimicheater-vs-gamepub",
+                    "Video: mimimicheater vs. GamePub"
+                ],
+                "9999": [
+                    "\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "Top this week": {
+                "3": [
+                    "\/news\/15685-cologne-stickers-in-new-update",
+                    "Cologne stickers in new update"
+                ],
+                "4": [
+                    "\/news\/15686-pickem-hs-who-to-choose",
+                    "Pick'Em HS% - Who to choose?"
+                ],
+                "5": [
+                    "\/news\/15693-esl-one-cologne-facts-numbers",
+                    "ESL One Cologne facts &amp; numbers"
+                ],
+                "9999": [
+                    "\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "Archive": {
+                "1": [
+                    "http:\/\/www.hltv.org\/news\/archive\/\/2015\/august\/",
+                    "August"
+                ],
+                "2": [
+                    "http:\/\/www.hltv.org\/news\/archive\/\/2015\/july\/",
+                    "July"
+                ],
+                "3": [
+                    "http:\/\/www.hltv.org\/news\/archive\/\/2015\/june\/",
+                    "June"
+                ],
+                "9999": [
+                    "\/news\/archive\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            }
+        },
+        "Matches": {
+            "Todays matches": {
+                "0": [
+                    "\/match\/2297482-3sup-maximum-effort-cevo-professional-season-8",
+                    "<span class=\"tzTimestamp\">1440036900<\/span>",
+                    "3sUP vs Maximum Effort"
+                ],
+                "1": [
+                    "\/match\/2297432-nip-clg-esl-one-cologne-2015",
+                    "<span class=\"tzTimestamp\">1440072000<\/span>",
+                    "NiP vs CLG"
+                ],
+                "2": [
+                    "\/match\/2297433-envyus-flipsid3-esl-one-cologne-2015",
+                    "<span class=\"tzTimestamp\">1440072000<\/span>",
+                    "EnVyUs vs FlipSid3"
+                ],
+                "9999": [
+                    "\/matches\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "&nbsp;": [
+                [
+                    "\/match\/2297434-renegades-tsm-esl-one-cologne-2015",
+                    "<span class=\"tzTimestamp\">1440077100<\/span>",
+                    "Renegades vs TSM"
+                ],
+                [
+                    "\/match\/2297435-kinguin-luminosity-esl-one-cologne-2015",
+                    "<span class=\"tzTimestamp\">1440077100<\/span>",
+                    "Kinguin vs Luminosity"
+                ],
+                [
+                    "\/match\/2297486-reason-overgaming-quickshot-arena-3",
+                    "<span class=\"tzTimestamp\">1440086400<\/span>",
+                    "Reason vs OverGaming"
+                ]
+            ],
+            "Archive": {
+                "1": [
+                    "http:\/\/www.hltv.org\/matches\/archive\/\/2015\/august\/",
+                    "August"
+                ],
+                "2": [
+                    "http:\/\/www.hltv.org\/matches\/archive\/\/2015\/july\/",
+                    "July"
+                ],
+                "3": [
+                    "http:\/\/www.hltv.org\/matches\/archive\/\/2015\/june\/",
+                    "June"
+                ],
+                "9999": [
+                    "\/matches\/archive\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            }
+        },
+        "Results": {
+            "Latest results": {
+                "0": [
+                    "\/match\/2297481-property-penta-cevo-professional-season-8",
+                    "1-1",
+                    "Property vs PENTA"
+                ],
+                "1": [
+                    "\/match\/2297485-esc-teamlessgg-quickshot-arena-3",
+                    "19-16",
+                    "ESC vs Teamless.gg"
+                ],
+                "2": [
+                    "\/match\/2297475-e-fragnet-cph-wolves-dreamhack-open-london-2015-closed-qualifier",
+                    "2-3",
+                    "E-frag.net vs CPH Wolves"
+                ],
+                "9999": [
+                    "\/results\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "&nbsp": [
+                [
+                    "\/match\/2297480-infinty-dobryampgaming-cevo-professional-season-8",
+                    "1-1",
+                    "INFINTY vs Dobry&amp;Gaming"
+                ],
+                [
+                    "\/match\/2297484-teamlessgg-overgaming-quickshot-arena-3",
+                    "0-2",
+                    "Teamless.gg vs OverGaming"
+                ],
+                [
+                    "\/match\/2297477-dignitas-phenomenon-hitbox-arena-showdown-invitational-2",
+                    "3-0",
+                    "dignitas vs Phenomenon"
+                ]
+            ]
+        },
+        "Replays": {
+            "Highlights": {
+                "0": [
+                    "\/match\/2297474-sk-penta-dreamhack-open-london-2015-closed-qualifier",
+                    "NiKo - 4 kills (1v3) & Ace"
+                ],
+                "1": [
+                    "\/match\/2297447-games4u-fe-gamepub-dngit-2000-weekly-cup-13",
+                    "mimimicheater - 1v3"
+                ],
+                "2": [
+                    "\/match\/2297449-sk-phenomenon-dreamhack-open-london-2015-closed-qualifier",
+                    "NiKo - Two Aces"
+                ],
+                "9999": [
+                    "\/matches\/archive\/highlights\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "GOTV demos": {
+                "3": [
+                    "\/?pageid=28&demoid=18604",
+                    "dignitas vs Dobry&Gaming"
+                ],
+                "4": [
+                    "\/?pageid=28&demoid=18603",
+                    "Dobry&Gaming vs PiTER"
+                ],
+                "5": [
+                    "\/?pageid=28&demoid=18602",
+                    "dignitas vs Aftermatch"
+                ],
+                "9999": [
+                    "\/?pageid=28",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "VODs": {
+                "6": [
+                    "\/match\/2297342-envyus-tsm-iem-gamescom-2015",
+                    "EnVyUs vs TSM"
+                ],
+                "7": [
+                    "\/match\/2297327-renegades-tsm-iem-gamescom-2015",
+                    "Renegades vs TSM"
+                ],
+                "8": [
+                    "\/match\/2297326-mousesports-envyus-iem-gamescom-2015",
+                    "mousesports vs EnVyUs"
+                ],
+                "9999": [
+                    "\/matches\/archive\/vods\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "POV demos": {
+                "9": [
+                    "\/?pageid=198&demoid=5407",
+                    "pyth vs CLG"
+                ],
+                "10": [
+                    "\/?pageid=198&demoid=5406",
+                    "XANTARES vs 1337"
+                ],
+                "11": [
+                    "\/?pageid=198&demoid=5405",
+                    "JW vs TSM"
+                ],
+                "9999": [
+                    "\/?pageid=198",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            }
+        },
+        "Events": {
+            "Ongoing events": {
+                "0": [
+                    "\/?pageid=82&eventid=1761",
+                    "RGN Pro Series EU"
+                ],
+                "1": [
+                    "\/?pageid=82&eventid=1768",
+                    "Counter Pit League"
+                ],
+                "2": [
+                    "\/?pageid=82&eventid=1890",
+                    "CEVO Professional Season 8"
+                ],
+                "9999": [
+                    "\/events\/ongoing\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "Upcoming events": {
+                "0": [
+                    "\/?pageid=82&eventid=1840",
+                    "04\/09",
+                    "WinOut $20,000 CS:GO Championships Powered by Azubu.tv"
+                ],
+                "1": [
+                    "\/?pageid=82&eventid=1764",
+                    "06\/09",
+                    "Gaming Paradise"
+                ],
+                "2": [
+                    "\/?pageid=82&eventid=1882",
+                    "10\/09",
+                    "ESL ESEA Dubai Invitational 2015"
+                ],
+                "9999": [
+                    "\/events\/upcoming\/",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "Past events": [
+                [
+                    "\/?pageid=184",
+                    "Archive"
+                ]
+            ]
+        },
+        "Stats": {
+            "Leaderboards": {
+                "1": [
+                    "\/?pageid=183",
+                    "Overview"
+                ],
+                "2": [
+                    "\/?pageid=181",
+                    "Players"
+                ],
+                "3": [
+                    "\/?pageid=182",
+                    "Teams"
+                ],
+                "9999": [
+                    "\/?pageid=183",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "Popular filters": {
+                "1": [
+                    "\/?pageid=183&statsfilter=5",
+                    "Past 3 months"
+                ],
+                "2": [
+                    "\/?pageid=183&statsfilter=4",
+                    "2015 only"
+                ],
+                "3": [
+                    "\/?pageid=183&statsfilter=2048",
+                    "LAN only"
+                ],
+                "9999": [
+                    "\/?pageid=183",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "Recent matches": {
+                "0": [
+                    "\/?pageid=188&amp;matchid=22233",
+                    "Maximum Effort vs SKDC - cache"
+                ],
+                "1": [
+                    "\/?pageid=188&amp;matchid=22232",
+                    "SKDC vs Maximum Effort - dust2"
+                ],
+                "2": [
+                    "\/?pageid=188&amp;matchid=22229",
+                    "Enemy vs 3sUP - inferno"
+                ],
+                "9999": [
+                    "\/?pageid=188",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            }
+        },
+        "Galleries": {
+            "Recent": {
+                "0": [
+                    "\/gallery\/6990",
+                    "Acer Predator Masters powered by Intel Finals - Day 4"
+                ],
+                "1": [
+                    "\/gallery\/6984",
+                    "Acer Predator Masters powered by Intel Finals - Day 3"
+                ],
+                "2": [
+                    "\/gallery\/6980",
+                    "Acer Predator Masters powered by Intel Finals - Day 2"
+                ],
+                "9999": [
+                    "\/?pageid=121",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "&nbsp;": {
+                "4": [
+                    "\/gallery\/6978",
+                    "Acer Predator Masters powered by Intel Finals - Day 1"
+                ],
+                "5": [
+                    "\/gallery\/6965",
+                    "CEVO Professional Season 7 Finals - Day three"
+                ],
+                "6": [
+                    "\/gallery\/6958",
+                    "CEVO Professional Season 7 Finals - Day two"
+                ]
+            },
+            "Tools": {
+                "a": [
+                    "\/galleries\/search\/",
+                    "Player search"
+                ]
+            }
+        },
+        "Community": {
+            "Forums": {
+                "0": [
+                    "\/?pageid=17&amp;foraid=10",
+                    "Counter-Strike 1.6"
+                ],
+                "1": [
+                    "\/?pageid=17&amp;foraid=28",
+                    "Counter-Strike Global Offensive"
+                ],
+                "2": [
+                    "\/?pageid=17&amp;foraid=11",
+                    "Counter-Strike Source"
+                ],
+                "9999": [
+                    "\/?pageid=15",
+                    "<span style=\"font-weight: bold;\">More..<\/span>"
+                ]
+            },
+            "&nbsp;": [
+                [
+                    "\/?pageid=17&amp;foraid=17",
+                    "Off Topic"
+                ],
+                [
+                    "\/?pageid=17&amp;foraid=19",
+                    "Betting"
+                ],
+                [
+                    "\/?pageid=17&amp;foraid=15",
+                    "Demos"
+                ]
+            ],
+            "&nbsp;&nbsp;": [
+                [
+                    "\/?pageid=17&amp;foraid=14",
+                    "Events"
+                ],
+                [
+                    "\/?pageid=17&amp;foraid=16",
+                    "Hardware &amp; Tweaks"
+                ],
+                [
+                    "\/?pageid=17&amp;foraid=18",
+                    "Movies"
+                ]
+            ],
+            "&nbsp;&nbsp;&nbsp;": [
+                [
+                    "\/?pageid=17&amp;foraid=7",
+                    "Bugs and improvements"
+                ],
+                [
+                    "\/?pageid=17&amp;foraid=2",
+                    "HLTV.org Organisation"
+                ],
+                [
+                    "\/?pageid=17&amp;foraid=1",
+                    "HLTV.org Webpage"
+                ]
+            ]
+        }
+    }
+}	</script>
+
+	<script type="application/javascript" src="http://static.hltv.org//js/moment.js?updated1"></script>
+	<script type="application/javascript" src="http://static.hltv.org//js/moment-timezone-with-data.js"></script>
+
+	<script type="application/javascript">
+		moment.tz.setDefault("Europe/Copenhagen");	</script>
+
+	<script type="application/javascript" src="http://static.hltv.org//js/menu.js?zoomFix"></script>
+
+
+
+    <div class="topHolder">
+
+		<div class="top"></div>
+		<a href="/?ref=logo" class="hltvdotorg" ></a>
+		
+
+			
+			<span class="middlefast" style="z-index: 10">
+		<a href="http://www.csgofast.com" target="_blank">
+			<img style="" src="http://static.hltv.org//images/gofasttop.jpg" />
+		</a>
+		</span>
+
+			<span class="g2a" style="z-index: 10">
+               <a href="https://www.g2a.com/r/hltv1" target="_blank"><img style="width:110px;" src="http://static.hltv.org//images/g2a2.png" /></a>
+		</span>
+
+				</div>
+	<div id="menuHolder"></div>
+
+	<script type="application/javascript">
+		render()
+	</script>
+	<script type="application/javascript">
+		$q('.tzTimestamp').each(function(index, obj) {
+			var timestampVal = obj.innerHTML;
+			var date = new Date(timestampVal*1000);
+      $q(obj).html(moment(date).format("HH:mm"))
+		});
+
+	</script>
+
+	<div class="mainAreaNoHeadline">	<ul id="firstCollumn" class="leftMenus">
+
+					<li id="boc1" class="box w1">
+				<div class="boxBar dragable">
+					<div class="boxBarText"><a href="/?pageid=2"><img src="http://static.hltv.org//images/txt_matches.gif" alt="" /></a></div>
+				</div>
+				<div class="boxBodyFadeDark" style="padding-bottom:2px">
+					<div></div><div class="vsbox" style="z-index:10;" title="CEVO Professional Season 8"><a href="/match/2297482-3sup-maximum-effort-cevo-professional-season-8"> <img src="http://static.hltv.org//images/flag/us.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">3sUP</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/us.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Maximum Effort</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/4.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297432-nip-clg-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">NiP</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/us.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">CLG</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/4.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297433-envyus-flipsid3-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/fr.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">EnVyUs</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/ua.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">FlipSid3</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/4.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297434-renegades-tsm-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/au.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">Renegades</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">TSM</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/2.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297435-kinguin-luminosity-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/eu.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">Kinguin</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/br.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Luminosity</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/2.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div></div><div class="vsbox" style="z-index:10;" title="QuickShot Arena #3"><a href="/match/2297486-reason-overgaming-quickshot-arena-3"> <img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">Reason</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/es.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">OverGaming</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/8.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297436-fnatic-ebettle-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">fnatic</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/pl.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">eBettle</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/8.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297437-virtuspro-immunity-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/pl.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">Virtus.pro</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/au.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Immunity</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/8.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/5.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297438-titan-natus-vincere-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/fr.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">Titan</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/cis.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Natus Vincere</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/9.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/4.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><div class="vsbox" style="z-index:10;" title="ESL One Cologne 2015"><a href="/match/2297439-cloud9-mousesports-esl-one-cologne-2015"> <img src="http://static.hltv.org//images/flag/us.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">Cloud9</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/de.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">mousesports</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/1.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/9.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/4.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><div class="vsbox" style="z-index:10;" title="RGN Pro Series EU"><a href="/match/2297490-e-fragnet-dignitas-rgn-pro-series-eu"> <img src="http://static.hltv.org//images/flag/bg.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">E-frag.net</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">dignitas</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/2.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><div class="vsbox" style="z-index:10;" title="QuickShot Arena #3"><a href="/match/2297487-esc-loser-of-reason-og-quickshot-arena-3"> <img src="http://static.hltv.org//images/flag/pl.gif" alt="" height="12" width="18" class=""/> <span style="vertical-align: 10%;">ESC</span> <br/> <span style="vertical-align: 90%;"></span> <span style="vertical-align: top;">loser of Reason/OG</span></a></div><div style="position:relative;float:right;right:40px;"><div style="top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/2.gif)"></div><div style="left:8px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div><div style="left:16px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:3px;background-image: url(http://static.hltv.org//images/digital/colon.gif)"></div><div style="left:20px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/3.gif)"></div><div style="left:28px;top:-22px;position:absolute;font-size:0px;z-index:0;height:9px;width:7px;background-image: url(http://static.hltv.org//images/digital/0.gif)"></div></div><a href="/matches/archive/"><div class="vsbox" style="background-image: url(http://static.hltv.org//images/vod/btn_matcharchive.gif);z-index:10;cursor:pointer;"></div></a>				</div>
+			</li>
+			
+
+
+					<li id="boz9" class="boxNoDrag w1">
+				<div class="boxBar">
+					<div class="boxBarText"><img src="http://static.hltv.org//images/txt_sponsors.gif" alt="" /></div>
+				</div>
+
+				<div class="boxBodyFadeDark" style="padding-bottom:2px;text-align:center;">
+          <a href="http://alphadraft.go2cloud.org/aff_c?offer_id=24&aff_id=1575" target="_blank"><img src="http://static.hltv.org//images/alpha_over_quick_menu.png" alt=""></a>
+        </div>
+
+
+			</li>
+							<li id="box3" class="boxNoDrag w1">
+			<div class="boxBar">
+				<div class="boxBarText"><img src="http://static.hltv.org//images/txt_quickmenu.gif" alt="" /></div>
+			</div>
+			<div class="boxBodyFadeDark">
+				<div class="frontpagelink"><a href="/matches/"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Todays matches</a></div>
+				<div class="frontpagelink"><a href="/results/"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Results</a></div>
+				<!-- <div class="frontpagelink"><a href="/?pageid=5&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Booking</a></div> -->
+				<div class="frontpagelink"><a href="/?pageid=28&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Demo section</a></div>
+				<div class="frontpagelink"><a href="/?pageid=198&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> POV demo section</a></div>
+				<div class="frontpagelink"><a href="/?pageid=15&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Forum</a></div>
+				<div class="frontpagelink"><a href="/?pageid=152&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Search</a></div>
+				<!-- <div class="frontpagelink"><a href="/?pageid=93&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Betting</a></div> -->
+				<div class="frontpagelink"><a href="/?pageid=121&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Galleries</a></div>
+				<div class="frontpagelink"><a href="/?pageid=167&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Gallery search</a></div>
+				<div class="frontpagelink"><a href="/?pageid=183&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Statistics</a></div>
+<!--				<div class="frontpagelink"><a href="/?pageid=236&amp;ref=quickmenu"><img src="--><!--/images/blt_plus.gif" alt="" /> Dreamteam</a></div>-->
+				<div class="frontpagelink"><a href="/?pageid=252&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Fan Center</a></div>
+				<div class="frontpagelink"><a href="/?pageid=277&amp;ref=quickmenu"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Movie section</a></div>
+				<div class="frontpagelink"><a href="/events/upcoming/"><img src="http://static.hltv.org//images/blt_plus.gif" alt="" /> Upcoming events</a></div>
+			</div>
+		</li>
+
+		<li id="box8" class="boxNoDrag w1">
+			<div class="boxBar">
+				<div class="boxBarText"><img src="http://static.hltv.org//images/txt_galleries.gif" alt="" /></div>
+			</div>
+			<div class="boxBodyFadeDark" style="padding-left:4px;">
+				<div class="galleryFrontpageThumbFrame">
+  <div class="galleryThumbText" style="text-align:center;margin-top:0px;margin-bottom:2px;"><a href="/gallery/3066"><b>WEM 2010 - Sunday</b></a></div>
+	<a href="/gallery/view/16790"><img id="picture_16790" class="galleryThumbImg" src="http://static.hltv.org/./images/galleries/3066-thumb/1289128703.04.jpeg" title="Click to enlarge" alt="" /></a>
+	<div class="galleryThumbText"></div>
+	<div style="display: none;">16790</div>
+</div>
+			</div>
+		</li>
+
+		<li id="box9" class="boxNoDrag w1">
+			<div class="boxBar">
+				<div class="boxBarText"><img src="http://static.hltv.org//images/txt_pageid281.gif" alt="" /></div>
+			</div>
+			<div class="boxBodyFadeDark" style="padding-left:4px;">
+				<div style="margin-left:6px;"><div style="width:133px;">		<div class="boxLeftTopCorner"><div class="boxRightTopCorner"><div style="background-color:white;margin-left:8px;margin-right:8px;margin-top:1px;height:8px;">&nbsp;</div></div></div>
+		<div class="boxTopHeader"></div>
+				<div class="boxMainContent" style="background-color:white;">
+			<div style="">
+				<div style="clear:both;"></div>
+								
+								<div style="clear:both;"></div>
+				  <div style="width:100%;height:100%;background-color:white">
+				  	<div style="padding-left:5px;padding-top:0px;">				  	
+						<div class="covSmallHeadline" style="font-weight:normal;width:100%;float:left;" ><a href="/movie/15198-csgo-3-second-m4a1-ace-shroud-is-not-impressed"><div style="text-align:center;">CSGO 3 Second m4a1 ace, Shroud is not impressed</div><div style="background-position:center;height:68px;width:120px;background-image: url(http://i.ytimg.com/vi/cSGVHjfxkUk/1.jpg)"></div><br/><div style="margin-top:-10px;text-align:center;"><img src="http://static.hltv.org//images/demosection/active_star.png" alt="star"><img src="http://static.hltv.org//images/demosection/active_star.png" alt="star"><img src="http://static.hltv.org//images/demosection/active_star.png" alt="star"><img src="http://static.hltv.org//images/demosection/active_star.png" alt="star"><img src="http://static.hltv.org//images/demosection/active_star.png" alt="star"></div></a></div>						
+						<div style="clear:both;height:0px;"></div>
+					</div>
+				</div>
+								<div style="clear:both;height:2px;"></div>
+			</div>
+		</div>
+				<div class="boxLeftBottomCorner"><div class="boxRightBottomCorner"><div style="background-color:white;margin-right:8px;margin-left:8px;height:5px;">&nbsp;</div></div></div>
+		<div class="boxBottomFooter"></div>
+		</div></div>			</div>
+		</li>
+
+		<li id="box5" class="boxNoDrag w1">
+			<div class="boxBar">
+				<div class="boxBarText"><img src="http://static.hltv.org//images/txt_searchprofile.gif" alt="" /></div>
+			</div>
+			<div class="boxBodyFadeDark">
+				<form method="post" action="/?pageid=51" style="margin: 0px">
+					<div>
+						<input style="margin-bottom:2px;" type="text" name="search" class="login" />
+						<input type="image" name="searchprofile" src="http://static.hltv.org//images/btn_search.gif" style="background-color:#9F9F9F;" onmouseover="javascript:this.style.backgroundColor='#0269D2';" onmouseout="javascript:this.style.backgroundColor='#9F9F9F';" />
+					</div>
+				</form>
+			</div>
+		</li>
+
+	</ul>
+	<div style="width:1px;height:1px;background-color:transparent;float:left;"></div>
+	<!-- Right most box -->
+	<ul id="thirdCollumn" class="columnRight">
+		<li id="boz1" class="box w1">
+			<div class="boxBar dragable">
+				<div class="boxBarText"><a href="/?pageid=15"><img src="http://static.hltv.org//images/txt_activethreads.gif" alt="" /></a></div>
+			</div>
+			<div class="boxBodyFadeDark">
+				  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Niko loves Fox so no" href="/forum/867798-niko-loves-fox-so-no"> Niko loves Fox so no</a></div><div style="text-align: right; width: 30px; float: right;">(6)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="How be rich" href="/forum/867788-how-be-rich"> How be rich</a></div><div style="text-align: right; width: 30px; float: right;">(43)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Cologne?" href="/forum/867774-cologne"> Cologne?</a></div><div style="text-align: right; width: 30px; float: right;">(7)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="I made a mistake with the girlfriend of my best friend" href="/forum/867791-i-made-a-mistake-with-the-girlfriend-of-my-best-friend"> I made a mistake with the girlfriend of ..</a></div><div style="text-align: right; width: 30px; float: right;">(22)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/4.gif" alt="" title="News" /><a title="SmithZz: &quot;We'd be happy with top4&quot;" href="/news/15722-smithzz-wed-be-happy-with-top4"> SmithZz: "We'd be happy with top4"</a></div><div style="text-align: right; width: 30px; float: right;">(90)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Best Dance Ever?" href="/forum/867611-best-dance-ever"> Best Dance Ever?</a></div><div style="text-align: right; width: 30px; float: right;">(27)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/6.gif" alt="" title="Hot match" /><a title="Renegades vs TSM" href="/match/2297434-renegades-tsm-esl-one-cologne-2015"> Renegades vs TSM</a></div><div style="text-align: right; width: 30px; float: right;">(86)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/3.gif" alt="" title="HLTV.org" /><a title="KQLY" href="/forum/867792-kqly"> KQLY</a></div><div style="text-align: right; width: 30px; float: right;">(8)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Usefull country" href="/forum/867784-usefull-country"> Usefull country</a></div><div style="text-align: right; width: 30px; float: right;">(58)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Niko or #news1mple?" href="/forum/867793-niko-or-news1mple"> Niko or #news1mple?</a></div><div style="text-align: right; width: 30px; float: right;">(13)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="which girl" href="/forum/867735-which-girl"> which girl</a></div><div style="text-align: right; width: 30px; float: right;">(143)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/6.gif" alt="" title="Hot match" /><a title="NiP vs CLG" href="/match/2297432-nip-clg-esl-one-cologne-2015"> NiP vs CLG</a></div><div style="text-align: right; width: 30px; float: right;">(221)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/6.gif" alt="" title="Hot match" /><a title="Kinguin vs Luminosity" href="/match/2297435-kinguin-luminosity-esl-one-cologne-2015"> Kinguin vs Luminosity</a></div><div style="text-align: right; width: 30px; float: right;">(536)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Your Country and Your Heritage " href="/forum/833406-your-country-and-your-heritage"> Your Country and Your Heritage </a></div><div style="text-align: right; width: 30px; float: right;">(409)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="KRIMZ Twitter Hacked??" href="/forum/867797-krimz-twitter-hacked"> KRIMZ Twitter Hacked??</a></div><div style="text-align: right; width: 30px; float: right;">(3)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="need the site of bet" href="/forum/867796-need-the-site-of-bet"> need the site of bet</a></div><div style="text-align: right; width: 30px; float: right;">(4)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Your Secret!" href="/forum/867175-your-secret"> Your Secret!</a></div><div style="text-align: right; width: 30px; float: right;">(431)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="144hz or 120hz" href="/forum/867197-144hz-or-120hz"> 144hz or 120hz</a></div><div style="text-align: right; width: 30px; float: right;">(93)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/4.gif" alt="" title="News" /><a title="ESL One Cologne Group D preview" href="/news/15714-esl-one-cologne-group-d-preview"> ESL One Cologne Group D preview</a></div><div style="text-align: right; width: 30px; float: right;">(74)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="So I tried an eu server..." href="/forum/867768-so-i-tried-an-eu-server"> So I tried an eu server...</a></div><div style="text-align: right; width: 30px; float: right;">(32)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/6.gif" alt="" title="Hot match" /><a title="fnatic vs eBettle" href="/match/2297436-fnatic-ebettle-esl-one-cologne-2015"> fnatic vs eBettle</a></div><div style="text-align: right; width: 30px; float: right;">(132)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Pick 'Em Challenge" href="/forum/867794-pick-em-challenge"> Pick 'Em Challenge</a></div><div style="text-align: right; width: 30px; float: right;">(4)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="Epic" href="/forum/867785-epic"> Epic</a></div><div style="text-align: right; width: 30px; float: right;">(5)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="GIVEAWAY!!!" href="/forum/867787-giveaway"> GIVEAWAY!!!</a></div><div style="text-align: right; width: 30px; float: right;">(13)</div><br />  	  	<div class="frontpagelink shorten" style="width: 110px; float: left;">
+  	<img src="http://static.hltv.org//images/category/5.gif" alt="" title="Counter-Strike" /><a title="ESL one cologne" href="/forum/867795-esl-one-cologne"> ESL one cologne</a></div><div style="text-align: right; width: 30px; float: right;">(1)</div><br />  				</div>
+		</li>
+
+
+		<li id="boz2" class="box w1">
+			<div class="boxBar dragable">
+				<div class="boxBarText"><img src="http://static.hltv.org//images/latest_blogs.gif" alt="" /></div>
+			</div>
+			<div class="boxBodyFadeDark">
+				<div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Insight: Nikola &quot;NiKo&quot; Kovac" href="/blog/10374-insight-nikola-niko-kovac"><img src="http://static.hltv.org//images/flag/us.gif" style="position:relative;top:2px;" alt=""/> Resey</a></div><div style="text-align: right; width: 30px; float: right;">(69)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="HSFactory Summer Ladder" href="/blog/10371-hsfactory-summer-ladder"><img src="http://static.hltv.org//images/flag/fr.gif" style="position:relative;top:2px;" alt=""/> HSfactory JFF</a></div><div style="text-align: right; width: 30px; float: right;">(34)</div><br/><div class="frontpagelink" style="width: 105px; float: left;"><a title="New top design" href="/blog/10370-new-top-design"><img src="http://static.hltv.org//images/flag/dk.gif" style="position:relative;top:2px;;text-overflow: ellipsis;overflow: hidden;white-space: nowrap" alt=""/> <b>Nomad</b></a></div><div style="text-align: right; width: 30px; float: right;">(383)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Hunden the God" href="/blog/10369-hunden-the-god"><img src="http://static.hltv.org//images/flag/gb.gif" style="position:relative;top:2px;" alt=""/> Iliketoputmymeatstickinreallyoddplaces</a></div><div style="text-align: right; width: 30px; float: right;">(50)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Tips for new players !!" href="/blog/10368-tips-for-new-players"><img src="http://static.hltv.org//images/flag/fr.gif" style="position:relative;top:2px;" alt=""/> nolimit900</a></div><div style="text-align: right; width: 30px; float: right;">(14)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Cologne stickers, deception of reality " href="/blog/10364-cologne-stickers-deception-of-reality"><img src="http://static.hltv.org//images/flag/ca.gif" style="position:relative;top:2px;" alt=""/> GoogleCanada</a></div><div style="text-align: right; width: 30px; float: right;">(38)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="TOP 5 of &quot;fallen stars&quot; in Counter-Strike" href="/blog/10363-top-5-of-fallen-stars-in-counter-strike"><img src="http://static.hltv.org//images/flag/ru.gif" style="position:relative;top:2px;" alt=""/> jobs! </a></div><div style="text-align: right; width: 30px; float: right;">(87)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Essence of Shroud" href="/blog/10362-essence-of-shroud"><img src="http://static.hltv.org//images/flag/us.gif" style="position:relative;top:2px;" alt=""/> Resey</a></div><div style="text-align: right; width: 30px; float: right;">(34)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Some inferno suggestions." href="/blog/10360-some-inferno-suggestions"><img src="http://static.hltv.org//images/flag/be.gif" style="position:relative;top:2px;" alt=""/> yolobomber</a></div><div style="text-align: right; width: 30px; float: right;">(88)</div><br/><div class="frontpagelink" style="width: 105px; float: left;text-overflow: ellipsis;overflow: hidden;white-space: nowrap;"><a title="Actual FPS boosting tips (low- and high-end PCs)*little update 15/8*" href="/blog/10359-actual-fps-boosting-tips-low-and-high-end-pcslittle-update-15-8"><img src="http://static.hltv.org//images/flag/dk.gif" style="position:relative;top:2px;" alt=""/> xlnc4real</a></div><div style="text-align: right; width: 30px; float: right;">(322)</div><br/><div style="clear:left;"></div>			</div>
+		</li>
+
+		<li id="boz0" class="box w1">
+			<div class="boxBar dragable">
+				<div class="boxBarText"><img src="http://static.hltv.org//images/vod/latest_vods.gif" alt="" /></div>
+			</div>
+			<div class="boxBodyFadeDark" style="padding-bottom:0px">
+				<div class="vodbox" title="IEM Gamescom 2015"><a href="/match/2297342-envyus-tsm-iem-gamescom-2015">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/fr.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">EnVyUs</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">TSM</span></a></div><div class="vodbox" title="IEM Gamescom 2015"><a href="/match/2297327-renegades-tsm-iem-gamescom-2015">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/au.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Renegades</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">TSM</span></a></div><div class="vodbox" title="IEM Gamescom 2015"><a href="/match/2297326-mousesports-envyus-iem-gamescom-2015">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/de.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">mousesports</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/fr.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">EnVyUs</span></a></div><div class="vodbox" title="IEM Gamescom 2015"><a href="/match/2297325-sk-tsm-iem-gamescom-2015">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">SK</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">TSM</span></a></div><div class="vodbox" title="IEM Gamescom 2015"><a href="/match/2297324-envyus-mousesports-iem-gamescom-2015">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/fr.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">EnVyUs</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/de.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">mousesports</span></a></div>			</div>
+		</li>
+
+		<li id="boz3" class="box w1">
+			<div class="boxBar dragable">
+				<div class="boxBarText"><a href="/?pageid=28"><img src="http://static.hltv.org//images/txt_latestdemos.gif" alt="" /></a></div>
+			</div>
+			<div class="boxBodyFadeDark" style="padding-bottom:0px">
+				<div></div>
+				<div class="demobox" title="PGL Season 1 EU Qualifiers"><a href="/?pageid=28&amp;ref=frontpageBox&amp;demoid=18604">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">dignitas</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/pl.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Dobry&amp;Gaming</span></a></div><div class="demobox" title="PGL Season 1 EU Qualifiers"><a href="/?pageid=28&amp;ref=frontpageBox&amp;demoid=18603">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/pl.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Dobry&amp;Gaming</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/ru.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">PiTER</span></a></div><div class="demobox" title="PGL Season 1 EU Qualifiers"><a href="/?pageid=28&amp;ref=frontpageBox&amp;demoid=18602">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">dignitas</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Aftermatch</span></a></div><div class="demobox" title="PGL Season 1 EU Qualifiers"><a href="/?pageid=28&amp;ref=frontpageBox&amp;demoid=18601">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/de.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">mousesports</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/eu.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Kinguin</span></a></div><div class="demobox" title="PGL Season 1 EU Qualifiers"><a href="/?pageid=28&amp;ref=frontpageBox&amp;demoid=18600">  <span style="vertical-align: 10%;"><img src="http://static.hltv.org//images/flag/cis.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">HellRaisers</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/eu.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Kinguin</span></a></div>			</div>
+		</li>
+
+
+		<li id="boz4" class="box w1">
+			<div class="boxBar dragable">
+				<div class="boxBarText"><a href="/?pageid=198"><img src="http://static.hltv.org//images/txt_latestpovdemos.gif" alt="" /></a></div>
+			</div>
+			<div class="boxBodyFadeDark" style="padding-bottom:0px">
+				<div></div>
+				<div class="demobox" title="FACEIT League 2015 Stage 2"><a href="/?pageid=198&amp;ref=frontpageBox&amp;demoid=5407"> <img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12px" width="18px" /> <span style="vertical-align: 10%;">pyth</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/us.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">CLG</span></a></div><div class="demobox" title="RGN Pro Series EU"><a href="/?pageid=198&amp;ref=frontpageBox&amp;demoid=5406"> <img src="http://static.hltv.org//images/flag/tr.gif" alt="" height="12px" width="18px" /> <span style="vertical-align: 10%;">XANTARES</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">1337</span></a></div><div class="demobox" title="Fragbite Masters Season 4"><a href="/?pageid=198&amp;ref=frontpageBox&amp;demoid=5405"> <img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12px" width="18px" /> <span style="vertical-align: 10%;">JW</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">TSM</span></a></div><div class="demobox" title="Fragbite Masters Season 4"><a href="/?pageid=198&amp;ref=frontpageBox&amp;demoid=5404"> <img src="http://static.hltv.org//images/flag/se.gif" alt="" height="12px" width="18px" /> <span style="vertical-align: 10%;">JW</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/dk.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">TSM</span></a></div><div class="demobox" title="ESL ESEA Pro League Season 1"><a href="/?pageid=198&amp;ref=frontpageBox&amp;demoid=5403"> <img src="http://static.hltv.org//images/flag/by.gif" alt="" height="12px" width="18px" /> <span style="vertical-align: 10%;">CyberFocus</span> <br/> <span style="vertical-align: 90%;"><img src="http://static.hltv.org//images/flag/pl.gif" alt="" height="12" width="18" class=""/></span> <span style="vertical-align: top;">Virtus.pro</span></a></div>			</div>
+		</li>
+	</ul>
+	<div style="width:1px;height:1px;background-color:transparent;float:right;"></div>
+	
+	<div class="centerNoHeadline">
+	<div class="centerFade" style="height: 100%;min-height: 230px;">
+		  <!-- jquery.countdown.min.js -->
+  <script src="http://static.hltv.org//js/jquery.countdown.js" type="text/javascript"></script>
+<style type="text/css">
+.noImage8256 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.noImage8543 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.noImage4829 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.noImage8320 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.noImage8231 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.taggedImage8396 {
+  /* margin-left:0px; */
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-image: url(http://static.hltv.org//images/galleries/6306-dreamteam2/36088.jpg);
+  background-repeat: no-repeat;
+  overflow:hidden;
+  background-position: -127px -11px;
+  
+}
+</style><style type="text/css">
+.taggedImage7442 {
+  /* margin-left:0px; */
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-image: url(http://static.hltv.org//images/galleries/6650-dreamteam2/40760.jpg);
+  background-repeat: no-repeat;
+  overflow:hidden;
+  background-position: -80px -38px;
+  
+}
+</style><style type="text/css">
+.noImage0 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.noImage0 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style><style type="text/css">
+.noImage7700 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 105px;
+  height: 105px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  background-image: url(http://static.hltv.org//images/small_placeholder.png);
+  overflow:hidden;
+  
+}
+</style>  <script type="text/javascript">
+      </script>
+  <div style="padding:5px;">
+  <div style="text-align: center;">
+  <span style="font-size: 26px">
+    
+          <img style="vertical-align:-20%;border: 1px solid black;border-radius: 5px;" src="http://static.hltv.org//images/bigflags/60x40/PL.gif"/>
+        <a class="nolinkstyle" href="/?pageid=179&amp;teamid=4532&amp;gameid=2">ESC</a></span>
+    <span style="font-size: 22px">vs.</span>
+    <span style="font-size: 26px">
+    <a class="nolinkstyle" href="/?pageid=179&amp;teamid=6299&amp;gameid=2">Teamless.gg</a>
+              <img style="vertical-align:-20%;border: 1px solid black;border-radius: 5px;" src="http://static.hltv.org//images/bigflags/60x40/SE.gif"/>
+        </span>
+  </div>
+  <br/>
+  <div style="text-align:center;font-size: 18px;"><span style="font-size:14px;">19th of August 2015</span> 22:30</div>
+      <div style="text-align:center;font-size: 18px;">Match over</div>
+    <div style="text-align:center;font-size: 18px;"><a href="/?pageid=82&amp;eventid=1896">QuickShot Arena #3</a></div>
+  <br>
+
+    <div style="width: 49%;float:left;">
+    <div class="hotmatchboxheader">
+  <!--      <img style="float:right;margin-bottom:5px;width: 20px;position: relative;top:-2px;" title="Confirmed" src="--><!--/images/check-mark-8-xxl.png">-->
+  <div class="headertext">Maps </div>
+</div>
+<div class="hotmatchbox" style="text-align: center;font-size: 12px;text-align: left;">
+  <div id="mapformatbox">
+    Best of 1<br />
+<br />
+* Lower bracket final<br />
+<br />
+English stream: dingit.tv/qsarena<br />
+<br />
+(requires a plugin)<div style="border-top: 1px solid darkgray;margin-bottom: 3px;margin-top:3px;"></div>  </div>
+
+  <div style="border: 1px solid darkgray;border-radius: 5px;width:280px;height:28px;margin-bottom:3px;"><img style="border-radius: 4px;;" src="http://static.hltv.org//images/hotmatch/cobblestone.png"/></div>      
+    <div class="hotmatchbox" style="margin-top: -7px;font-size: 12px;width:270px;border-top:0;">
+                  <span style="color: green">19</span>:<span
+            style="color: red">16</span>
+                      (<span style="color: red">7</span>:<span
+              style="color: blue">8</span>;
+                      <span style="color: blue">8</span>:<span
+              style="color: red">7</span>)
+                    (4:1)
+              </div>
+        <div style="margin-top:3px;"></div>
+  
+</div>
+<div style="clear: both"></div>  </div>
+
+  <div style="width: 49%;float:left;margin-left:11px;">
+    <div class="hotmatchboxheader">
+  <div class="headertext">Rewatch</div>
+</div>
+<div class="hotmatchbox">
+  
+  
+  
+  
+      <div style="margin-top: 3px;"></div>
+    <div class="hotmatchroundbox" style="">
+      <div style="cursor:pointer;">
+        No media added yet, check back, we will add it as soon as we find it!
+      </div>
+    </div>
+  
+  
+
+  <div style="clear: both"></div>
+</div>
+
+<script type="application/javascript">
+  $q('.vod').click(function () {
+    $q('#streamcontainer').show();
+
+    $q.ajax({
+      url: "/?pageid=113&clean=1&getVodEmbed=" + this.id,
+      context: document.body,
+      success: function (data) {
+        $q('#streambox').html(data)
+        location.hash = "#streamAnchor";
+      }
+    })
+  });
+
+  $q('.highlight').click(function () {
+    $q('#streamcontainer').show();
+
+    $q.ajax({
+      url: "/?pageid=113&clean=1&getHighlightEmbed=" + this.id,
+      context: document.body,
+      success: function (data) {
+        $q('#streambox').html(data)
+        location.hash = "#streamAnchor";
+      }
+    })
+  });
+</script>  </div>
+
+  
+  <div style="text-align: center;margin-top:10px;clear:both;" id="streamAnchor">
+        <br/>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <!-- IP ny -->
+    <ins class="adsbygoogle"
+         style="display:inline-block;width:336px;height:280px"
+         data-ad-client="ca-pub-9716958403859443"
+         data-ad-slot="3381216298"></ins>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+    </script>
+      </div>
+
+  <script type="application/javascript">
+    $q('.stream').click(function () {
+      $q('#streamcontainer').show();
+
+      $q.ajax({
+        url: "/?pageid=&clean=1&getStreamEmbed=" + this.id,
+        context: document.body,
+        success: function (data) {
+          $q('#streambox').html(data)
+          location.hash = "#streamAnchor";
+        }
+      })
+    })
+  </script>
+  <br/>
+  <div style="display:none" id="streamcontainer">
+    <div class="hotmatchboxheader">
+      <div class="headertext">Stream</div>
+    </div>
+    <div class="hotmatchbox" style="text-align: center;font-size: 12px;" id="streambox">
+    </div>
+
+    <div style="clear: both"></div>
+    <br/>
+  </div>
+
+  <br/>
+
+  
+    <div style="margin-bottom: 2px;text-align: center">
+      <a href="http://alphadraft.go2cloud.org/aff_c?offer_id=24&aff_id=1575" target="_blank"><img src="http://static.hltv.org//images/alpha_draft_your_fantasy_team.png" alt=""></a>
+    </div>
+
+  <!--    <div class="hotmatchboxheader">-->
+  <!--      <div class="headertext">Announcements</div>-->
+  <!--    </div>-->
+  <!--    <div class="hotmatchbox">-->
+  <!--      <div style="font-size: 14px;">NiP is without Xizt as he has broken his hand.</div>-->
+  <!--    </div>-->
+  <!--    <div style="clear: both"></div>-->
+  <!---->
+  <!--    <br/>-->
+
+  
+  <!-- lineups -->
+  
+
+  <div class="hotmatchboxheader">
+    <div class="headertext"><img src="http://static.hltv.org//images/flag/pl.gif"/> ESC      lineup           </div>
+  </div>
+  <div class="hotmatchbox" style="text-align: center;">
+    <div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a href="/?pageid=173&playerid=8256&gameid=2"><span style="font-size:12px;">tecek</span></a><br/><div class="noImage8256"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="8256" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">6.9%</div></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a href="/?pageid=173&playerid=8543&gameid=2"><span style="font-size:12px;">NEEX</span></a><br/><div class="noImage8543"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="8543" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">34.48%</div></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a href="/?pageid=173&playerid=4829&gameid=2"><span style="font-size:12px;">mynio</span></a><br/><div class="noImage4829"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="4829" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">3.45%</div></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a href="/?pageid=173&playerid=8320&gameid=2"><span style="font-size:12px;">repo</span></a><br/><div class="noImage8320"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="8320" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">13.79%</div></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a href="/?pageid=173&playerid=8231&gameid=2"><span style="font-size:12px;">matty</span></a><br/><div class="noImage8231"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="8231" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">6.9%</div></div></div><div style="width:0px;float:left;">&nbsp;</div>    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+
+  <br/>
+
+  <div class="hotmatchboxheader">
+    <div class="headertext"><img src="http://static.hltv.org//images/flag/se.gif"/> Teamless.gg      lineup           </div>
+  </div>
+  <div class="hotmatchbox" style="text-align: center;">
+    <div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/ba.gif" alt="" /> <a href="/?pageid=173&playerid=8396&gameid=2"><span style="font-size:12px;">BENDJI</span></a><br/><div class="taggedImage8396"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="8396" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">27.59%</div></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a href="/?pageid=173&playerid=7442&gameid=2"><span style="font-size:12px;">berg</span></a><br/><div class="taggedImage7442"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="7442" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">3.45%</div></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/dk.gif" alt="" />  NaToSaphiX<br/><div class="noImage0"></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/dk.gif" alt="" />  Sycrone<br/><div class="noImage0"></div></div><div style="width:0px;float:left;">&nbsp;</div><div class="text-center" style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"><img style="vertical-align:-5%;" src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a href="/?pageid=173&playerid=7700&gameid=2"><span style="font-size:12px;">robiin</span></a><br/><div class="noImage7700"></div><div style="display: table;margin: 0 auto;margin-top:3px;font-size: 12px;"><div id="7700" class="manofthematchvotedbutton" style="width:70px;cursor:pointer;color:white;text-align:center;border-radius: 5px;border: 1px solid #5CB85C;background-color:#5CB85C;padding:5px;">3.45%</div></div></div><div style="width:0px;float:left;">&nbsp;</div>    <div style="clear: both"></div>
+  </div>
+  <div style="clear: both"></div>
+
+
+<script type="application/javascript">
+  $q('.manofthematchbutton').click(function () {
+    $q(this).addClass('voted');
+    $q.ajax({
+      url: "/?pageid=&clean=1&matchid=2297485&momvote=1&playerid=" + this.id,
+      context: document.body,
+      success: function (data) {
+        var json = $q.parseJSON(data);
+        $q.each(json, function(i, item) {
+          $q('#'+i +'.manofthematchbutton').html(item+'%')
+        });
+        $q('.manofthematchbutton:not(.voted)').each(function (item) {
+          $q(this).css({ opacity: 0.7, cursor: 'default' });
+        })
+        $q('.manofthematchbutton.voted').each(function (item) {
+          $q(this).css({cursor: 'default' });
+        })
+      }
+    });
+  });
+  $q('.manofthematchvotedbutton').each(function (item) {
+    $q(this).css({ opacity: 0.7, cursor: 'default' });
+  })
+  $q('.manofthematchbuttonhighlight').each(function (item) {
+    $q(this).css({ cursor: 'default' });
+  })
+
+
+</script>
+<br/>
+  <div class="hotmatchboxheader">
+  <div class="headertext">Man of the match (34.48%) - <a href="/?pageid=173&amp;playerid=8543&amp;gameid=2">Sebastian <b>'NEEX'</b> Trela</a> </div>
+</div>
+
+<div class="hotmatchbox">
+  <div style="float:left;width:590px;font-size: 14px;margin-bottom: 5px;">
+      </div>
+  <div style="margin-top:3px;clear:both;"></div>
+  <div style="border: 1px solid darkgray;border-radius: 7px;">
+    <style type="text/css">
+.noImageFull8543 {
+  margin-left:0px;
+  margin-top:0px;
+  width: 300px;
+  height: 200px;
+  border-radius: 5px;
+  background-repeat: no-repeat;
+  overflow:hidden;
+  background-image: url(http://static.hltv.org//images/large_placeholder.png);
+  border:1px solid black;
+}
+</style><div style="float:left;width:300px;" class="noImageFull8543"></div>    <style>
+      .datagrid table {
+        border-collapse: collapse;
+        text-align: left;
+        width: 100%;
+      }
+
+      .datagrid {
+        font: normal 12px/150% Arial, Helvetica, sans-serif;
+        background: #fff;
+        overflow: hidden;
+        /*border: 1px solid #8C8C8C;*/
+        -webkit-border-radius: 3px;
+        -moz-border-radius: 3px;
+        border-radius: 3px;
+      }
+
+      .datagrid table td, .datagrid table th {
+        padding: 3px 10px;
+      }
+
+      .datagrid table tbody td {
+        color: black;
+        border-left: 1px solid #DBDBDB;
+        font-size: 12px;
+        font-weight: normal;
+      }
+
+      .datagrid table tbody .alt td {
+        background: #EBEBEB;
+        color: black;
+      }
+
+      .datagrid table tbody td:first-child {
+        border-left: none;
+      }
+
+      .datagrid table tbody tr:last-child td {
+        border-bottom: none;
+      }
+    </style>
+    <div style="float:left;font-size: 14px;width:282px;margin-top:2px;padding-bottom: 1px;">
+
+      
+      <div class="datagrid">
+        <table title="Career stats compared to average.">
+          <tbody>
+                              <tr>
+            <td style="width:50%;color:#0269D2">Rating</td>
+            <td>
+              1.06              <span style="color: green">
+                  (+0.07)
+                </span>
+            </td>
+          </tr>
+          <tr class="alt">
+            <td style="color:#0269D2">Kills / round</td>
+            <td>
+              0.75              <span style="color: green">
+                  (+0.07)
+                </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#0269D2">Deaths / round</td>
+            <td>
+              0.69              <span style="color: red">
+                  (0.01)
+                </span>
+            </td>            </tr>
+          <tr class="alt">
+            <td style="color:#0269D2">Assists / round</td>
+            <td>
+              0.09              <span style="color: red">
+                  (-0.06)
+                </span>
+            </td>            </tr>
+          <tr>
+            <td style="color:#0269D2">Entry kills / round</td>
+            <td>
+              0.14              <span style="color: green">
+                  (+0.04)
+                </span>
+            </td>
+          </tr>
+          <tr class="alt">
+            <td style="color:#0269D2">Headshot</td>
+            <td>
+              36.7%
+                <span style="color: red">
+                  (-7.5%)
+                </span>
+            </td>
+          </tr>
+          <tr>
+            <td style="color:#0269D2">K/D</td>
+            <td>
+              1.09              <span style="color: green">
+                  (+0.09)
+                </span>
+            </td>
+          </tr>
+                    <tr class="alt">
+            <td style="color:#0269D2">Maps on record</td>
+            <td>
+              23            </td>
+          </tr>
+          <tr>
+            <td style="color:#0269D2">Team rank</td>
+            <td>1</td>
+          </tr>
+                    </tbody>
+        </table>
+      </div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+
+  <div style="clear: both"></div>
+</div>
+<div style="clear: both"></div>
+
+<br/><div class="hotmatchboxheader">
+  <div class="headertext">Past matches</div>
+</div>
+<div class="hotmatchbox">
+  <div style="width: 49%;float:left;">
+    <div class="hotmatchboxheader">
+      <div class="headertext"><a class="nolinkstyle" href="/?pageid=179&amp;teamid=4532&amp;gameid=2"><img src="http://static.hltv.org//images/flag/pl.gif" /> ESC</a></div>
+    </div>
+    <div class="hotmatchbox">
+      <span title="19/08 2015 - QuickShot Arena #3"><div style="margin-top:2px;height:12px;width:80px;float:left;">cobblestone</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=6299&gameid=2"><img src="http://static.hltv.org//images/flag/se.gif"/> Teamless.gg</a></div> <div style="margin-top:2px;height:12px;color:green;float:right">19-16</div></span> <div style="clear:both;"></div><span title="19/08 2015 - QuickShot Arena #3"><div style="margin-top:2px;height:12px;width:80px;float:left;">Best of 3</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=5208&gameid=2"><img src="http://static.hltv.org//images/flag/dk.gif"/> Reason</a></div> <div style="margin-top:2px;height:12px;color:red;float:right">1-2</div></span> <div style="clear:both;"></div><span title="29/07 2015 - CEVO Professional Season 8 Placement EU"><div style="margin-top:2px;height:12px;width:80px;float:left;">default</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=5310&gameid=2"><img src="http://static.hltv.org//images/flag/cis.gif"/> HellRaisers</a></div> <div style="margin-top:2px;height:12px;color:red;float:right">0-1</div></span> <div style="clear:both;"></div><span title="24/07 2015 - IzakTV Summer Cup"><div style="margin-top:2px;height:12px;width:80px;float:left;">Best of 3</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=5122&gameid=2"><img src="http://static.hltv.org//images/flag/de.gif"/> LeiSuRe</a></div> <div style="margin-top:2px;height:12px;color:red;float:right">0-2</div></span> <div style="clear:both;"></div><span title="23/07 2015 - IzakTV Summer Cup"><div style="margin-top:2px;height:12px;width:80px;float:left;">cache</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=4477&gameid=2"><img src="http://static.hltv.org//images/flag/se.gif"/> Publiclir.se</a></div> <div style="margin-top:2px;height:12px;color:green;float:right">26-24</div></span> <div style="clear:both;"></div>    </div>
+  </div>
+
+  <div style="width: 49%;float:right;margin-left:11px;">
+    <div class="hotmatchboxheader">
+      <div class="headertext"><a class="nolinkstyle" href="/?pageid=179&amp;teamid=6299&amp;gameid=2"><img src="http://static.hltv.org//images/flag/se.gif" /> Teamless.gg</a></div>
+    </div>
+    <div class="hotmatchbox">
+      <span title="19/08 2015 - QuickShot Arena #3"><div style="margin-top:2px;height:12px;width:80px;float:left;">cobblestone</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=4532&gameid=2"><img src="http://static.hltv.org//images/flag/pl.gif"/> ESC</a></div> <div style="margin-top:2px;height:12px;color:red;float:right">16-19</div></span> <div style="clear:both;"></div><span title="19/08 2015 - QuickShot Arena #3"><div style="margin-top:2px;height:12px;width:80px;float:left;">Best of 3</div><div style="width:160px;float:left;">vs. <a href="/?pageid=179&amp;teamid=4759&gameid=2"><img src="http://static.hltv.org//images/flag/es.gif"/> OverGaming</a></div> <div style="margin-top:2px;height:12px;color:red;float:right">0-2</div></span> <div style="clear:both;"></div>    </div>
+  </div>
+
+  <br/>
+  <div style="clear:both;"></div>
+
+  
+  <div style="clear: both"></div>
+
+</div>
+<div style="clear: both"></div>
+
+<br/>
+
+  <!-- end of padding-->
+  </div>
+
+
+<br/>
+<div style="clear:both;">
+  <script type="text/javascript">
+	var first = true;
+	var inlinefirst = true;
+</script>
+<script type="application/javascript" src="http://static.hltv.org//js/edit.js"></script>
+<script type="text/javascript">
+	
+	var str = '<div id="inlinepostreplybox" style="width: 95%; margin: 0 auto;">';
+	
+	str += '<form name="inline" action="" method="post" onsubmit="if(inlinereplymsg.value == \'This is an international site, please write your comment in English. Comments in another language will be deleted.\') { alert(\'Please actually write something..\'); return false; }" >';
+	str += '<input type="image" name="bold" onclick="return makeSelBold(\'inlinereplymsg\');" src="http://static.hltv.org//images/btn_bold.gif" style="background-color:#9F9F9F;" onmouseover="javascript:this.style.backgroundColor=\'#0269D2\';" onmouseout="javascript:this.style.backgroundColor=\'#9F9F9F\';" />';
+
+	str += '<input type="image" name="italic" onclick="return makeSelItalic(\'inlinereplymsg\');" src="http://static.hltv.org//images/btn_italic.gif" style="background-color:#9F9F9F;" onmouseover="javascript:this.style.backgroundColor=\'#0269D2\';" onmouseout="javascript:this.style.backgroundColor=\'#9F9F9F\';" />';
+
+	str += '<input type="hidden" name="threadid" value="867593" />';
+	str += '<input type="hidden" id="inlinereplytoid" name="replytoid" value="0" />';
+	str += '<input type="hidden" id="inlineaction" name="action" value="reply" />';
+
+	//str += '<br/><br/>';
+	str += '<textarea id="inlinereplymsg" onfocus="if(inlinefirst) { this.value=\'\'; inlinefirst = false; }" name="replymsg" style="width: 100%; height: 200px;">This is an international site, please write your comment in English. Comments in another language will be deleted.</textarea>';
+	
+	str += '<input type="image" style="background-color:#9F9F9F;" src="http://static.hltv.org//images/btn_post.gif" onmouseover="javascript:this.style.backgroundColor=\'#0269D2\';" onmouseout="javascript:this.style.backgroundColor=\'#9F9F9F\';" name="inlinereplysubmit" value="Submit reply"/>';
+	
+	str += '</form>';
+	str += '</div>';
+	
+	var currentReplyId = 0;
+	var currentReplyContent;
+	var currentMsg;
+	
+	function doBox(id, replytoid) {
+		//if we already have a reply box, remove it.
+		//alert('reply to: ' +replytoid);
+
+		var oldBox = false;
+
+		if(currentReplyId != 0) {
+			currentMsg = $q('#inlinereplymsg').val();
+			$q('#'+currentReplyId).html(currentReplyContent);
+			
+			if(currentMsg != 'This is an international site, please write your comment in English. Comments in another language will be deleted.') {
+				oldBox = true;
+			} else {
+				inlinefirst = true;
+			}
+		}
+
+		currentReplyId = id;
+		currentReplyContent = $q('#'+id).html();
+		$q('#'+id).html(currentReplyContent+''+str);
+		
+		$q('#inlinereplymsg').focus();
+		
+		$q('#inlinereplytoid').val(replytoid);
+		$q('#inlineaction').val('reply');
+		
+		if(oldBox) {
+			$q('#inlinereplymsg').text(currentMsg);
+		}
+	}
+</script>
+
+<!-- no lock data --> 
+<div style="margin: 0 0 5px 0;"><div class="header"><div id="r10831333" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=492147">TheDarkusPL</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10831333">#1</a></div></div><div id="r10831333msg" class="textbox"  >Mynio easy<div class="timestamp">2015-08-19 19:50:01</div></div><div class="zzReplyCon"><div class="header"><div id="r10833781" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/no.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=559479">Rain - &lt;3 Rain - &lt;3 Rain - &lt;3 Rain</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=8183&amp;ref=forum"><3 rain</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833781">#17</a></div></div><div id="r10833781msg" class="textbox"  >help guys MIRAA bannered me and now i loose all my comments. why i dont have ocmments now? :( <br />
+<br />
+pls help mee<div class="timestamp">2015-08-19 21:57:25</div></div></div><div class="zzLastReplyCon"><div class="header"><div id="r10834695" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=623367">RadlyaN</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834695">#41</a></div></div><div id="r10834695msg" class="textbox"  >Teamless great %. Great skins<div class="timestamp">2015-08-19 22:52:08</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10831445" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=611248">DenkanN</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10831445">#2</a></div></div><div id="r10831445msg" class="textbox"  >Ez Teamless!<div class="timestamp">2015-08-19 19:57:30</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10831774" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/ru.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=504672">Nelked</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10831774">#3</a></div></div><div id="r10831774msg" class="textbox"  >ESC JUST DO IT <div class="timestamp">2015-08-19 20:14:12</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10832022" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/lk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=641127">Antenelles</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10832022">#4</a></div></div><div id="r10832022msg" class="textbox"  >ez esc<span style="color: gray;"><br /><br />Post edited 2015-08-19 20:30:08</span><div class="timestamp">2015-08-19 20:26:01</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10832297" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=577853">CriSsu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10832297">#5</a></div></div><div id="r10832297msg" class="textbox"  >ez esc ofc<br />
+<div class="timestamp">2015-08-19 20:38:20</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10832644" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/bd.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=627120">imransharkhossain</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10832644">#6</a></div></div><div id="r10832644msg" class="textbox"  >This match will be postponed or penta vs property will be postponed<div class="timestamp">2015-08-19 20:54:00</div></div><div class="zzReplyCon"><div class="header"><div id="r10832678" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=476885">RandomFanGay</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10832678">#7</a></div></div><div id="r10832678msg" class="textbox"  >this is a bo1<div class="timestamp">2015-08-19 20:55:28</div></div></div><div class="zzLastReplyCon"><div class="header"><div id="r10833662" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/fi.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=523549">JWK-</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833662">#15</a></div></div><div id="r10833662msg" class="textbox"  >O: why? No more property team fucking idiot.<div class="timestamp">2015-08-19 21:51:28</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10832903" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=588461">retrokiller79</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10832903">#8</a></div></div><div id="r10832903msg" class="textbox"  >I think OverGaming wins this :)<div class="timestamp">2015-08-19 21:06:09</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10833016" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/ro.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=632113">RazvanOnly</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=7440&amp;ref=forum"><3 Skadoodle</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833016">#9</a></div></div><div id="r10833016msg" class="textbox"  >lel <div class="timestamp">2015-08-19 21:12:46</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833298" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586652">jdmC</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833298">#10</a></div></div><div id="r10833298msg" class="textbox"  >ez 4 teamless ;)<div class="timestamp">2015-08-19 21:31:09</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833300" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=283795">VICEK</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833300">#11</a></div></div><div id="r10833300msg" class="textbox"  >ez bendji<br />
+<div class="timestamp">2015-08-19 21:31:11</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833545" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=639387">methoje</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833545">#12</a></div></div><div id="r10833545msg" class="textbox"  >ez 4 Polska<div class="timestamp">2015-08-19 21:45:40</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833586" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/rs.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=472879">dawkward1</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833586">#13</a></div></div><div id="r10833586msg" class="textbox"  >Hello guys, my name is natosaphix and today i will be doing a max bet on myself<div class="timestamp">2015-08-19 21:48:18</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833640" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/id.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=302732">rss__-</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833640">#14</a></div></div><div id="r10833640msg" class="textbox"  >Teamless wins this match. Esc always throws when odds are in favor of them ;)<div class="timestamp">2015-08-19 21:50:57</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833674" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=533532">Volski777</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833674">#16</a></div></div><div id="r10833674msg" class="textbox"  >it's true bro :)<div class="timestamp">2015-08-19 21:52:16</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833840" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=480095">Slash1385</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833840">#18</a></div></div><div id="r10833840msg" class="textbox"  >sooo true <div class="timestamp">2015-08-19 22:01:32</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833977" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/nam.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=635745">mdrsspike</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833977">#19</a></div></div><div id="r10833977msg" class="textbox"  >LOL NATO SAPHIX ROFL IS THAT SHIT A JOKE<div class="timestamp">2015-08-19 22:07:57</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10833983" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/in.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=629659">Mr.UniKe</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10833983">#20</a></div></div><div id="r10833983msg" class="textbox"  >So whom To Bet?<div class="timestamp">2015-08-19 22:08:32</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834009" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/lt.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=636610">Pupulius</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834009">#21</a></div></div><div id="r10834009msg" class="textbox"  >neex&gt;nex<div class="timestamp">2015-08-19 22:10:39</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834026" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/bg.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=585206">FlameThroweR</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834026">#22</a></div></div><div id="r10834026msg" class="textbox"  >Teamless can do it.And it is bo1 :) <div class="timestamp">2015-08-19 22:11:29</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834040" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=641812">dasd12e312dasd1231</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834040">#23</a></div></div><div id="r10834040msg" class="textbox"  > facebook.com/obstawianiebudel<div class="timestamp">2015-08-19 22:11:50</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834180" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/ru.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=623199">Dumqed</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834180">#24</a></div></div><div id="r10834180msg" class="textbox"  >cobble is in favor of ?<div class="timestamp">2015-08-19 22:19:04</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10834196" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/cz.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=635380">Destroyercz</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834196">#25</a></div></div><div id="r10834196msg" class="textbox"  >Property i think :D<div class="timestamp">2015-08-19 22:19:35</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10834204" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/de.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=221188">N4j</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=135&amp;ref=forum">in memory of cyx</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834204">#26</a></div></div><div id="r10834204msg" class="textbox"  >NO lol... <div class="timestamp">2015-08-19 22:20:03</div></div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834237" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/dk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=511704">solo322</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834237">#27</a></div></div><div id="r10834237msg" class="textbox"  >ESC cobblestone stats from HLTV<br />
+Wins / draws / losses 0 / 0 / 4<br />
+Total rounds played 102<br />
+Rounds won 38<br />
+Win percent 37.25%<br />
+<div class="timestamp">2015-08-19 22:21:25</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834308" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=613826">DworuseK</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834308">#28</a></div></div><div id="r10834308msg" class="textbox"  >EZ FOR TEAMLESS COBBLE :D<div class="timestamp">2015-08-19 22:25:09</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834484" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=499218">vyrtusOG</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834484">#29</a></div></div><div id="r10834484msg" class="textbox"  >Yet another loss.<div class="timestamp">2015-08-19 22:37:10</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834493" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834493">#30</a></div></div><div id="r10834493msg" class="textbox"  >esc fucking cheater i bet on esc but tecek have wh<div class="timestamp">2015-08-19 22:38:03</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834495" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/it.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=543107">Nafas41</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834495">#31</a></div></div><div id="r10834495msg" class="textbox"  >red dress is berg?<div class="timestamp">2015-08-19 22:38:15</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834496" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/dk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=511704">solo322</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834496">#32</a></div></div><div id="r10834496msg" class="textbox"  >NEEX quit the game<br />
+Round over - Winner: CT (5-1)<br />
+DDOS?<div class="timestamp">2015-08-19 22:38:22</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10834520" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834520">#33</a></div></div><div id="r10834520msg" class="textbox"  >no he going for active ur cheat<div class="timestamp">2015-08-19 22:40:22</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834565" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/dk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=192163">Madse</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834565">#34</a></div></div><div id="r10834565msg" class="textbox"  >IS Sream down?<div class="timestamp">2015-08-19 22:43:47</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834573" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/bg.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=559987">jack1e1337</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834573">#35</a></div></div><div id="r10834573msg" class="textbox"  >lol<div class="timestamp">2015-08-19 22:44:23</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834579" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=480328">Sanoii</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10834579">#36</a></div></div><div id="r10834579msg" class="textbox"  >gg NEEX 1v3<div class="timestamp">2015-08-19 22:44:50</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834594" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834594">#37</a></div></div><div id="r10834594msg" class="textbox"  >neex fucking cheater<div class="timestamp">2015-08-19 22:45:59</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834606" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/bg.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=559987">jack1e1337</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834606">#38</a></div></div><div id="r10834606msg" class="textbox"  >both teams sucks<div class="timestamp">2015-08-19 22:46:56</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10834675" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834675">#39</a></div></div><div id="r10834675msg" class="textbox"  >+1 why i go all in on this match <div class="timestamp">2015-08-19 22:51:05</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834686" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/il.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515037">Birdzman</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834686">#40</a></div></div><div id="r10834686msg" class="textbox"  >haha. u are embracing the swedes. wtf,<div class="timestamp">2015-08-19 22:51:34</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834717" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834717">#42</a></div></div><div id="r10834717msg" class="textbox"  >3 7 to 8 7 n1 choke more pls <div class="timestamp">2015-08-19 22:53:10</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834733" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/lv.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=498997">brillianthands2</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834733">#43</a></div></div><div id="r10834733msg" class="textbox"  >i bet that reposic is cheating<div class="timestamp">2015-08-19 22:54:31</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834740" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/eu.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=458187">snk79</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834740">#44</a></div></div><div id="r10834740msg" class="textbox"  >ez skins again swedistan &lt;3<div class="timestamp">2015-08-19 22:55:07</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10834843" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/it.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=543107">Nafas41</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834843">#47</a></div></div><div id="r10834843msg" class="textbox"  >not yet :(<div class="timestamp">2015-08-19 23:03:24</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834763" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=499218">vyrtusOG</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834763">#45</a></div></div><div id="r10834763msg" class="textbox"  >16-8 inc<div class="timestamp">2015-08-19 22:56:32</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834837" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834837">#46</a></div></div><div id="r10834837msg" class="textbox"  >tecek fucking cheater and im %100 sure<div class="timestamp">2015-08-19 23:03:11</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834886" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=623367">RadlyaN</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834886">#48</a></div></div><div id="r10834886msg" class="textbox"  >Could be rip, fkin shit<div class="timestamp">2015-08-19 23:05:46</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834944" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=499218">vyrtusOG</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834944">#49</a></div></div><div id="r10834944msg" class="textbox"  >I get so fucking salty during these games. They get 2 entry frags, and still SOMEHOW crumble?<div class="timestamp">2015-08-19 23:08:09</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835006" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=623040">Scrouge</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835006">#51</a></div></div><div id="r10835006msg" class="textbox"  >True, they got entry or 2 entry frags and then turn silver mode on.<div class="timestamp">2015-08-19 23:10:55</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835154" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=499218">vyrtusOG</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835154">#74</a></div></div><div id="r10835154msg" class="textbox"  >They have literally gotten the entry EVERY round. How the FUCK can you crumble 4v5,4v2? Makes me cringe. My fucking own fault betting on some tier 4 shitty mix team.<div class="timestamp">2015-08-19 23:18:14</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835434" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=623040">Scrouge</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835434">#97</a></div></div><div id="r10835434msg" class="textbox"  >Annoying as fuck, when you see entry in every round and then 3 kills from other team :&lt;. These games are always 50/50 cuz they are so bad, so betting on better odds seems reasonable anyway.<span style="color: gray;"><br /><br />Post edited 2015-08-19 23:35:27</span><div class="timestamp">2015-08-19 23:34:59</div></div></div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10834988" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10834988">#50</a></div></div><div id="r10834988msg" class="textbox"  >lol teamless losing more 5v3 1v3 fucking noob so important round and u lost 3v5<div class="timestamp">2015-08-19 23:10:12</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835018" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/il.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515037">Birdzman</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835018">#52</a></div></div><div id="r10835018msg" class="textbox"  >16-14 bois!<div class="timestamp">2015-08-19 23:11:44</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835025" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515727">ally</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=7415&amp;ref=forum"><3 HUNDEN</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835025">#53</a></div></div><div id="r10835025msg" class="textbox"  >Round over - Winner: T (13-15)<br />
+NaToSaphiX killed tecek* EIZO with awp (headshot)<br />
+tecek* EIZO killed robiin :] with awp<br />
+sycrone planted the bomb<br />
+bendji killed matty *SENNHEISER with awp<br />
+bendji killed reposiC with awp<br />
+bendji killed mynio:( * QPAD with awp<br />
+NaToSaphiX killed NEEX with awp<br />
+Round started<br />
+<br />
+awp_cobblestone<div class="timestamp">2015-08-19 23:11:56</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835040" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/us.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=438533">ORANG_GANTENG</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835040">#54</a></div></div><div id="r10835040msg" class="textbox"  >teamless should have won this if they didn't lose that 1v3.<div class="timestamp">2015-08-19 23:12:35</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835042" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/ru.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=330410">S1naRk</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835042">#55</a></div></div><div id="r10835042msg" class="textbox"  >15-15<div class="timestamp">2015-08-19 23:12:38</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835043" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/li.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=540074">Mkoelsch</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=2023&amp;ref=forum"><3 FalleN</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835043">#56</a></div></div><div id="r10835043msg" class="textbox"  >dat chokes <div class="timestamp">2015-08-19 23:12:39</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835046" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/it.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=543107">Nafas41</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835046">#57</a></div></div><div id="r10835046msg" class="textbox"  >ot?<div class="timestamp">2015-08-19 23:12:48</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835048" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/il.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515037">Birdzman</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835048">#58</a></div></div><div id="r10835048msg" class="textbox"  >both team are suck. 15-15. learn to not bet on shitty teams lel<div class="timestamp">2015-08-19 23:12:51</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835064" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586654">hougougagne</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835064">#59</a></div></div><div id="r10835064msg" class="textbox"  >Epic throw from esc pushing like retards in ct<div class="timestamp">2015-08-19 23:13:34</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835069" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835069">#60</a></div></div><div id="r10835069msg" class="textbox"  >lol esc won both pistol esc won 1v3 2x 5v3 and still 15 15 ahahahahah just kidding XD<div class="timestamp">2015-08-19 23:13:51</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835072" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/il.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515037">Birdzman</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835072">#61</a></div></div><div id="r10835072msg" class="textbox"  >inb4 esc win 21-15 :)<div class="timestamp">2015-08-19 23:13:58</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835090" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/il.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515037">Birdzman</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835090">#62</a></div></div><div id="r10835090msg" class="textbox"  >oh fuck teamless love to fuck up 5vs3's and 4vs2' HAHAHA<div class="timestamp">2015-08-19 23:14:40</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835098" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/us.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=438533">ORANG_GANTENG</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835098">#63</a></div></div><div id="r10835098msg" class="textbox"  >wtf 3x 3v5 lose<div class="timestamp">2015-08-19 23:15:04</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835100" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835100">#64</a></div></div><div id="r10835100msg" class="textbox"  >again 2v4 from esc XD i cant believe<div class="timestamp">2015-08-19 23:15:07</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835115" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/cis.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=540242">NormaJ</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10835115">#65</a></div></div><div id="r10835115msg" class="textbox"  >Stupid team, bendji can't win alone<div class="timestamp">2015-08-19 23:16:14</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835127" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=492147">TheDarkusPL</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835127">#66</a></div></div><div id="r10835127msg" class="textbox"  >LOL esc won 4 2vs4, xD <div class="timestamp">2015-08-19 23:16:57</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835130" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/ru.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=330410">S1naRk</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835130">#67</a></div></div><div id="r10835130msg" class="textbox"  >Round over - Winner: CT (15-17)<br />
+matty *SENNHEISER killed NaToSaphiX with m4a1<br />
+NaToSaphiX killed reposiC with ak47 (headshot)<br />
+matty *SENNHEISER killed sycrone with m4a1<br />
+reposiC killed Red Dress with m4a1_silencer<br />
+reposiC killed robiin :] with m4a1_silencer<br />
+robiin :] killed tecek* EIZO with ak47 (headshot)<br />
+NaToSaphiX killed mynio:( * QPAD with ak47<br />
+sycrone killed NEEX with ak47<br />
+NEEX killed bendji with awp<br />
+Round started<br />
+<br />
+Round over - Winner: CT (15-16)<br />
+reposiC killed NaToSaphiX with m4a1_silencer<br />
+reposiC killed Red Dress with m4a1_silencer (headshot)<br />
+matty *SENNHEISER killed sycrone with m4a1<br />
+reposiC killed bendji with m4a1_silencer<br />
+bendji killed tecek* EIZO with awp<br />
+matty *SENNHEISER killed robiin :] with m4a1<br />
+Red Dress killed mynio:( * QPAD with ak47 (headshot)<br />
+bendji killed NEEX with awp<br />
+<br />
+how its possible ?!!<div class="timestamp">2015-08-19 23:17:05</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835132" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/il.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=515037">Birdzman</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835132">#68</a></div></div><div id="r10835132msg" class="textbox"  >Idiots team. every 4vs2 and 5vs3 Tehy loss just dont give them advanatage and they will win<div class="timestamp">2015-08-19 23:17:08</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835133" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/us.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=517028">avatarmain</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10835133">#69</a></div></div><div id="r10835133msg" class="textbox"  >2v4 again....this team is more useless than an ant<div class="timestamp">2015-08-19 23:17:11</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835134" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/pl.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=487618">Taniq =DD</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=5480&amp;ref=forum">fan of jOELZ</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835134">#70</a></div></div><div id="r10835134msg" class="textbox"  >damn those 2v4 ;DD<div class="timestamp">2015-08-19 23:17:19</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835137" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/eu.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=624859">Matisek2231</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835137">#71</a></div></div><div id="r10835137msg" class="textbox"  >Teamless is so retard.. 2x 2vs4 and ESC win<div class="timestamp">2015-08-19 23:17:33</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835145" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/it.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=543107">Nafas41</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835145">#72</a></div></div><div id="r10835145msg" class="textbox"  >well, gg rip 1$<div class="timestamp">2015-08-19 23:18:00</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835153" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=602702">AngelShinta</a> - <a style="color:#6D8BAD;" href="/?pageid=251&amp;teamid=5752&amp;ref=forum"><3 Cloud9</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10835153">#73</a></div></div><div id="r10835153msg" class="textbox"  >19-15 confirmed <div class="timestamp">2015-08-19 23:18:14</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835158" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/de.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=596057">Ni7o7</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835158">#75</a></div></div><div id="r10835158msg" class="textbox"  >burn dingit with fire.. FAST<div class="timestamp">2015-08-19 23:18:33</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835177" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835177">#76</a></div></div><div id="r10835177msg" class="textbox"  >2x 2v4 in overtime really i cant believe this<div class="timestamp">2015-08-19 23:19:21</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835178" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/sk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=482621">bukso</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835178">#77</a></div></div><div id="r10835178msg" class="textbox"  >how can they lose so many rounds when they have advantage :DDD<div class="timestamp">2015-08-19 23:19:25</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835191" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=477120">Silance</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835191">#78</a></div></div><div id="r10835191msg" class="textbox"  >saphix 6 kills through smoke seems legit<br />
+<div class="timestamp">2015-08-19 23:19:55</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835193" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/cis.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=385037">suazo</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835193">#79</a></div></div><div id="r10835193msg" class="textbox"  >Lost so many 4v2's and so many 5v3,s gj teamless, u will never have a team specially robiin the ***<div class="timestamp">2015-08-19 23:19:56</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835197" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835197">#80</a></div></div><div id="r10835197msg" class="textbox"  >4x 3v5 &amp; 1v3 &amp; 3x 2v4 really?<div class="timestamp">2015-08-19 23:20:16</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835202" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/sk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=546773">Asccorr</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835202">#81</a></div></div><div id="r10835202msg" class="textbox"  >gg rip vulcan, they lost 2v4 3 times 5v3 2 times,, whatever .(:(:(:(:(:(:(:(:(<div class="timestamp">2015-08-19 23:21:08</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835214" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835214">#84</a></div></div><div id="r10835214msg" class="textbox"  >5v3 2 times? lol 4times 5v3 1times 1v3 :'( Rip skins<div class="timestamp">2015-08-19 23:21:42</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835210" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/es.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=366003">Deryko</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10835210">#82</a></div></div><div id="r10835210msg" class="textbox"  >2 times 4v2 lost. 2 times 5v3 lost.<br />
+Teamchokerinogg.<div class="timestamp">2015-08-19 23:21:30</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835211" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/ua.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=114026">Mr. BigDick</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=949&amp;ref=forum"><3 ScariuM</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835211">#83</a></div></div><div id="r10835211msg" class="textbox"  >tecek nice, solid point in the end!<div class="timestamp">2015-08-19 23:21:30</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835218" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/no.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=509795">Paqa</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835218">#85</a></div></div><div id="r10835218msg" class="textbox"  >BERG FUKING FAT SHIT<div class="timestamp">2015-08-19 23:22:02</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835220" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/sk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=535014">Fubko</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=2757&amp;ref=forum">fan of GuardiaN</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835220">#86</a></div></div><div id="r10835220msg" class="textbox"  >BENDJI VAC<div class="timestamp">2015-08-19 23:22:04</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835248" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586652">jdmC</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835248">#87</a></div></div><div id="r10835248msg" class="textbox"  >srsly lol....<br />
+<br />
+lose both pistols... lost 3 times 4v2 and 5v3...<br />
+<br />
+fuckyou lol<div class="timestamp">2015-08-19 23:23:08</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835276" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/tr.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586251">bluejuse</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=695&amp;ref=forum"><3 allu</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835276">#91</a></div></div><div id="r10835276msg" class="textbox"  >1 time 1v3<div class="timestamp">2015-08-19 23:24:39</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835254" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/no.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=509795">Paqa</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835254">#88</a></div></div><div id="r10835254msg" class="textbox"  >BERG T10000000000000000000000000000 PLAYER <div class="timestamp">2015-08-19 23:23:17</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835257" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=602702">AngelShinta</a> - <a style="color:#6D8BAD;" href="/?pageid=251&amp;teamid=5752&amp;ref=forum"><3 Cloud9</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10835257">#89</a></div></div><div id="r10835257msg" class="textbox"  >nerver seen such a useless OT lol <div class="timestamp">2015-08-19 23:23:32</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835265" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/by.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=554377">JW underrated player</a> - <a style="color:#6D8BAD;" href="/?pageid=250&amp;playerid=3849&amp;ref=forum"><3 JW</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835265">#90</a></div></div><div id="r10835265msg" class="textbox"  >bendji and dumas deserves better<div class="timestamp">2015-08-19 23:24:02</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835278" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=638367">poppil0l</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835278">#92</a></div></div><div id="r10835278msg" class="textbox"  >rip skins<br />
+<br />
+and on a side note: why does dingit even exist? that's the worst stream I've ever streamed<div class="timestamp">2015-08-19 23:24:46</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835283" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/dk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=588275">dangerousjo3</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835283">#93</a></div></div><div id="r10835283msg" class="textbox"  >Rip 260$...<div class="timestamp">2015-08-19 23:24:58</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835380" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/sk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=546773">Asccorr</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835380">#96</a></div></div><div id="r10835380msg" class="textbox"  >Could you show the screen please? so i wont be so salty :D i lost my vulcan and im salty as fuck :D post the screen pleas :D<div class="timestamp">2015-08-19 23:31:01</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835328" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/lv.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=508254">TeMMkA</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835328">#94</a></div></div><div id="r10835328msg" class="textbox"  >Ahaha ESC so bad... &quot;Only b&quot; tactic still works. Wery lucky that won all 2 pistol rounds. Otherwise they would be fucked up by teamless.<div class="timestamp">2015-08-19 23:27:11</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835341" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/se.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=480328">Sanoii</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10835341">#95</a></div></div><div id="r10835341msg" class="textbox"  >these 2v4's..<div class="timestamp">2015-08-19 23:28:16</div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10835651" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/sk.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=546773">Asccorr</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835651">#98</a></div></div><div id="r10835651msg" class="textbox"  >when i remember that they lost 4times 2v4 3times 5v3 and a 1v3        it makes me wanna cry <div class="timestamp">2015-08-19 23:49:17</div></div><div class="zzLastReplyCon"><div class="header"><div id="r10835939" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/world.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=586652">jdmC</a><img src="http://static.hltv.org//images/offline.gif" alt="" title="Offline" /></div><a href="/?pageid=18&amp;threadid=867593#r10835939">#99</a></div></div><div id="r10835939msg" class="textbox"  >+1 lol<div class="timestamp">2015-08-20 00:11:32</div></div></div></div><div style="margin: 0 0 5px 0;"><div class="header"><div id="r10837897" class="header2"><div style="float: right;"> <span class="nb">by:</span><img src="http://static.hltv.org//images/flag/br.gif" alt="" /> <a style="color: #6D8BAD;" href="/?pageid=14&amp;userid=523087">cristiadu</a><img src="http://static.hltv.org//images/online.gif" alt="" title="Online" /></div><a href="/?pageid=18&amp;threadid=867593#r10837897">#100</a></div></div><div id="r10837897msg" class="textbox"  >Bendji and niko are the players for every team in the world, right? I see them in almost every fucking lineup.<div class="timestamp">2015-08-20 03:21:14</div></div></div></div>	<hr style="margin: 20px 0;"/>
+	<div style="text-align:center">Login or <a href="/?pageid=16">register</a> to add your comment to the discussion.</div> 
+	</div>
+</div>
+<div style="clear:both;">&nbsp;</div>
+
+</div>
+<div style="margin-bottom:5px;" />
+</div>
+
+<script type="text/javascript">
+	<!--
+	if (top.location!= self.location) {
+		top.location = self.location.href
+	}
+
+	//-->
+</script>
+
+</body>
+</html>
+
+
+
+
+<!-- Page stats -->
+<!-- Main loaded in 0.006 sec -->
+<!-- sqlConnection loaded in 0.000 sec -->
+<!-- pageinclude loaded in 0.001 sec -->
+<!-- hotMatches loaded in 0.000 sec -->
+<!-- latestActivity loaded in 0.000 sec -->
+<!-- latestBlogs loaded in 0.000 sec -->
+<!-- latestVods loaded in 0.000 sec -->
+<!-- latestDemos loaded in 0.000 sec -->
+<!-- latestpovs loaded in 0.000 sec -->
+<!-- includePage113 loaded in 0.000 sec -->
+<!-- finalFlush loaded in 0.000 sec --><!-- 1440035609 -->
