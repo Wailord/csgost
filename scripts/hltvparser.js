@@ -217,7 +217,9 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 
 		}
 
-		checkMapLinks(insertMatchInDatabase, match, $, x);
+		(function(insertMatchInDatabase, match, $, x) {
+			checkMapLinks(insertMatchInDatabase, match, $, x);
+		})(insertMatchInDatabase, match, $, x);
 	});
 }
 
@@ -246,7 +248,7 @@ var getPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase
 			var matches = $('div .covSmallHeadline');
 			var team1players = [];
 			var team2players = [];
-			console.log(statID);
+			console.log('parsing statID');
 			lupus(0, (matches.length - 34) / 8, function(x) {
 				var player = {};
 				var playerelement = $(matches[x * 8 + 34]);
@@ -287,19 +289,26 @@ var getPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase
 				player.headshots = playerHeadshots;
 				player.assists = playerAssists;
 				player.deaths = playerDeaths;
-			
+				
 				if(playerTeam == team1name)
+				{
 					team1players.push(player);
+				}
 				else if(playerTeam == team2name)
+				{
 					team2players.push(player);
+				}
+			}, function()
+			{
+				match.team2.players = {};
+				match.team1.players = {};
+				match.team1.players = team1players;
+				match.team2.players = team2players;
+
+				console.log(match.team1.players);
+
+				insertMatchInDatabase(match);
 			})
-
-			match.team1.players = {};
-			match.team1.players = team1players;
-			match.team2.players = {};
-			match.team2.players = team2players;
-
-			insertMatchInDatabase(match);
 		}
 		else
 		{
@@ -310,5 +319,8 @@ var getPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase
 
 var insertMatchInDatabase = function (match)
 {
-	console.log(JSON.stringify(match, null, 2));
+	if(match.team1.players.length > 0)
+		console.log(JSON.stringify(match, null, 2));
+	else
+		console.log('got one');
 }
