@@ -12,6 +12,7 @@ hltvparser.runScraper = function()
 {
 	lupus(0, 101, function(x) {
 		scrapeHLTVPage(x);
+		sleep.sleep(5);
 	});
 };
 
@@ -20,9 +21,9 @@ var scrapeHLTVPage = function(pageNum) {
 
 	var parsedMatches = [];
 	request(url, function(err, response, html) {
-	console.log('page ' + pageNum);
+		console.log('page ' + pageNum);
 		if(!err) {
-			//console.log('scraping page #' + pageNum);
+			console.log('scraping page #' + pageNum);
 			var $ = cheerio.load(html);
 			var matches = $('a[title="Match page"]');
 			lupus(0, matches.length, function(x) {
@@ -42,31 +43,36 @@ var scrapeHLTVPage = function(pageNum) {
 }
 
 var getMatchInfo = function(hltvMatchURL) {
-
 	if(hltvMatchURL == 'http://www.hltv.org/match/') return;
-	request(hltvMatchURL, function(err, response, html) {
-		if(!err) {
-			console.log('match ' + hltvMatchURL);
-			var $ = cheerio.load(html);
+	Match.find({url : hltvMatchURL}, function (err, docs) {
+        if (!docs.length){
+            request(hltvMatchURL, function(err, response, html) {
+				if(!err) {
+					var $ = cheerio.load(html);
 
-			// set up basic info; format, url
-			var match = {};
-			match.team1 = {};
-			match.team2 = {};
-			match.url = hltvMatchURL;
-			var formatInfo = $("div .hotmatchbox");
-			var formatString = $(formatInfo[0]).children().text().trim();
-			var loc = formatString.indexOf('Best of ');
-			formatString = formatString.substring(loc + 8, loc + 9);
-			match.format = formatString;
+					// set up basic info; format, url
+					var match = {};
+					match.team1 = {};
+					match.team2 = {};
+					match.url = hltvMatchURL;
+					var formatInfo = $("div .hotmatchbox");
+					var formatString = $(formatInfo[0]).children().text().trim();
+					var loc = formatString.indexOf('Best of ');
+					formatString = formatString.substring(loc + 8, loc + 9);
+					match.format = formatString;
 
-			getDateInfo(hltvMatchURL, getTeamInfo, $, match);
+					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
+				}
+				else {		
+					console.log("Error accessing match page: " + hltvMatchURL + ". Requeuing.");
+					getMatchInfo(hltvMatchURL);
+				}
+			})
 		}
-		else {		
-			console.log("Error accessing match page: " + hltvMatchURL + ". Requeuing.");
-			getMatchInfo(hltvMatchURL);
-		}
-	})
+	    else {                
+		    console.log('match exists');
+    	}
+    })
 };
 
 var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
@@ -93,8 +99,6 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	var matchDate = new Date(dateString);
 	match.date = matchDate;
 	match.id = matchid;
-
-	getTeamInfo(getEventInfo, $, match);
 }
 
 var getTeamInfo = function (getEventInfo, $, match)
@@ -240,8 +244,8 @@ var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 	// ============================== GET INFORMATION FOR EACH PLAYER ============================== //
 	// if there isn't a match stats page, there's no player stat data to harvest
 	var maplinks = $('span[id*="map_link"]');
-	if(maplinks.length != 0) {
-		var id = $(maplinks[x]).attr('id');
+	var id = $(maplinks[x]).attr('id');
+	if(typeof id != "undefined") {
 		id = id.substring(id.lastIndexOf('_') + 1);
 		getFullPlayerInfo(id, match.team1.name, match.team2.name, insertMatchInDatabase, match);
 	}
@@ -376,5 +380,5 @@ var insertMatchInDatabase = function (match)
 	// insert summary
 	MatchSummary.collection.insert(match_summary);
 
-	console.log(new Date() + ' inserted');
+	console.log(match.id + ' inserted');
 }
