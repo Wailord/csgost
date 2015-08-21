@@ -19,6 +19,7 @@ var matchSchema = mongoose.Schema({
 	id: String,
 	map: String,
 	url: String,
+	format: Number,
 	date: Number,
 	team1: [teamSchema],
 	team2: [teamSchema],

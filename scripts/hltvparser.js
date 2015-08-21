@@ -44,9 +44,18 @@ var getMatchInfo = function(hltvMatchURL) {
 	request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
 			var $ = cheerio.load(html);
+
+			// set up basic info; format, url
 			var match = {};
 			match.team1 = {};
 			match.team2 = {};
+			match.url = hltvMatchURL;
+			var formatInfo = $("div .hotmatchbox");
+			var formatString = $(formatInfo[0]).children().text().trim();
+			var loc = formatString.indexOf('Best of ');
+			formatString = formatString.substring(loc + 8, loc + 9);
+			match.format = formatString;
+
 			getDateInfo(hltvMatchURL, getTeamInfo, $, match);
 		}
 		else {		
@@ -121,7 +130,6 @@ var getEventInfo = function (getAllMapInfo, $, match, team1, team2)
 	matchEvent.url = eventurl;
 	matchEvent.name = eventname;
 	matchEvent.id = eventid;
-	
 	match.event = matchEvent;
 
 	getAllMapInfo(checkMapLinks, match, $, team1, team2);
@@ -248,7 +256,6 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 			var matches = $('div .covSmallHeadline');
 			var team1players = [];
 			var team2players = [];
-			console.log('parsing statID');
 			lupus(0, (matches.length - 34) / 8, function(x) {
 				var player = {};
 				var playerelement = $(matches[x * 8 + 34]);
@@ -340,5 +347,30 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 
 var insertMatchInDatabase = function (match)
 {
-	console.log(match);
+	// create match summary
+	var match_summary = {};
+	var team1 = {};
+	var team2 = {};
+	match_summary.date = match.date;
+	match_summary.event = match.event;
+	match_summary.id = match.id;
+	match_summary.url = match.url;
+	match_summary.team1 = {};
+	match_summary.team2 = {};
+	match_summary.team1.name = match.team1.name;
+	match_summary.team1.url = match.team1.url;
+	match_summary.team1.id = match.team1.id;
+	match_summary.team1.score = match.team1.score;
+	match_summary.team2.name = match.team2.name;
+	match_summary.team2.url = match.team2.url;
+	match_summary.team2.id = match.team2.id;
+	match_summary.team2.score = match.team2.score;
+
+	// insert full match
+	Match.collection.insert(match);
+
+	// insert summary
+	MatchSummary.collection.insert(match_summary);
+
+	console.log(new Date() + ' inserted');
 }
