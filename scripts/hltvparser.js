@@ -231,16 +231,16 @@ var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 	if(maplinks.length != 0) {
 		var id = $(maplinks[x]).attr('id');
 		id = id.substring(id.lastIndexOf('_') + 1);
-		getPlayerInfo(id, match.team1.name, match.team2.name, insertMatchInDatabase, match);
+		getFullPlayerInfo(id, match.team1.name, match.team2.name, insertMatchInDatabase, match);
 	}
 	else {
 		match.team1.players = [];
 		match.team2.players = [];
-		insertMatchInDatabase(match);
+		getPlayerInfo(id, match, insertMatchInDatabase, $);
 	}
 }
 
-var getPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase, match) {
+var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase, match) {
 	var hltvMatchURL = 'http://www.hltv.org/?pageid=188&matchid=' + statID;
 	request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
@@ -300,12 +300,10 @@ var getPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase
 				}
 			}, function()
 			{
-				match.team2.players = {};
-				match.team1.players = {};
+				match.team2.players = [];
+				match.team1.players = [];
 				match.team1.players = team1players;
 				match.team2.players = team2players;
-
-				console.log(match.team1.players);
 
 				insertMatchInDatabase(match);
 			})
@@ -317,10 +315,30 @@ var getPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase
 	})
 }
 
+var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
+	var players = $('div[style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"]');
+	var team1players = [];
+	var team2players = [];
+
+	lupus(0, 10, function (x) {
+		var player = {};
+		player.url = 'http://www.hltv.org' + $(players[x]).children().next().attr('href');
+		player.name = $(players[x]).children().next().children().html();
+		player.id = player.url.substring(player.url.indexOf('playerid=') + 9, player.url.lastIndexOf('&'));
+
+		if(x < 5)
+			team1players.push(player);
+		else
+			team2players.push(player);
+	}, function() {
+		match.team1.players = team1players;
+		match.team2.players = team2players;
+
+		insertMatchInDatabase(match);
+	});
+}
+
 var insertMatchInDatabase = function (match)
 {
-	if(match.team1.players.length > 0)
-		console.log(JSON.stringify(match, null, 2));
-	else
-		console.log('got one');
+	console.log(match);
 }
