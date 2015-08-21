@@ -1,6 +1,5 @@
 var request = require('request');
 	cheerio = require('cheerio');
-	sleep = require('sleep');
 	Match = require('../app/models/match');
 	MatchSummary = require('../app/models/match_summary');
 	async = require('async');
@@ -10,47 +9,58 @@ var hltvparser = module.exports = {};
 
 hltvparser.runScraper = function()
 {
-	lupus(0, 101, function(x) {
-		scrapeHLTVPage(x);
-		sleep.sleep(5);
+	var page_queue = async.queue(function (pg, callback) {
+		scrapeHLTVPage(pg);
+		callback();
+	}, 1);
+	
+	lupus(0, 2, function(x) {
+		page_queue.push(x);
 	});
 };
 
 var scrapeHLTVPage = function(pageNum) {
 	var url = 'http://www.hltv.org/results/' + (pageNum * 50) + '/';
 
-	var parsedMatches = [];
-	request(url, function(err, response, html) {
-		console.log('page ' + pageNum);
+	var req = request(url, function(err, response, html) {
 		if(!err) {
-			console.log('scraping page #' + pageNum);
+			//console.log('scraping page #' + pageNum);
 			var $ = cheerio.load(html);
 			var matches = $('a[title="Match page"]');
+			var match_queue = async.queue(function (u, callback) {
+				getMatchInfo(u);
+				callback();
+			}, 1);
+
 			lupus(0, matches.length, function(x) {
-				var url = 'http://www.hltv.org' + $(matches[x]).attr('href');
-				getMatchInfo(url);
+				var matchurl = 'http://www.hltv.org' + $(matches[x]).attr('href');
+				match_queue.push(matchurl);
+				//console.log('pushed ' + matchurl);
 			});
 		}
 		else
 		{
 			console.log("Error accessing match list page: " + pageNum + ". Requeuing.");
-			sleep.sleep(4);
 			scrapeHLTVPage(pageNum);
 		}
 	})
-
-	return parsedMatches;
+	req.end();
 }
 
 var getMatchInfo = function(hltvMatchURL) {
 	if(hltvMatchURL == 'http://www.hltv.org/match/') return;
-	Match.find({url : hltvMatchURL}, function (err, docs) {
-        if (!docs.length){
-            request(hltvMatchURL, function(err, response, html) {
+	var matchid = hltvMatchURL.substring(hltvMatchURL.lastIndexOf('/') + 1, hltvMatchURL.indexOf('-'));
+	Match.find({id : matchid}, function (err, docs) {
+		if(err)
+			console.log('Mongo error: ' + err);
+        else if (!docs.length) {
+        	//console.log('found new match ' + matchid);
+            var req = request(hltvMatchURL, function(err, response, html) {
 				if(!err) {
+					//console.log('loaded match ' + matchid);
 					var $ = cheerio.load(html);
 
-					// set up basic info; format, url
+					// set up basic info; format, url, id
 					var match = {};
 					match.team1 = {};
 					match.team2 = {};
@@ -60,24 +70,28 @@ var getMatchInfo = function(hltvMatchURL) {
 					var loc = formatString.indexOf('Best of ');
 					formatString = formatString.substring(loc + 8, loc + 9);
 					match.format = formatString;
+					match.id = matchid;
 
 					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
 				}
 				else {		
-					console.log("Error accessing match page: " + hltvMatchURL + ". Requeuing.");
-					getMatchInfo(hltvMatchURL);
+					console.log("Error accessing match page: " + hltvMatchURL + ". Trying legacy page.");
+					var legacyPage = 'http://www.hltv.org/legacy' + hltvMatchURL.substring(hltvMatchURL.indexOf('/match'));
+					//getLegacyMatchInfo(hltvMatchURL);
+					console.log(legacyPage);
 				}
-			})
+			});
+			req.end();
 		}
 	    else {                
-		    console.log('match exists');
+		    //console.log('match ' + matchid + ' exists');
     	}
     })
 };
 
 var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 {
-	var matchid = hltvMatchURL.substring(hltvMatchURL.lastIndexOf('/') + 1, hltvMatchURL.indexOf('-'));
+	//console.log('getting date info for ' + match.id);
 	var headerInfo = $('div[style="text-align:center;font-size: 18px;"]');
 
 	var dateInfo = $(headerInfo[0]);
@@ -98,11 +112,13 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	
 	var matchDate = new Date(dateString);
 	match.date = matchDate;
-	match.id = matchid;
+
+	getTeamInfo(getEventInfo, $, match);
 }
 
 var getTeamInfo = function (getEventInfo, $, match)
 {
+	//console.log('getting team info for ' + match.id);
 	var team1 = {};
 	var team2 = {};
 	team1.players = {};
@@ -145,6 +161,7 @@ var getEventInfo = function (getAllMapInfo, $, match, team1, team2)
 
 var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 {
+	//console.log('checking maps in match for ' + match.id);
 	var mapsInMatch = $('div[style="border: 1px solid darkgray;border-radius: 5px;width:280px;height:28px;margin-bottom:3px;"]');
 	var numMaps = mapsInMatch.length;
 	lupus(0, mapsInMatch.length, function(x) {
@@ -230,17 +247,17 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 			match.team2 = team2;
 
 			match.map = mapname;
-
 		}
 
 		(function(insertMatchInDatabase, match, $, x) {
 			checkMapLinks(insertMatchInDatabase, match, $, x);
 		})(insertMatchInDatabase, match, $, x);
 	});
-}
+};
 
 var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 {
+	//console.log('checking map links for ' + match.id);
 	// ============================== GET INFORMATION FOR EACH PLAYER ============================== //
 	// if there isn't a match stats page, there's no player stat data to harvest
 	var maplinks = $('span[id*="map_link"]');
@@ -257,8 +274,9 @@ var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 }
 
 var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase, match) {
+	//console.log('getting full player stats for ' + match.id);
 	var hltvMatchURL = 'http://www.hltv.org/?pageid=188&matchid=' + statID;
-	request(hltvMatchURL, function(err, response, html) {
+	var req = request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
@@ -327,10 +345,12 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 		{
 			console.log('error loading page ' + hltvMatchURL);
 		}
-	})
+	});
+	req.end();
 }
 
 var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
+	//console.log('getting player info for ' + match.id);
 	var players = $('div[style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"]');
 	var team1players = [];
 	var team2players = [];
@@ -352,6 +372,49 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 		insertMatchInDatabase(match);
 	});
 }
+
+
+var getLegacyMatchInfo = function(hltvMatchURL) {
+	if(hltvMatchURL == 'http://www.hltv.org/match/') return;
+	var matchid = hltvMatchURL.substring(hltvMatchURL.lastIndexOf('/') + 1, hltvMatchURL.indexOf('-'));
+	Match.find({id : matchid}, function (err, docs) {
+		if(err)
+			console.log('Mongo error: ' + err);
+        else if (!docs.length) {
+        	//console.log('found new match ' + matchid);
+            var req = request(hltvMatchURL, function(err, response, html) {
+				if(!err) {
+					//console.log('loaded match ' + matchid);
+					var $ = cheerio.load(html);
+
+					// set up basic info; format, url, id
+					var match = {};
+					match.team1 = {};
+					match.team2 = {};
+					match.url = hltvMatchURL;
+					var formatInfo = $("div .hotmatchbox");
+					var formatString = $(formatInfo[0]).children().text().trim();
+					var loc = formatString.indexOf('Best of ');
+					formatString = formatString.substring(loc + 8, loc + 9);
+					match.format = formatString;
+					match.id = matchid;
+
+					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
+				}
+				else {		
+					console.log("Error accessing match page: " + hltvMatchURL + ". Trying legacy page.");
+					var legacyPage = 'http://www.hltv.org/legacy' + hltvMatchURL.substring(hltvMatchURL.indexOf('/match'));
+					//getLegacyMatchInfo(hltvMatchURL);
+					console.log(legacyPage);
+				}
+			});
+			req.end();
+		}
+	    else {                
+		    console.log('match ' + matchid + ' exists');
+    	}
+    })
+};
 
 var insertMatchInDatabase = function (match)
 {
