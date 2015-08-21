@@ -10,7 +10,9 @@ var hltvparser = module.exports = {};
 
 hltvparser.runScraper = function()
 {
-	scrapeHLTVPage(0);
+	lupus(0, 101, function(x) {
+		scrapeHLTVPage(x);
+	});
 };
 
 var scrapeHLTVPage = function(pageNum) {
@@ -18,6 +20,7 @@ var scrapeHLTVPage = function(pageNum) {
 
 	var parsedMatches = [];
 	request(url, function(err, response, html) {
+	console.log('page ' + pageNum);
 		if(!err) {
 			//console.log('scraping page #' + pageNum);
 			var $ = cheerio.load(html);
@@ -43,6 +46,7 @@ var getMatchInfo = function(hltvMatchURL) {
 	if(hltvMatchURL == 'http://www.hltv.org/match/') return;
 	request(hltvMatchURL, function(err, response, html) {
 		if(!err) {
+			console.log('match ' + hltvMatchURL);
 			var $ = cheerio.load(html);
 
 			// set up basic info; format, url
