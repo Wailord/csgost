@@ -19,7 +19,7 @@ var matchSummarySchema = mongoose.Schema({
 	id: Number,
 	map: String,
 	url: String,
-	format: Number,
+	//format: Number,
 	date: Date,
 	team1: [teamSchema],
 	team2: [teamSchema],

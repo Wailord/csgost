@@ -33,11 +33,11 @@ var teamSchema = mongoose.Schema({
 });
 
 var matchSchema = mongoose.Schema({
-	id: String,
+	id: Number,
 	map: String,
 	url: String,
 	date: Date,
-	format: Number,
+	//format: Number,
 	team1: [teamSchema],
 	team2: [teamSchema],
 	event: [eventSchema],

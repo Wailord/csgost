@@ -14,7 +14,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	lupus(0, 105, function(x) {
+	lupus(0, 2, function(x) {
 		page_queue.push(x);
 	});
 };
@@ -65,12 +65,30 @@ var getMatchInfo = function(hltvMatchURL) {
 					match.team1 = {};
 					match.team2 = {};
 					match.url = hltvMatchURL;
-					var formatInfo = $("div .hotmatchbox");
-					var formatString = $(formatInfo[0]).children().text().trim();
-					var loc = formatString.indexOf('Best of ');
-					formatString = formatString.substring(loc + 8, loc + 9);
-					match.format = formatString;
 					match.id = matchid;
+
+					/*var formatInfo = $("div .hotmatchbox");
+					var formatString = $(formatInfo[0]).children().text().trim();
+					
+					// we have to do this manually because, like lounge, hltv can be wildly inconsistent
+					if(formatString.indexOf('Best of 1') != -1)
+						match.format = 1;
+					else if(formatString.indexOf('Bo1') != -1)
+						match.format = 1;
+					else if(formatString.indexOf('Best of 2') != -1)
+						match.format = 2;
+					else if(formatString.indexOf('Bo2') != -1)
+						match.format = 2;
+					else if(formatString.indexOf('Best of 3') != -1)
+						match.format = 3;
+					else if(formatString.indexOf('Bo3') != -1)
+						match.format = 3;
+					else if(formatString.indexOf('Best of 5') != -1)
+						match.format = 5;
+					else if(formatString.indexOf('Bo5') != -1)
+						match.format = 5;
+					else
+						console.log('match ' + match.id + ' format: ' + formatString);*/
 
 					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
 				}
@@ -162,6 +180,8 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 	//console.log('checking maps in match for ' + match.id);
 	var mapsInMatch = $('div[style="border: 1px solid darkgray;border-radius: 5px;width:280px;height:28px;margin-bottom:3px;"]');
 	var numMaps = mapsInMatch.length;
+	
+	//match.format = mapsInMatch.length;
 	lupus(0, mapsInMatch.length, function(x) {
 		// score info
 		var thisMap = $(mapsInMatch[x]);
@@ -178,12 +198,6 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 			var t1score = $(scoreline[0]).text();
 			var t2score = $(scoreline[1]).text();
 
-			var t1startCT = $(scoreline[2]).attr('style') == 'color: blue';
-
-			// split up the scores by half for fun data analysis later
-			var t1halves = [];
-			var t2halves = [];
-
 			var t1h1 = {};
 			t1h1.score = $(scoreline[2]).text();
 			var t1h2 = {};
@@ -194,49 +208,65 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 			var t2h2 = {};
 			t2h2.score = $(scoreline[5]).text();
 
-			// once we know if team 1 started CT, we can say who played
-			// which side for the rest of the roudns
-			if(t1startCT)
-			{
-				t1h1.side = "ct";
-				t1h2.side = "t";
-				t2h1.side = "t";
-				t2h2.side = "ct";
+			// not all matches have the half information; make sure we can proceed with parsing
+			// that info before doing so
+			 if(typeof $(scoreline[2]).attr('style') != "undefined")
+			 {
+				var t1startCT = $(scoreline[2]).attr('style') == 'color: blue';
+
+				// split up the scores by half for fun data analysis later
+				var t1halves = [];
+				var t2halves = [];
+
+				// once we know if team 1 started CT, we can say who played
+				// which side for the rest of the roudns
+				if(t1startCT)
+				{
+					t1h1.side = "ct";
+					t1h2.side = "t";
+					t2h1.side = "t";
+					t2h2.side = "ct";
+				}
+				else
+				{
+					t1h1.side = "t";
+					t1h2.side = "ct";
+					t2h1.side = "ct";
+					t2h2.side = "t";						
+				}
+
+				// add the created halves to the array of halves
+				t1halves.push(t1h1);
+				t1halves.push(t1h2);
+				t2halves.push(t2h1);
+				t2halves.push(t2h2);
+
+				// if overtime info is available, grab it
+				var scorestring = thisMap.next().text();
+				if(scorestring.indexOf('(') != scorestring.lastIndexOf('('))
+				{
+					var t1ot = {};
+					var t2ot = {};
+					var t1otscore = scorestring.substring(scorestring.lastIndexOf('(') + 1, scorestring.lastIndexOf(':'));
+					var t2otscore = scorestring.substring(scorestring.lastIndexOf(':') + 1, scorestring.lastIndexOf(')'))
+					t1ot.score = t1otscore;
+					t2ot.score = t2otscore;
+					t1ot.side = "ot";
+					t2ot.side = "ot";
+
+					t1halves.push(t1ot);
+					t2halves.push(t2ot);
+				}
+
+				// assign the halves back to the team dictionaries
+				if(t1h1.score != '-' && t1h2.score != '-' && t2h1.score != '-' && t2h2.score != '-')
+				{
+					team1.halves = t1halves;
+					team2.halves = t2halves;
+				}
 			}
-			else
-			{
-				t1h1.side = "t";
-				t1h2.side = "ct";
-				t2h1.side = "ct";
-				t2h2.side = "t";						
-			}
 
-			// add the created halves to the array of halves
-			t1halves.push(t1h1);
-			t1halves.push(t1h2);
-			t2halves.push(t2h1);
-			t2halves.push(t2h2);
-
-			// if overtime info is available, grab it
-			var scorestring = thisMap.next().text();
-			if(scorestring.indexOf('(') != scorestring.lastIndexOf('('))
-			{
-				var t1ot = {};
-				var t2ot = {};
-				var t1otscore = scorestring.substring(scorestring.lastIndexOf('(') + 1, scorestring.lastIndexOf(':'));
-				var t2otscore = scorestring.substring(scorestring.lastIndexOf(':') + 1, scorestring.lastIndexOf(')'))
-				t1ot.score = t1otscore;
-				t2ot.score = t2otscore;
-				t1ot.side = "ot";
-				t2ot.side = "ot";
-
-				t1halves.push(t1ot);
-				t2halves.push(t2ot);
-			}
-
-			// assign the halves back to the team dictionaries
-			team1.halves = t1halves;
-			team2.halves = t2halves;
+			// even broken matches have scores, so we can assign these outside of a check
 			team1.score = t1score;
 			team2.score = t2score;
 
@@ -246,9 +276,10 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 
 			match.map = mapname;
 
-		(function(insertMatchInDatabase, match, $, x) {
-			checkMapLinks(insertMatchInDatabase, match, $, x);
-		})(insertMatchInDatabase, match, $, x);
+
+			(function( a, b, c, d) {
+				checkMapLinks(a, b, c, d);
+			})(insertMatchInDatabase, match, $, x);
 	}
 	});
 };
@@ -282,15 +313,22 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 			var team2players = [];
 			lupus(0, (matches.length - 34) / 8, function(x) {
 				var player = {};
+
 				var playerelement = $(matches[x * 8 + 34]);
 				var teamelement = $(matches[x* 8+1 + 34]);
 				var killelement = $(matches[x* 8+2 + 34]);
 				var assistelement = $(matches[x* 8+3 + 34]);
 				var deathelement = $(matches[x* 8+4 + 34]);
+				var playerTeam = teamelement.text();
 
+				// as far as i can tell, all matches with full player stats have valid players
+				// until i find out otherwise, i'm not doing checks here (as i don't know what can break)
 				var playerName = playerelement.text().substring(1);
 				var playerURL = 'http://www.hltv.org' + playerelement.children().next().attr('href');
-				var playerTeam = teamelement.text();
+				var playerID = playerURL.substring(playerURL.indexOf('&') + 10);
+				player.id = playerID;
+				player.name = playerName;
+				player.url = playerURL;
 
 				var playerKillHS = killelement.text();
 				var lastParen = playerKillHS.lastIndexOf('(');
@@ -312,13 +350,9 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 					playerDeaths = 0;
 
 				var playerID = playerURL.substring(playerURL.indexOf('&') + 10);
-
-				if(typeof playerID != undefined)
-				{
-					player.id = playerID;
-					player.name = playerName;
-					player.url = playerURL;
-				}
+				player.id = playerID;
+				player.name = playerName;
+				player.url = playerURL;
 
 				player.kills = playerKills;
 				player.headshots = playerHeadshots;
@@ -356,16 +390,23 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 	var players = $('div[style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"]');
 	var team1players = [];
 	var team2players = [];
-
-	lupus(0, 10, function (x) {
+	var x;
+	for(x = 0; x < 10; x++)
+	{
 		var player = {};
-		var playerurl = $(players[x]).children().next().attr('href');
-		playerurl = 'http://www.hltv.org' + playerurl;
-		var playername = $(players[x]).children().next().children().html();
-		var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9, playerurl.lastIndexOf('&'));
 
-		if(typeof playerid != undefined)
+		var playername = $(players[x]).children().next().children().html();
+		if(playername == null)
 		{
+			// player doesn't have a page on HLTV; special case
+			player.name = $(players[x]).text().trim();
+		}
+		else
+		{
+			// player has an HLTV page (meaning they have both a url and an id)
+			var playerurl = $(players[x]).children().next().attr('href');
+			playerurl = 'http://www.hltv.org' + playerurl;
+			var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9, playerurl.lastIndexOf('&'));
 			player.id = playerid;
 			player.name = playername;
 			player.url = playerurl;
@@ -375,12 +416,12 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 			team1players.push(player);
 		else
 			team2players.push(player);
-	}, function() {
-		match.team1.players = team1players;
-		match.team2.players = team2players;
+	} 
 
-		insertMatchInDatabase(match);
-	});
+	match.team1.players = team1players;
+	match.team2.players = team2players;
+
+	insertMatchInDatabase(match);
 }
 
 var insertMatchInDatabase = function (match)
@@ -408,17 +449,17 @@ var insertMatchInDatabase = function (match)
 	var newMatch = new Match(match);
 	var newMatchSummary = new MatchSummary(match_summary);
 
-	console.log('attempting to insert a new match');
 	newMatch.save(function (err, inserted) {
 		if(err)
 			console.log('Match ' + newMatch.id + ': ' + err);
-		console.log('inserted ' + newMatch.id);
+		else
+			console.log('inserted ' + newMatch.id);
 	});
 
-	console.log('attempting to insert a new match summary');
 	newMatchSummary.save(function (err, inserted) {
 		if(err)
 			console.log('Summary ' + newMatchSummary.id + ': ' + err);
-		console.log('inserted summary for ' + newMatchSummary.id);
+//		else
+//			console.log('inserted summary for ' + newMatchSummary.id);
 	});
 }
