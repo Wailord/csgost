@@ -24,7 +24,7 @@ var halvesSchema = mongoose.Schema({
 });
 
 var teamSchema = mongoose.Schema({
-	id: String,
+	id: Number,
 	name: String,
 	halves: [halvesSchema],
 	url: String,
@@ -36,7 +36,7 @@ var matchSchema = mongoose.Schema({
 	id: String,
 	map: String,
 	url: String,
-	date: Number,
+	date: Date,
 	format: Number,
 	team1: [teamSchema],
 	team2: [teamSchema],

@@ -3,7 +3,7 @@ app.controller('MainController', function($scope, MatchService)
 	{
 		$scope.days = 7;
 		$scope.map = 'any map';
-	    $scope.tagline = 'Choose your parameters below and get lightning-quick results from the HLTV database.';
+	    $scope.tagline = 'Choose your parameters below and get lightning-quick results from the HLTV database. Match data goes back to August of 2014.';
 	    $scope.resultCount = -2;
 
 	    // these are intentionally hardcoded so it's not cluttered with hundreds of teams that don't exist
@@ -69,7 +69,9 @@ app.controller('MainController', function($scope, MatchService)
 		{
 	        if(!isNaN($scope.days) && isFinite($scope.days))
 	        {
-				MatchService.getMatches($scope.days, $scope.team_a, $scope.team_b, $scope.map)
+	        	var today = new Date();
+	        	var minDate = today.setDate(today.getDate() - $scope.days);
+				MatchService.getMatches(minDate, $scope.team_a, $scope.team_b, $scope.map)
 					.then(function(response) {
 							$scope.matches =
 								response.data.sort(function(a, b) {

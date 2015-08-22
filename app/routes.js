@@ -64,11 +64,8 @@ module.exports = function(app)
 
 		if(days)
 		{
-			var milliseconds = days * 3600 * 1000 * 24;
-			var today = Date.now();
-			
-			days = today - milliseconds;
-			query = query.where('date').gt(days);
+			var minDate = new Date(days);
+			query = query.where('date').gte(minDate);
 		}
 
 		if(mapsParam)
@@ -89,7 +86,7 @@ module.exports = function(app)
 			query = query.and([{"team1.name": {$in: teams}}, {"team2.name": {$in: teams}}]);
 		}
 
-		query.exec(function (err, matches)
+		query.sort({ date : 'asc'}).exec(function (err, matches)
 		{
 			if(err)
 				res.status(400).send(err);

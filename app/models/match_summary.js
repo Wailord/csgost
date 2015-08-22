@@ -9,21 +9,21 @@ var eventSchema = mongoose.Schema({
 });
 
 var teamSchema = mongoose.Schema({
-	id: String,
+	id: Number,
 	name: String,
 	url: String,
 	score: Number,
 });
 
-var matchSchema = mongoose.Schema({
-	id: String,
+var matchSummarySchema = mongoose.Schema({
+	id: Number,
 	map: String,
 	url: String,
 	format: Number,
-	date: Number,
+	date: Date,
 	team1: [teamSchema],
 	team2: [teamSchema],
 	event: [eventSchema],
 });
 
-module.exports = mongoose.model('MatchSummary', matchSchema);
+module.exports = mongoose.model('MatchSummary', matchSummarySchema);

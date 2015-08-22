@@ -14,7 +14,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	lupus(0, 2, function(x) {
+	lupus(0, 105, function(x) {
 		page_queue.push(x);
 	});
 };
@@ -75,10 +75,8 @@ var getMatchInfo = function(hltvMatchURL) {
 					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
 				}
 				else {		
-					console.log("Error accessing match page: " + hltvMatchURL + ". Trying legacy page.");
-					var legacyPage = 'http://www.hltv.org/legacy' + hltvMatchURL.substring(hltvMatchURL.indexOf('/match'));
-					//getLegacyMatchInfo(hltvMatchURL);
-					console.log(legacyPage);
+					console.log("Error accessing match page: " + hltvMatchURL + ". Requeueing.");
+					getMatchInfo(hltvMatchURL);
 				}
 			});
 			req.end();
@@ -247,11 +245,11 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 			match.team2 = team2;
 
 			match.map = mapname;
-		}
 
 		(function(insertMatchInDatabase, match, $, x) {
 			checkMapLinks(insertMatchInDatabase, match, $, x);
 		})(insertMatchInDatabase, match, $, x);
+	}
 	});
 };
 
@@ -315,9 +313,13 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 
 				var playerID = playerURL.substring(playerURL.indexOf('&') + 10);
 
-				player.id = playerID;
-				player.name = playerName;
-				player.url = playerURL;
+				if(typeof playerID != undefined)
+				{
+					player.id = playerID;
+					player.name = playerName;
+					player.url = playerURL;
+				}
+
 				player.kills = playerKills;
 				player.headshots = playerHeadshots;
 				player.assists = playerAssists;
@@ -357,9 +359,17 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 
 	lupus(0, 10, function (x) {
 		var player = {};
-		player.url = 'http://www.hltv.org' + $(players[x]).children().next().attr('href');
-		player.name = $(players[x]).children().next().children().html();
-		player.id = player.url.substring(player.url.indexOf('playerid=') + 9, player.url.lastIndexOf('&'));
+		var playerurl = $(players[x]).children().next().attr('href');
+		playerurl = 'http://www.hltv.org' + playerurl;
+		var playername = $(players[x]).children().next().children().html();
+		var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9, playerurl.lastIndexOf('&'));
+
+		if(typeof playerid != undefined)
+		{
+			player.id = playerid;
+			player.name = playername;
+			player.url = playerurl;
+		}
 
 		if(x < 5)
 			team1players.push(player);
@@ -372,49 +382,6 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 		insertMatchInDatabase(match);
 	});
 }
-
-
-var getLegacyMatchInfo = function(hltvMatchURL) {
-	if(hltvMatchURL == 'http://www.hltv.org/match/') return;
-	var matchid = hltvMatchURL.substring(hltvMatchURL.lastIndexOf('/') + 1, hltvMatchURL.indexOf('-'));
-	Match.find({id : matchid}, function (err, docs) {
-		if(err)
-			console.log('Mongo error: ' + err);
-        else if (!docs.length) {
-        	//console.log('found new match ' + matchid);
-            var req = request(hltvMatchURL, function(err, response, html) {
-				if(!err) {
-					//console.log('loaded match ' + matchid);
-					var $ = cheerio.load(html);
-
-					// set up basic info; format, url, id
-					var match = {};
-					match.team1 = {};
-					match.team2 = {};
-					match.url = hltvMatchURL;
-					var formatInfo = $("div .hotmatchbox");
-					var formatString = $(formatInfo[0]).children().text().trim();
-					var loc = formatString.indexOf('Best of ');
-					formatString = formatString.substring(loc + 8, loc + 9);
-					match.format = formatString;
-					match.id = matchid;
-
-					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
-				}
-				else {		
-					console.log("Error accessing match page: " + hltvMatchURL + ". Trying legacy page.");
-					var legacyPage = 'http://www.hltv.org/legacy' + hltvMatchURL.substring(hltvMatchURL.indexOf('/match'));
-					//getLegacyMatchInfo(hltvMatchURL);
-					console.log(legacyPage);
-				}
-			});
-			req.end();
-		}
-	    else {                
-		    console.log('match ' + matchid + ' exists');
-    	}
-    })
-};
 
 var insertMatchInDatabase = function (match)
 {
@@ -438,10 +405,20 @@ var insertMatchInDatabase = function (match)
 	match_summary.team2.score = match.team2.score;
 
 	// insert full match
-	Match.collection.insert(match);
+	var newMatch = new Match(match);
+	var newMatchSummary = new MatchSummary(match_summary);
 
-	// insert summary
-	MatchSummary.collection.insert(match_summary);
+	console.log('attempting to insert a new match');
+	newMatch.save(function (err, inserted) {
+		if(err)
+			console.log('Match ' + newMatch.id + ': ' + err);
+		console.log('inserted ' + newMatch.id);
+	});
 
-	console.log(match.id + ' inserted');
+	console.log('attempting to insert a new match summary');
+	newMatchSummary.save(function (err, inserted) {
+		if(err)
+			console.log('Summary ' + newMatchSummary.id + ': ' + err);
+		console.log('inserted summary for ' + newMatchSummary.id);
+	});
 }
