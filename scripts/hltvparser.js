@@ -3,7 +3,6 @@ var request = require('request');
 	Match = require('../app/models/match');
 	MatchSummary = require('../app/models/match_summary');
 	async = require('async');
-	lupus = require('lupus');
 
 var hltvparser = module.exports = {};
 
@@ -14,9 +13,8 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	lupus(0, 2, function(x) {
+	for(x = 0; x < 101; x++)
 		page_queue.push(x);
-	});
 };
 
 var scrapeHLTVPage = function(pageNum) {
@@ -32,16 +30,19 @@ var scrapeHLTVPage = function(pageNum) {
 				callback();
 			}, 1);
 
-			lupus(0, matches.length, function(x) {
+			var x;
+			for(x = 0; x < matches.length; x++) {
 				var matchurl = 'http://www.hltv.org' + $(matches[x]).attr('href');
 				match_queue.push(matchurl);
 				//console.log('pushed ' + matchurl);
-			});
+			}
 		}
 		else
 		{
 			console.log("Error accessing match list page: " + pageNum + ". Requeuing.");
-			scrapeHLTVPage(pageNum);
+			(function (a) {
+				scrapeHLTVPage(pageNum);
+			})(pageNum);
 		}
 	})
 	req.end();
@@ -62,48 +63,24 @@ var getMatchInfo = function(hltvMatchURL) {
 
 					// set up basic info; format, url, id
 					var match = {};
-					match.team1 = {};
-					match.team2 = {};
 					match.url = hltvMatchURL;
 					match.id = matchid;
 
-					/*var formatInfo = $("div .hotmatchbox");
-					var formatString = $(formatInfo[0]).children().text().trim();
-					
-					// we have to do this manually because, like lounge, hltv can be wildly inconsistent
-					if(formatString.indexOf('Best of 1') != -1)
-						match.format = 1;
-					else if(formatString.indexOf('Bo1') != -1)
-						match.format = 1;
-					else if(formatString.indexOf('Best of 2') != -1)
-						match.format = 2;
-					else if(formatString.indexOf('Bo2') != -1)
-						match.format = 2;
-					else if(formatString.indexOf('Best of 3') != -1)
-						match.format = 3;
-					else if(formatString.indexOf('Bo3') != -1)
-						match.format = 3;
-					else if(formatString.indexOf('Best of 5') != -1)
-						match.format = 5;
-					else if(formatString.indexOf('Bo5') != -1)
-						match.format = 5;
-					else
-						console.log('match ' + match.id + ' format: ' + formatString);*/
-
-					getDateInfo(hltvMatchURL, getTeamInfo, $, match);
+					(function (a, b, c, d) {
+						getDateInfo(a, b, c, d);
+					})(hltvMatchURL, getTeamInfo, $, match);
 				}
 				else {		
 					console.log("Error accessing match page: " + hltvMatchURL + ". Requeueing.");
-					getMatchInfo(hltvMatchURL);
+					(function (a ){
+						getMatchInfo(a);
+					})(hltvMatchURL);
 				}
 			});
 			req.end();
-		}
-	    else {                
-		    //console.log('match ' + matchid + ' exists');
-    	}
-    })
-};
+  	  }
+	});
+}
 
 var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 {
@@ -129,7 +106,9 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	var matchDate = new Date(dateString);
 	match.date = matchDate;
 
-	getTeamInfo(getEventInfo, $, match);
+	(function (a, b, c) {
+		getTeamInfo(a, b, c);
+	})(getEventInfo, $, match);
 }
 
 var getTeamInfo = function (getEventInfo, $, match)
@@ -155,7 +134,9 @@ var getTeamInfo = function (getEventInfo, $, match)
 	team2.name = t2name;
 	team2.id = t2id;
 
-	getEventInfo(getAllMapInfo, $, match, team1, team2);
+	(function (a, b, c, d, e) {
+		getEventInfo(a, b, c, d, e);
+	})(getAllMapInfo, $, match, team1, team2);
 }
 
 var getEventInfo = function (getAllMapInfo, $, match, team1, team2)
@@ -172,7 +153,9 @@ var getEventInfo = function (getAllMapInfo, $, match, team1, team2)
 	matchEvent.id = eventid;
 	match.event = matchEvent;
 
-	getAllMapInfo(checkMapLinks, match, $, team1, team2);
+	(function (a, b, c, d, e) {
+		getAllMapInfo(a, b, c, d, e);
+	})(checkMapLinks, match, $, team1, team2);
 }
 
 var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
@@ -182,13 +165,14 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 	var numMaps = mapsInMatch.length;
 	
 	//match.format = mapsInMatch.length;
-	lupus(0, mapsInMatch.length, function(x) {
+	var x;
+	for(x = 0; x < mapsInMatch.length; x++) {
 		// score info
 		var thisMap = $(mapsInMatch[x]);
 		var scoreline = thisMap.next().find('span');
 		var players = {};
 
-		// map info
+ 		// map info
 		var mapurl = thisMap.children().attr('src');
 		var mapname = mapurl.substring(mapurl.lastIndexOf('/') + 1, mapurl.lastIndexOf('.'));
 		if(scoreline.length > 0 && mapname != 'default')
@@ -276,12 +260,14 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 
 			match.map = mapname;
 
-
-			(function( a, b, c, d) {
+			var j = match;
+			var y = x;
+			console.log(match.id + ' -- ' + t1score + ' to ' + t2score);
+			(function (a, b, c, d) {
 				checkMapLinks(a, b, c, d);
-			})(insertMatchInDatabase, match, $, x);
-	}
-	});
+			})(insertMatchInDatabase, j, $, y);
+		}
+	};
 };
 
 var checkMapLinks = function (insertMatchInDatabase, match, $, x)
@@ -293,12 +279,16 @@ var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 	var id = $(maplinks[x]).attr('id');
 	if(typeof id != "undefined") {
 		id = id.substring(id.lastIndexOf('_') + 1);
-		getFullPlayerInfo(id, match.team1.name, match.team2.name, insertMatchInDatabase, match);
+		(function (a, b, c, d, e) {
+			getFullPlayerInfo(a, b, c, d, e);
+		})(id, match.team1.name, match.team2.name, insertMatchInDatabase, match);
 	}
 	else {
 		match.team1.players = [];
 		match.team2.players = [];
-		getPlayerInfo(id, match, insertMatchInDatabase, $);
+		(function (a, b, c, d) {
+			getPlayerInfo(a, b, c, d);
+		})(id, match, insertMatchInDatabase, $);
 	}
 }
 
@@ -311,7 +301,8 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 			var matches = $('div .covSmallHeadline');
 			var team1players = [];
 			var team2players = [];
-			lupus(0, (matches.length - 34) / 8, function(x) {
+			var x;
+			for(x = 0; x < (matches.length - 34) / 8; x++) {
 				var player = {};
 
 				var playerelement = $(matches[x * 8 + 34]);
@@ -367,15 +358,16 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 				{
 					team2players.push(player);
 				}
-			}, function()
-			{
-				match.team2.players = [];
-				match.team1.players = [];
-				match.team1.players = team1players;
-				match.team2.players = team2players;
+			}
 
-				insertMatchInDatabase(match);
-			})
+			match.team2.players = [];
+			match.team1.players = [];
+			match.team1.players = team1players;
+			match.team2.players = team2players;
+
+			(function (a) {
+				insertMatchInDatabase(a);
+			})(match);
 		}
 		else
 		{
@@ -421,11 +413,15 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 	match.team1.players = team1players;
 	match.team2.players = team2players;
 
-	insertMatchInDatabase(match);
+	(function (a)
+	{
+		insertMatchInDatabase(match);
+	})(match);
 }
 
 var insertMatchInDatabase = function (match)
 {
+	//console.log(match.id + ': ' + match.team1.score + ' to ' + match.team2.score);
 	// create match summary
 	var match_summary = {};
 	var team1 = {};
@@ -459,7 +455,7 @@ var insertMatchInDatabase = function (match)
 	newMatchSummary.save(function (err, inserted) {
 		if(err)
 			console.log('Summary ' + newMatchSummary.id + ': ' + err);
-//		else
-//			console.log('inserted summary for ' + newMatchSummary.id);
+		else
+			console.log('inserted summary for ' + newMatchSummary.id);
 	});
 }
