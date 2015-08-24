@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	for(x = 0; x < 101; x++)
+	for(x = 0; x < 1; x++)
 		page_queue.push(x);
 };
 
@@ -22,7 +22,6 @@ var scrapeHLTVPage = function(pageNum) {
 
 	var req = request(url, function(err, response, html) {
 		if(!err) {
-			//console.log('scraping page #' + pageNum);
 			var $ = cheerio.load(html);
 			var matches = $('a[title="Match page"]');
 			var match_queue = async.queue(function (u, callback) {
@@ -34,7 +33,6 @@ var scrapeHLTVPage = function(pageNum) {
 			for(x = 0; x < matches.length; x++) {
 				var matchurl = 'http://www.hltv.org' + $(matches[x]).attr('href');
 				match_queue.push(matchurl);
-				//console.log('pushed ' + matchurl);
 			}
 		}
 		else
@@ -55,10 +53,8 @@ var getMatchInfo = function(hltvMatchURL) {
 		if(err)
 			console.log('Mongo error: ' + err);
         else if (!docs.length) {
-        	//console.log('found new match ' + matchid);
             var req = request(hltvMatchURL, function(err, response, html) {
 				if(!err) {
-					//console.log('loaded match ' + matchid);
 					var $ = cheerio.load(html);
 
 					// set up basic info; format, url, id
@@ -113,7 +109,6 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 
 var getTeamInfo = function (getEventInfo, $, match)
 {
-	//console.log('getting team info for ' + match.id);
 	var team1 = {};
 	var team2 = {};
 	team1.players = {};
@@ -160,11 +155,9 @@ var getEventInfo = function (getAllMapInfo, $, match, team1, team2)
 
 var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 {
-	//console.log('checking maps in match for ' + match.id);
 	var mapsInMatch = $('div[style="border: 1px solid darkgray;border-radius: 5px;width:280px;height:28px;margin-bottom:3px;"]');
 	var numMaps = mapsInMatch.length;
 	
-	//match.format = mapsInMatch.length;
 	var x;
 	for(x = 0; x < mapsInMatch.length; x++) {
 		// score info
@@ -260,9 +253,8 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 
 			match.map = mapname;
 
-			var j = match;
+			var j = JSON.parse(JSON.stringify(match));;
 			var y = x;
-			console.log(match.id + ' -- ' + t1score + ' to ' + t2score);
 			(function (a, b, c, d) {
 				checkMapLinks(a, b, c, d);
 			})(insertMatchInDatabase, j, $, y);
@@ -272,7 +264,6 @@ var getAllMapInfo = function(checkMapLinks, match, $, team1, team2)
 
 var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 {
-	//console.log('checking map links for ' + match.id);
 	// ============================== GET INFORMATION FOR EACH PLAYER ============================== //
 	// if there isn't a match stats page, there's no player stat data to harvest
 	var maplinks = $('span[id*="map_link"]');
@@ -292,10 +283,10 @@ var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 	}
 }
 
-var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase, match) {
-	//console.log('getting full player stats for ' + match.id);
+var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInDatabase, matchcopy) {
 	var hltvMatchURL = 'http://www.hltv.org/?pageid=188&matchid=' + statID;
 	var req = request(hltvMatchURL, function(err, response, html) {
+		var match = matchcopy;
 		if(!err) {
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
@@ -365,20 +356,22 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 			match.team1.players = team1players;
 			match.team2.players = team2players;
 
+			var z = match;
 			(function (a) {
 				insertMatchInDatabase(a);
-			})(match);
+			})(z);
 		}
 		else
 		{
-			console.log('error loading page ' + hltvMatchURL);
+			(function (a, b, c, d, e) {
+				getFullPlayerInfo(a, b, c, d, e);
+			})(statID, team1name, team2name, insertMatchInDatabase, match);
 		}
 	});
 	req.end();
 }
 
 var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
-	//console.log('getting player info for ' + match.id);
 	var players = $('div[style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"]');
 	var team1players = [];
 	var team2players = [];
@@ -415,13 +408,12 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 
 	(function (a)
 	{
-		insertMatchInDatabase(match);
+		insertMatchInDatabase(a);
 	})(match);
 }
 
 var insertMatchInDatabase = function (match)
 {
-	//console.log(match.id + ': ' + match.team1.score + ' to ' + match.team2.score);
 	// create match summary
 	var match_summary = {};
 	var team1 = {};
