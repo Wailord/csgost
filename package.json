@@ -9,6 +9,6 @@
     "cheerio" : "latest",
     "request" : "latest",
     "sleep" : "latest",
-    "async" : "latest",
+    "async" : "latest"
   }
 }
