@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	for(x = 0; x < 1; x++)
+	for(x = 0; x < 2; x++)
 		page_queue.push(x);
 };
 
@@ -80,7 +80,6 @@ var getMatchInfo = function(hltvMatchURL) {
 
 var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 {
-	//console.log('getting date info for ' + match.id);
 	var headerInfo = $('div[style="text-align:center;font-size: 18px;"]');
 
 	var dateInfo = $(headerInfo[0]);
@@ -419,6 +418,7 @@ var insertMatchInDatabase = function (match)
 	var team1 = {};
 	var team2 = {};
 	match_summary.date = match.date;
+	match_summary.map = match.map;
 	match_summary.event = match.event;
 	match_summary.id = match.id;
 	match_summary.url = match.url;
