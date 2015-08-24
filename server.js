@@ -33,6 +33,7 @@ var scraper = schedule.scheduleJob("*/2 * * * *",
         hltvparser.runScraper();
     });
 
+//hltvparser.runScraper();
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes

@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	for(x = 0; x < 2; x++)
+	for(x = 0; x < 3; x++)
 		page_queue.push(x);
 };
 
@@ -85,7 +85,7 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	var dateInfo = $(headerInfo[0]);
 	
 	// drill down to date; remove extra info from string, then parse it out
-	var dateString = dateInfo.children().text().replace(" of", "").replace("th", "").replace("1st", "1").replace("2nd", "2");
+	var dateString = dateInfo.children().text().replace(" of", "").replace("th", "").replace("1st", "1").replace("2nd", "2").replace("rd", "");
 	var day = dateString.substring(0, dateString.indexOf(" "));
 	var monthName = dateString.substring(dateString.indexOf(" ") + 1, dateString.lastIndexOf(" "));
 	var myDate = new Date(monthName + " 1, 2000");
@@ -97,7 +97,7 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	var timeInfo = dateInfo.text();
 	var timeString = timeInfo.substring(timeInfo.lastIndexOf(" ") + 1) + ':00'; 
 	var dateString = year + '-' + month + '-' + day + 'T' + timeString;
-	
+
 	var matchDate = new Date(dateString);
 	match.date = matchDate;
 
