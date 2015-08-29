@@ -87,7 +87,7 @@ app.controller('MainController', function($scope, MatchService)
 					.then(function(response) {
 							$scope.matches =
 								response.data.sort(function(a, b) {
-									return a.date - b.date;
+									return new Date(a.date) - new Date(b.date);
 								});
 							$scope.resultCount = response.data.length;
 							console.log(response);

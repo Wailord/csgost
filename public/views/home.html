@@ -33,7 +33,7 @@
 		<th>Event</th>
 	</tr>
 </thead>
-	<tr dir-paginate="match in matches | reverse | itemsPerPage: 25">
+	<tr dir-paginate="match in matches | orderBy:date | reverse | itemsPerPage: 25">
 	<td>
 		<a href={{match.url}}>
 			{{ match.date | date:'M/dd/yyyy'}}
