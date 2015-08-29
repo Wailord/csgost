@@ -1,4 +1,16 @@
 var app = angular.module('MainController', ['angularUtils.directives.dirPagination']);
+
+app.directive('errSrc', function() {
+  return {
+    link: function(scope, element, attrs) {
+      element.bind('error', function() {
+        if (attrs.src != attrs.errSrc) {
+          attrs.$set('src', attrs.errSrc);
+        }
+      });
+    }
+  }
+});
 app.controller('MainController', function($scope, MatchService)
 	{
 		$scope.days = 7;
@@ -75,7 +87,7 @@ app.controller('MainController', function($scope, MatchService)
 					.then(function(response) {
 							$scope.matches =
 								response.data.sort(function(a, b) {
-									return parseInt(a.date) - parseInt(b.date);
+									return a.date - b.date;
 								});
 							$scope.resultCount = response.data.length;
 							console.log(response);

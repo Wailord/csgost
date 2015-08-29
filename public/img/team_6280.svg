@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://web.resource.org/cc/"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="1200"
+   height="800"
+   viewBox="0 0 180 120"
+   id="svg1947"
+   sodipodi:version="0.32"
+   inkscape:version="0.44"
+   sodipodi:docname="Flag_of_Algeria.svg"
+   sodipodi:docbase="C:\Documents and Settings\Owner\Desktop">
+  <metadata
+     id="metadata1977">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs1975" />
+  <sodipodi:namedview
+     inkscape:window-height="1005"
+     inkscape:window-width="1280"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     guidetolerance="10.0"
+     gridtolerance="10.0"
+     objecttolerance="10.0"
+     borderopacity="1.0"
+     bordercolor="#666666"
+     pagecolor="#ffffff"
+     id="base"
+     inkscape:zoom="0.76757851"
+     inkscape:cx="600"
+     inkscape:cy="204.5904"
+     inkscape:window-x="-4"
+     inkscape:window-y="-4"
+     inkscape:current-layer="svg1947" />
+  <g
+     id="bg">
+    <rect
+       width="90"
+       height="120"
+       fill="#007a3d"
+       id="rect1950" />
+    <rect
+       width="90"
+       height="120"
+       x="90"
+       fill="white"
+       id="rect1952" />
+  </g>
+  <circle
+     cx="90"
+     cy="60"
+     r="30"
+     fill="#ce1126"
+     id="circle1954" />
+  <clipPath
+     id="c">
+    <circle
+       cx="97"
+       cy="60"
+       r="24"
+       fill="white"
+       id="circle1957" />
+  </clipPath>
+  <use
+     xlink:href="#bg"
+     clip-path="url(#c)"
+     id="use1959" />
+  <g
+     id="star"
+     fill="#ce1126"
+     transform="translate(102,60) rotate(18) scale(15)">
+    <g
+       id="cone">
+      <polygon
+         id="triangle"
+         points="0,0 0,1 .5,1"
+         transform="translate(0,-1) rotate(18)" />
+      <use
+         xlink:href="#triangle"
+         transform="scale(-1,1)"
+         id="use1964" />
+    </g>
+    <use
+       xlink:href="#cone"
+       transform="rotate(72)"
+       id="use1966" />
+    <use
+       xlink:href="#cone"
+       transform="rotate(-72)"
+       id="use1968" />
+    <use
+       xlink:href="#cone"
+       transform="rotate(144)"
+       id="use1970" />
+    <use
+       xlink:href="#cone"
+       transform="rotate(-144)"
+       id="use1972" />
+  </g>
+  <path
+     style="opacity:1;color:black;fill:black;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:10;stroke-linecap:butt;stroke-linejoin:miter;marker:none;marker-start:none;marker-mid:none;marker-end:none;stroke-miterlimit:3.86629224;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;visibility:visible;display:inline;overflow:visible"
+     d="M 0.046525062,0.024793404 L 0.046525062,119.87223 L 179.87769,119.87223 L 179.87769,0.024793404 L 0.046525062,0.024793404 z M 2.2944149,2.5216144 L 177.6298,2.5216144 L 177.6298,117.37541 L 2.2944149,117.37541 L 2.2944149,2.5216144 z "
+     id="path5361" />
+</svg>

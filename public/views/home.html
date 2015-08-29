@@ -42,11 +42,13 @@
 	<td>
 		<div ng-switch on="match.team1[0].score > match.team2[0].score">
     		<div ng-switch-when="true">
+				<img ng-src="{{'img/team_' + match.team1[0].id + '.svg'}}" err-src="img/unsupported_logo.svg" height="25" width="25"/>
 				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team1[0].url}}>
 					{{ match.team1[0].name }}
 				</a>
     		</div>
     		<div ng-switch-when="false">
+				<img ng-src="{{'img/team_' + match.team1[0].id + '.svg'}}" err-src="img/unsupported_logo.svg" height="25" width="25"/>
 				<a style="color:#FF5C5C; text-decoration: line-through;" href={{match.team1[0].url}}>
 					{{ match.team1[0].name }}
 				</a>
@@ -70,11 +72,13 @@
 	<td>
 		<div ng-switch on="match.team1[0].score < match.team2[0].score">
     		<div ng-switch-when="true">
+				<img ng-src="{{'img/team_' + match.team2[0].id + '.svg'}}" err-src="img/unsupported_logo.svg" height="25" width="25"/>
 				<a style="color:#4A7B6F; font-weight:bold;" href={{match.team2[0].url}}>
 					{{ match.team2[0].name }}
 				</a>
     		</div>
     		<div ng-switch-when="false">
+				<img ng-src="{{'img/team_' + match.team2[0].id + '.svg'}}" err-src="img/unsupported_logo.svg" height="25" width="25"/>
 				<a style="color:#FF5C5C;text-decoration: line-through;" href={{match.team2[0].url}}>
 					{{ match.team2[0].name }}
 				</a>
