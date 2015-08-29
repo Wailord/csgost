@@ -79,6 +79,7 @@ app.controller('MainController', function($scope, MatchService)
 		$scope.pageSize = 10;
 		$scope.getMatches = function()
 		{
+			$scope.statString = "";
 	        if(!isNaN($scope.days) && isFinite($scope.days))
 	        {
 	        	var today = new Date();
@@ -90,7 +91,80 @@ app.controller('MainController', function($scope, MatchService)
 									return new Date(a.date) - new Date(b.date);
 								});
 							$scope.resultCount = response.data.length;
-							console.log(response);
+
+							if($scope.resultCount > 0)
+							{
+								if($scope.team_a != "any team")
+								{
+									// get team a stats
+									var x;
+									var gamesPlayed = 0;
+									var gamesWon = 0;
+									var gamesTied = 0;
+									for(x = 0; x < $scope.resultCount; x++)
+									{
+										if(response.data[x].team1[0].name == $scope.team_a)
+										{
+											gamesPlayed++;
+											if(response.data[x].team1[0].score > response.data[x].team2[0].score)
+											{
+												gamesWon++;
+											}
+											else if(response.data[x].team1[0].score == response.data[x].team2[0].score)
+											{
+												gamesTied++;
+											}
+										}
+										else if(response.data[x].team2[0].name == $scope.team_a)
+										{
+											gamesPlayed++;
+											if(response.data[x].team1[0].score < response.data[x].team2[0].score)
+											{
+												gamesWon++;
+											}
+											else if(response.data[x].team1[0].score == response.data[x].team2[0].score)
+											{
+												gamesTied++;
+											}
+										}
+									}
+									$scope.statString += $scope.team_a + ' went ' + gamesWon + '-' + (gamesPlayed - (gamesWon + gamesTied)) + '-' + gamesTied + ' (' + Math.round(gamesWon / gamesPlayed * 1000) / 10 + '%) in these matches. ';
+								}
+								if($scope.team_b != "any team")
+								{
+									gamesPlayed = 0;
+									gamesWon = 0;
+									gamesTied = 0;
+									for(x = 0; x < $scope.resultCount; x++)
+									{
+										if(response.data[x].team1[0].name == $scope.team_b)
+										{
+											gamesPlayed++;
+											if(response.data[x].team1[0].score > response.data[x].team2[0].score)
+											{
+												gamesWon++;
+											}
+											else if(response.data[x].team1[0].score == response.data[x].team2[0].score)
+											{
+												gamesTied++;
+											}
+										}
+										else if(response.data[x].team2[0].name == $scope.team_b)
+										{
+											gamesPlayed++;
+											if(response.data[x].team1[0].score < response.data[x].team2[0].score)
+											{
+												gamesWon++;
+											}
+											else if(response.data[x].team1[0].score == response.data[x].team2[0].score)
+											{
+												gamesTied++;
+											}
+										}
+									}
+									$scope.statString += $scope.team_b + ' went ' + gamesWon + '-' + (gamesPlayed - (gamesWon + gamesTied)) + '-' + gamesTied + ' (' + Math.round(gamesWon / gamesPlayed * 1000) / 10 + '%) in these matches. ';
+								}
+							}
 						},
 						function(errorResponse) {
 							$scope.resultCount = -1;
