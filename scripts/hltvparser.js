@@ -87,6 +87,8 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	// drill down to date; remove extra info from string, then parse it out
 	var dateString = dateInfo.children().text().replace(" of", "").replace("th", "").replace("1st", "1").replace("2nd", "2").replace("rd", "");
 	var day = dateString.substring(0, dateString.indexOf(" "));
+	if(day < 10)
+		day = '0' + day;
 	var monthName = dateString.substring(dateString.indexOf(" ") + 1, dateString.lastIndexOf(" "));
 	var myDate = new Date(monthName + " 1, 2000");
 	var monthDigit = myDate.getMonth();
@@ -97,7 +99,6 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	var timeInfo = dateInfo.text();
 	var timeString = timeInfo.substring(timeInfo.lastIndexOf(" ") + 1) + ':00'; 
 	var dateString = year + '-' + month + '-' + day + 'T' + timeString;
-
 	var matchDate = new Date(dateString);
 	match.date = matchDate;
 
