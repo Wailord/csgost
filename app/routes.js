@@ -13,7 +13,7 @@ module.exports = function(app)
 		var acceptedParams = 0;
 
 		var query = Match.find();
-		query = query.findOne({'id': id})
+		query = query.find({'id': id})
 
 		query.exec(function (err, match)
 		{
@@ -35,7 +35,7 @@ module.exports = function(app)
 		var acceptedParams = 0;
 
 		var query = Match.find();
-		query = query.findOne({'id': id})
+		query = query.find({'id': id})
 
 		query.exec(function (err, match)
 		{
