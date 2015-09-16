@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	for(x = 0; x < 3; x++)
+	for(x = 0; x < 103; x++)
 		page_queue.push(x);
 };
 
@@ -277,9 +277,9 @@ var checkMapLinks = function (insertMatchInDatabase, match, $, x)
 	else {
 		match.team1.players = [];
 		match.team2.players = [];
-		(function (a, b, c, d) {
-			getPlayerInfo(a, b, c, d);
-		})(id, match, insertMatchInDatabase, $);
+		(function (a, b, c) {
+			getPlayerInfo(a, b, c);
+		})(match, insertMatchInDatabase, $);
 	}
 }
 
@@ -371,27 +371,31 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 	req.end();
 }
 
-var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
+var getPlayerInfo = function(match, insertMatchInDatabase, $) {
 	var players = $('div[style="background-color:white;width:105px;float:left;margin-left:4px;border: 1px solid rgb(189, 189, 189);border-radius: 5px;padding:2px;"]');
 	var team1players = [];
 	var team2players = [];
 	var x;
+
 	for(x = 0; x < 10; x++)
 	{
 		var player = {};
 
-		var playername = $(players[x]).children().next().children().html();
-		if(playername == null)
+		var playerurl = $(players[x]).children().children().next().children().attr('href');
+		var playername = $(players[x]).children().children().next().children().html();
+		if(typeof playerurl == "undefined")
 		{
 			// player doesn't have a page on HLTV; special case
 			player.name = $(players[x]).text().trim();
+			//console.log('no player url for ' + player.name);
 		}
 		else
 		{
 			// player has an HLTV page (meaning they have both a url and an id)
-			var playerurl = $(players[x]).children().next().attr('href');
+			//console.log('player url = ' + playerurl);
 			playerurl = 'http://www.hltv.org' + playerurl;
 			var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9, playerurl.lastIndexOf('&'));
+			//console.log('playerid = ' + playerid);
 			player.id = playerid;
 			player.name = playername;
 			player.url = playerurl;
