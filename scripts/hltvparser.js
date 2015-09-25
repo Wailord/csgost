@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	for(x = 0; x < 103; x++)
+	for(x = 0; x < 5; x++)
 		page_queue.push(x);
 };
 
