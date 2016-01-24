@@ -13,7 +13,8 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	for(x = 0; x < 3; x++)
+	var numPagesToScrape = 156;
+	for(x = 0; x < numPagesToScrape; x++)
 		page_queue.push(x);
 };
 
@@ -48,7 +49,9 @@ var scrapeHLTVPage = function(pageNum) {
 
 var getMatchInfo = function(hltvMatchURL) {
 	if(hltvMatchURL == 'http://www.hltv.org/match/') return;
+	//console.log("MatchURL = " + hltvMatchURL);
 	var matchid = hltvMatchURL.substring(hltvMatchURL.lastIndexOf('/') + 1, hltvMatchURL.indexOf('-'));
+	//console.log("MatchID = " + matchid);
 	Match.find({id : matchid}, function (err, docs) {
 		if(err)
 			console.log('Mongo error: ' + err);
@@ -57,6 +60,7 @@ var getMatchInfo = function(hltvMatchURL) {
 				if(!err) {
 					var $ = cheerio.load(html);
 
+					//console.log("Didn't have " + matchid + " in database, creating a new match.");
 					// set up basic info; format, url, id
 					var match = {};
 					match.url = hltvMatchURL;
@@ -80,22 +84,34 @@ var getMatchInfo = function(hltvMatchURL) {
 
 var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 {
-	var headerInfo = $('div[style="text-align:center;font-size: 18px;"]');
+	var headerInfo = $('div[style="text-align:center;font-size: 18px;display:flex;flex-direction: row;justify-content: center;align-items: center"]');
 
 	var dateInfo = $(headerInfo[0]);
 	
 	// drill down to date; remove extra info from string, then parse it out
 	var dateString = dateInfo.children().text().replace(" of", "").replace("th", "").replace("1st", "1").replace("2nd", "2").replace("rd", "");
+	dateString = dateString.trim();
+
+	// get the day of month
 	var day = dateString.substring(0, dateString.indexOf(" "));
-	var monthName = dateString.substring(dateString.indexOf(" ") + 1, dateString.lastIndexOf(" "));
+	dateString = dateString.slice(dateString.indexOf(" ") + 1);
+
+	// get the month of year
+	var monthName = dateString.substring(0, dateString.indexOf(" "));
+	dateString = dateString.slice(dateString.indexOf(" ") + 1);
 	var myDate = new Date(monthName + " 1, 2000");
 	var monthDigit = myDate.getMonth();
 	var month = monthDigit + 1;
 	if(month < 10)
 		month = '0' + month;
-	var year = dateString.substring(dateString.lastIndexOf(" ") + 1);
-	var timeInfo = dateInfo.text();
-	var timeString = timeInfo.substring(timeInfo.lastIndexOf(" ") + 1) + ':00'; 
+
+	// get the year
+	var year = dateString.substring(0, dateString.indexOf(" "));
+
+	// get the time of day
+	dateString = dateString.slice(dateString.indexOf("\n") + 1);
+	dateString = dateString.trim();
+	var timeString = dateString + ':00'; 
 	var dateString = year + '-' + month + '-' + day + 'T' + timeString;
 
 	var matchDate = new Date(dateString);
@@ -121,6 +137,8 @@ var getTeamInfo = function (getEventInfo, $, match)
 	var t2name = $(teams[1]).text();
 	var t2id = t2url.substring(t2url.indexOf('teamid=') + 7, t2url.lastIndexOf('&')); 
 
+	//console.log("match: " + match.id + "; teams = " + t1id + " and " + t2id);
+
 	team1.url = t1url;
 	team1.name = t1name;
 	team1.id = t1id;
@@ -138,10 +156,14 @@ var getEventInfo = function (getAllMapInfo, $, match, team1, team2)
 	var matchEvent = {};
 
 	var headerInfo = $('div[style="text-align:center;font-size: 18px;"]');
-	var eventInfo = $(headerInfo[2]);
+	var eventInfo = $(headerInfo[1]);
 	var eventurl = 'http://www.hltv.org' + eventInfo.children().attr('href');
+	//console.log(eventurl);
+
 	var eventname = eventInfo.text();
 	var eventid = eventurl.substring(eventurl.lastIndexOf('=') + 1);
+	//console.log(eventid);
+
 	matchEvent.url = eventurl;
 	matchEvent.name = eventname;
 	matchEvent.id = eventid;
@@ -379,22 +401,33 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 	{
 		var player = {};
 
-		var playername = $(players[x]).children().next().children().html();
-		if(playername == null)
+		var playerurl = $(players[x]).children().children().next().children().attr('href');
+		//console.log(playerurl);
+		if(typeof(playerurl) == 'undefined')
 		{
 			// player doesn't have a page on HLTV; special case
-			player.name = $(players[x]).text().trim();
+			var playername = $(players[x]).children().children().next().text().trim();
+			player.name = playername;
+			//console.log("PLAYER WITHOUT PAGE: " + player.name);
 		}
 		else
 		{
+			var playername = $(players[x]).children().first().text();
 			// player has an HLTV page (meaning they have both a url and an id)
-			var playerurl = $(players[x]).children().next().attr('href');
+			playername = playername.substring(1);
+			//console.log(playername);
+
+
 			playerurl = 'http://www.hltv.org' + playerurl;
-			var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9, playerurl.lastIndexOf('&'));
+			var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9);
+			//console.log(playerid);
 			player.id = playerid;
 			player.name = playername;
 			player.url = playerurl;
 		}
+
+		//console.log(player.name);
+		//console.log(player.id);
 
 		if(x < 5)
 			team1players.push(player);
@@ -432,6 +465,9 @@ var insertMatchInDatabase = function (match)
 	match_summary.team2.url = match.team2.url;
 	match_summary.team2.id = match.team2.id;
 	match_summary.team2.score = match.team2.score;
+
+	//console.log(match);
+	//console.log(match_summary);
 
 	// insert full match
 	var newMatch = new Match(match);
