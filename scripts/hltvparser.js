@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	var numPagesToScrape = 3;
+	var numPagesToScrape = 2;
 	for(x = 0; x < numPagesToScrape; x++)
 		page_queue.push(x);
 };
@@ -94,6 +94,8 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 
 	// get the day of month
 	var day = dateString.substring(0, dateString.indexOf(" "));
+	if(day < 10)
+		day = '0' + day;
 	dateString = dateString.slice(dateString.indexOf(" ") + 1);
 
 	// get the month of year
@@ -115,6 +117,12 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 	var dateString = year + '-' + month + '-' + day + 'T' + timeString;
 
 	var matchDate = new Date(dateString);
+
+	console.log(dateString);
+	console.log(matchDate);
+	console.log(match.id);
+	console.log();
+
 	match.date = matchDate;
 
 	(function (a, b, c) {

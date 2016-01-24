@@ -13,7 +13,7 @@ app.directive('errSrc', function() {
 });
 app.controller('MainController', function($scope, MatchService)
 	{
-		$scope.days = 7;
+		$scope.days = 2;
 		$scope.map = 'any map';
 	    $scope.tagline = 'Choose your parameters below and get lightning-quick results from the HLTV database. Match data goes back to August of 2014.';
 	    $scope.resultCount = -2;
