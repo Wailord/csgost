@@ -1,0 +1,6 @@
+module.exports = {
+	updateDatabase: function()
+	{
+		console.log('do stuff');
+	}
+};
