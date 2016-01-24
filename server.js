@@ -28,12 +28,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/public')); 
 
 
-//var scraper = schedule.scheduleJob("*/2 * * * *",
-//    function() {
-//        hltvparser.runScraper();
-//    });
+var scraper = schedule.scheduleJob("*/2 * * * *",
+    function() {
+        hltvparser.runScraper();
+    });
 
-hltvparser.runScraper();
+//hltvparser.runScraper();
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
