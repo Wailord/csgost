@@ -10,5 +10,8 @@
     "request" : "latest",
     "sleep" : "latest",
     "async" : "latest"
+  },
+  "engines": {
+    "node": "5.5.0"
   }
 }
