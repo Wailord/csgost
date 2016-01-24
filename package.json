@@ -2,14 +2,14 @@
   "name": "starter-node-angular",
   "main": "server.js",
   "dependencies": {
+    "async" : "latest",
+    "body-parser" : "~1.13.3",
+    "cheerio" : "latest",
     "express" : "~4.13.1",
     "mongoose" : "~4.0.8",
-    "body-parser" : "~1.13.3",
     "node-schedule" : "~0.2.9",
-    "cheerio" : "latest",
     "request" : "latest",
-    "sleep" : "latest",
-    "async" : "latest"
+    "sleep" : "latest"
   },
   "engines": {
     "node": "5.5.0"
