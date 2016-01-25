@@ -8,7 +8,11 @@ var playerSchema = mongoose.Schema({
 	name: String,
 	wins: Number,
 	losses: Number,
-	skill: [Number]
+	rating: Number,
+	rd: Number,
+	vol: Number,
+	rating2: Number,
+	rd2: Number 
 });
 
 module.exports = mongoose.model('Player', playerSchema);

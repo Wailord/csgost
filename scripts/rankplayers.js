@@ -1,4 +1,4 @@
-//var trueskill = require('trueskill')
+var glicko = require('./glicko')
 var Player = require('../app/models/player');
 var Match = require('../app/models/match')
 var async = require('async');
@@ -6,7 +6,8 @@ var async = require('async');
 var rankplayers = module.exports = {};
 
 rankplayers.runPlayerRanker = function() {
-	console.log('getting all matches');
+	console.log('ranking all players');
+	Player.remove({}, function() {
    	Match.find().sort({date: 1}).exec(function (err, docs) {
    		if(err)
    			console.log('Error finding matches: ' + err);
@@ -20,6 +21,7 @@ rankplayers.runPlayerRanker = function() {
 	    	});
 		}
    	});
+   });
 }
 
 var updateMatch = function(match, callback) {
@@ -39,21 +41,18 @@ var updateMatch = function(match, callback) {
 	if(teamsTied || team1players.length != 5 || team2players.length != 5) callback();
 	else
 	{
-		console.log('players on team: ' + team1players.length);
 		async.forEach(team1players, function(player, c) {
 			getPlayer(player, players, team1won, callback);
 		});
 
-		console.log('players on team: ' + team2players.length);
 		async.forEach(team2players, function(player, c) {
-			getPlayer(player, players, team1won, callback);
+			getPlayer(player, players, !team1won, callback);
 		});
 	}
 }
 
 var getPlayer = function(player, players, teamWon, callback)
 {
-	console.log('getting a player');
 	Player.findOne({id : player.id}, function (err, p) {
 		if(err)
 			console.log('Mongo error: ' + err);
@@ -64,19 +63,24 @@ var getPlayer = function(player, players, teamWon, callback)
 			newPlayer.name = player.name;
 			newPlayer.id = player.id;
 			newPlayer.url = player.url;
+			newPlayer.rating = 0;
 			
 			if(!p)
 			{
-				newPlayer.skill = [25.0, 25.0 / 3.0];
+				newPlayer.rating = 1500;
+				newPlayer.rd = 350;
+				newPlayer.vol = 0.06;
 				newPlayer.wins = 0;
 				newPlayer.losses = 0;
 				//console.log("couldn't find " + player.id + " in database");
 			}
 			else {
-				newPlayer.skill = p.skill;
 				newPlayer.wins = p.wins;
 				newPlayer.losses = p.losses;
-				console.log('found existing skill for ' + player.id + ' (' + player.name + '), rating: ' + newPlayer.skill);
+				newPlayer.rating = p.rating;
+				newPlayer.rd = p.rd;
+				newPlayer.vol = p.vol;
+				console.log('found existing skill for ' + player.id + ' (' + player.name + '), rating: ' + newPlayer.rating);
 			}
 			
 			if(isNaN(parseInt(newPlayer.id)))
@@ -130,15 +134,32 @@ var savePlayers = function(players, callback)
 	async.series([
 		function(next)
 		{
-			console.log('before');
-			console.log(players[0]);
-			//trueskill.AdjustPlayers(players);
+			var winners = [];
+			var losers = [];
+
+			async.forEach(players, function(player, next){
+				if(player.rank == 1)
+					winners.push(player);
+				else if(player.rank == 2)
+					losers.push(player);
+			})
+
+			var team1 = {};
+			team1.players = winners;
+			team1.rank = 1;
+			team1.name = "Team 1";
+			
+			var team2 = {};
+			team2.players = losers;
+			team2.rank = 2;
+			team2.name = "Team 2";
+
+			var teams = [team1, team2];
+			glicko.teamMatch(teams);
 			next(null);
 		},
 		function(next)
 		{
-			console.log('after');
-			console.log(players[0]);
 			async.forEach(players, function(player, next2) {
 				delete player.rank
 				if(isNaN(parseInt(player.id)))
@@ -162,7 +183,6 @@ var savePlayers = function(players, callback)
 		},
 		function(next)
 		{
-			console.log('saved players');
 			callback();
 		}
 	]);

@@ -31,10 +31,15 @@ app.use(express.static(__dirname + '/public'));
 var scraper = schedule.scheduleJob("*/2 * * * *",
     function() {
        hltvparser.runScraper();
+});
+
+// re rank all players at midnight
+var ranker = schedule.scheduleJob("0 0 * * * *",
+    function() {
+        rankplayers.runPlayerRanker();
    });
 
 //hltvparser.runScraper();
-
 //rankplayers.runPlayerRanker();
 
 // routes ==================================================
