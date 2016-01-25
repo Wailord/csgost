@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	var numPagesToScrape = 156;
+	var numPagesToScrape = 158;
 	for(x = 0; x < numPagesToScrape; x++)
 		page_queue.push(x);
 };
@@ -317,7 +317,6 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 	var req = request(hltvMatchURL, function(err, response, html) {
 		var match = matchcopy;
 		if(!err) {
-			console.log('check statid ' + statID);
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
 			var team1players = [];

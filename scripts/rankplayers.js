@@ -34,17 +34,21 @@ var updateMatch = function(match, callback) {
 	var teamsTied = team1[0].score == team2[0].score;
 	var players = [];
 
-	if(teamsTied) return;
+	// some matches don't correctly parse players (unfortunately); until it's fixed, just skip those matches
+	// when ranking players
+	if(teamsTied || team1players.length != 5 || team2players.length != 5) callback();
+	else
+	{
+		console.log('players on team: ' + team1players.length);
+		async.forEach(team1players, function(player, c) {
+			getPlayer(player, players, team1won, callback);
+		});
 
-	console.log('players on team: ' + team1players.length);
-	async.forEach(team1players, function(player, c) {
-		getPlayer(player, players, team1won, callback);
-	});
-
-	console.log('players on team: ' + team2players.length);
-	async.forEach(team2players, function(player, c) {
-		getPlayer(player, players, team1won, callback);
-	});
+		console.log('players on team: ' + team2players.length);
+		async.forEach(team2players, function(player, c) {
+			getPlayer(player, players, team1won, callback);
+		});
+	}
 }
 
 var getPlayer = function(player, players, teamWon, callback)
@@ -70,7 +74,9 @@ var getPlayer = function(player, players, teamWon, callback)
 			}
 			else {
 				newPlayer.skill = p.skill;
-				console.log('found existing skill for ' + player.id + ' ( ' + player.name + '), rating: ' + newPlayer.skill);
+				newPlayer.wins = p.wins;
+				newPlayer.losses = p.losses;
+				console.log('found existing skill for ' + player.id + ' (' + player.name + '), rating: ' + newPlayer.skill);
 			}
 			
 			if(isNaN(parseInt(newPlayer.id)))
@@ -124,11 +130,15 @@ var savePlayers = function(players, callback)
 	async.series([
 		function(next)
 		{
+			console.log('before');
+			console.log(players[0]);
 			trueskill.AdjustPlayers(players);
 			next(null);
 		},
 		function(next)
 		{
+			console.log('after');
+			console.log(players[0]);
 			async.forEach(players, function(player, next2) {
 				delete player.rank
 				if(isNaN(parseInt(player.id)))
