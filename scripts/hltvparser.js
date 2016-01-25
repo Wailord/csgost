@@ -13,7 +13,7 @@ hltvparser.runScraper = function()
 		callback();
 	}, 1);
 	
-	var numPagesToScrape = 2;
+	var numPagesToScrape = 156;
 	for(x = 0; x < numPagesToScrape; x++)
 		page_queue.push(x);
 };
@@ -78,7 +78,7 @@ var getMatchInfo = function(hltvMatchURL) {
 				}
 			});
 			req.end();
-  	  }
+  	  	}
 	});
 }
 
@@ -118,10 +118,10 @@ var getDateInfo = function (hltvMatchURL, getTeamInfo, $, match)
 
 	var matchDate = new Date(dateString);
 
-	console.log(dateString);
-	console.log(matchDate);
-	console.log(match.id);
-	console.log();
+	//console.log(dateString);
+	//console.log(matchDate);
+	//console.log(match.id);
+	//console.log();
 
 	match.date = matchDate;
 
@@ -317,19 +317,19 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 	var req = request(hltvMatchURL, function(err, response, html) {
 		var match = matchcopy;
 		if(!err) {
+			console.log('check statid ' + statID);
 			var $ = cheerio.load(html);
 			var matches = $('div .covSmallHeadline');
 			var team1players = [];
 			var team2players = [];
 			var x;
-			for(x = 0; x < (matches.length - 34) / 8; x++) {
+			for(x = 0; x < 10; x++) {
 				var player = {};
-
-				var playerelement = $(matches[x * 8 + 34]);
-				var teamelement = $(matches[x* 8+1 + 34]);
-				var killelement = $(matches[x* 8+2 + 34]);
-				var assistelement = $(matches[x* 8+3 + 34]);
-				var deathelement = $(matches[x* 8+4 + 34]);
+				var playerelement = $(matches[x * 9 + 43 + 0]);
+				var teamelement = $(matches[x * 9 + 43 + 1]);
+				var killelement = $(matches[x * 9 + 43 + 2]);
+				var assistelement = $(matches[x * 9 + 43 + 3]);
+				var deathelement = $(matches[x * 9 + 43 + 4]);
 				var playerTeam = teamelement.text();
 
 				// as far as i can tell, all matches with full player stats have valid players
@@ -369,7 +369,7 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 				player.headshots = playerHeadshots;
 				player.assists = playerAssists;
 				player.deaths = playerDeaths;
-				
+
 				if(playerTeam == team1name)
 				{
 					team1players.push(player);

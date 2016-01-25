@@ -37,7 +37,6 @@ var matchSchema = mongoose.Schema({
 	map: String,
 	url: String,
 	date: Date,
-	//format: Number,
 	team1: [teamSchema],
 	team2: [teamSchema],
 	event: [eventSchema],

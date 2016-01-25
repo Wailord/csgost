@@ -6,6 +6,7 @@ var express = require('express'),
     db = require('./config/db');
     hltvparser = require('./scripts/hltvparser');
 	port = process.env.PORT || 8080;
+    rankplayers = require('./scripts/rankplayers');
 
 // connect to the match database
 var dbURL = process.env.MONGOLAB_URI || db.url;
@@ -33,6 +34,8 @@ var scraper = schedule.scheduleJob("*/2 * * * *",
    });
 
 //hltvparser.runScraper();
+
+//rankplayers.runPlayerRanker();
 
 // routes ==================================================
 require('./app/routes')(app); // configure our routes
