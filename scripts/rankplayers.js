@@ -1,4 +1,4 @@
-var trueskill = require('trueskill')
+//var trueskill = require('trueskill')
 var Player = require('../app/models/player');
 var Match = require('../app/models/match')
 var async = require('async');
@@ -132,7 +132,7 @@ var savePlayers = function(players, callback)
 		{
 			console.log('before');
 			console.log(players[0]);
-			trueskill.AdjustPlayers(players);
+			//trueskill.AdjustPlayers(players);
 			next(null);
 		},
 		function(next)
