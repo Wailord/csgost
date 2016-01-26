@@ -2,10 +2,11 @@ var app = angular.module('OddsController', []);
 
 app.controller('OddsController', ['$scope', 'OddsService', function($scope, OddsService)
 	{
-		$scope.message = "instantly get projected odds for any five-man roster using modified glicko2 rankings.";
+		$scope.tagline = "instantly get projected odds for any five-man roster using modified glicko2 rankings.";
 		$scope.messageColor = 'black';
 		$scope.t1color = 'black';
 		$scope.t2color = 'black'
+		$scope.message = 'why don\'t you generate some odds?';
 
 		$scope.res = 0;
 		$scope.t1p0 = 429;
@@ -31,7 +32,21 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 					$scope.res = 1;
 					$scope.messageColor = 'black';
 					$scope.t1color = 'green';
-					$scope.t2color = 'red'
+					$scope.t2color = 'red';
+
+					if(response.data.players[$scope.t1p0])
+						$scope.t1p0name = response.data.players[$scope.t1p0].name;
+					else
+						$scope.t1p0name = '';
+					$scope.t1p1name = response.data.players[$scope.t1p1].name;
+					$scope.t1p2name = response.data.players[$scope.t1p2].name;
+					$scope.t1p3name = response.data.players[$scope.t1p3].name;
+					$scope.t1p4name = response.data.players[$scope.t1p4].name;
+					$scope.t2p0name = response.data.players[$scope.t2p0].name;
+					$scope.t2p1name = response.data.players[$scope.t2p1].name;
+					$scope.t2p2name = response.data.players[$scope.t2p2].name;
+					$scope.t2p3name = response.data.players[$scope.t2p3].name;
+					$scope.t2p4name = response.data.players[$scope.t2p4].name;
 				}
 				else if(odds < 50) {
 					$scope.message = 'Team 2 is favored and has a projected ' + ((1 - response.data.bo1) * 100).toFixed(2) + '% chance of winning a Bo1, ' + ((1 - response.data.bo3) * 100).toFixed(2) + '% chance of winning a Bo3, and ' + ((1 - response.data.bo5) * 100).toFixed(2) + '% chance of winning a Bo5.';
@@ -39,6 +54,17 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 					$scope.messageColor = 'black';
 					$scope.t1color = 'red';
 					$scope.t2color = 'green'
+
+					$scope.t1p0name = response.data.players[$scope.t1p0].name;
+					$scope.t1p1name = response.data.players[$scope.t1p1].name;
+					$scope.t1p2name = response.data.players[$scope.t1p2].name;
+					$scope.t1p3name = response.data.players[$scope.t1p3].name;
+					$scope.t1p4name = response.data.players[$scope.t1p4].name;
+					$scope.t2p0name = response.data.players[$scope.t2p0].name;
+					$scope.t2p1name = response.data.players[$scope.t2p1].name;
+					$scope.t2p2name = response.data.players[$scope.t2p2].name;
+					$scope.t2p3name = response.data.players[$scope.t2p3].name;
+					$scope.t2p4name = response.data.players[$scope.t2p4].name;
 				}
 				else if(odds == 50){
 					$scope.message = 'Too close to call!';
@@ -46,11 +72,35 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 					$scope.messageColor = 'black';
 					$scope.t1color = 'black';
 					$scope.t2color = 'black'
+
+					$scope.t1p0name = response.data.players[$scope.t1p0].name;
+					$scope.t1p1name = response.data.players[$scope.t1p1].name;
+					$scope.t1p2name = response.data.players[$scope.t1p2].name;
+					$scope.t1p3name = response.data.players[$scope.t1p3].name;
+					$scope.t1p4name = response.data.players[$scope.t1p4].name;
+					$scope.t2p0name = response.data.players[$scope.t2p0].name;
+					$scope.t2p1name = response.data.players[$scope.t2p1].name;
+					$scope.t2p2name = response.data.players[$scope.t2p2].name;
+					$scope.t2p3name = response.data.players[$scope.t2p3].name;
+					$scope.t2p4name = response.data.players[$scope.t2p4].name;
 				}
 				else
 				{
 					$scope.message = 'Please verify the player IDs you entered are correct.';
 					$scope.messageColor = 'red';
+					$scope.t1color = 'black';
+					$scope.t2color = 'black'
+
+					$scope.t1p0name = '';
+					$scope.t1p1name = '';
+					$scope.t1p2name = '';
+					$scope.t1p3name = '';
+					$scope.t1p4name = '';
+					$scope.t2p0name = '';
+					$scope.t2p1name = '';
+					$scope.t2p2name = '';
+					$scope.t2p3name = '';
+					$scope.t2p4name = '';
 				}
 			});
 		}

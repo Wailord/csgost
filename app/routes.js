@@ -111,11 +111,15 @@ module.exports = function(app)
 			}
 			else
 			{
+				var response = {};
+				response.players = {};
+
 				var t1AvgRating = 0;
 				var t2AvgRating = 0;
 
 				players.forEach(function(player)
 				{
+					response.players[player.id] = player;
 					if(t1.indexOf(player.id) > -1)
 						t1AvgRating += player.rating;
 					if(t2.indexOf(player.id) > -1)
@@ -133,7 +137,6 @@ module.exports = function(app)
 
 				res.setHeader('Content-Type','application/json');
 
-				var response = {};
 				response.bo1 = odds;
 				response.bo3 = bo3odds;
 				response.bo5 = bo5odds;

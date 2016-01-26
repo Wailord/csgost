@@ -1,10 +1,12 @@
 <div class="jumbotron text-center">
 	<h1>csgost odds generator</h1>
-	<p ng-style="{ color : messageColor }">
-		{{ message }}
+	<p>
+		{{ tagline }}
 	</p>
 	<button type="submit" ng-click="getOdds()" class="btn btn-primary">Generate Odds</button><span us-spinner="{radius:5, width:2, length: 4}" spinner-key="spinner-1"></span>
 </div>
+
+<center><h5 ng-style="{ color: messageColor }">{{ message }}</h5></center>
 
 <table class="table table-striped" style="width:100%">
 	<thead style="text-center">
@@ -15,38 +17,38 @@
 	</thead>
 	<tr>
 		<td>
-			<input type="number" class="input-small" ng-model="t1p0" ng-style="{ color: t1color }" min="0">
+			<input type="number" class="input-small" ng-model="t1p0" ng-style="{ color: t1color }" min="0"> {{ t1p0name }}
 		</td>
 		<td>
-			<input type="number" class="input-small" ng-model="t2p0" ng-style="{ color: t2color }" min="0">
+			<input type="number" class="input-small" ng-model="t2p0" ng-style="{ color: t2color }" min="0"> {{ t2p0name }}
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<input type="number" class="input-small" ng-model="t1p1" ng-style="{ color: t1color }" min="0">
+			<input type="number" class="input-small" ng-model="t1p1" ng-style="{ color: t1color }" min="0"> {{ t1p1name }}
 		</td>
-		<td><input type="number" class="input-small" ng-model="t2p1" ng-style="{ color: t2color }" min="0">
-		</td>
-	</tr>
-	<tr>
-		<td>
-			<input type="number" class="input-small" ng-model="t1p2" ng-style="{ color: t1color }" min="0">
-		</td>
-		<td><input type="number" class="input-small" ng-model="t2p2" ng-style="{ color: t2color }" min="0">
+		<td><input type="number" class="input-small" ng-model="t2p1" ng-style="{ color: t2color }" min="0"> {{ t2p1name }}
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<input type="number" class="input-small" ng-model="t1p3" ng-style="{ color: t1color }" min="0">
+			<input type="number" class="input-small" ng-model="t1p2" ng-style="{ color: t1color }" min="0"> {{ t1p2name }}
 		</td>
-		<td><input type="number" class="input-small" ng-model="t2p3" ng-style="{ color: t2color }" min="0">
+		<td><input type="number" class="input-small" ng-model="t2p2" ng-style="{ color: t2color }" min="0"> {{ t2p2name }}
 		</td>
 	</tr>
 	<tr>
 		<td>
-			<input type="number" class="input-small" ng-model="t1p4" ng-style="{ color: t1color }" min="0">
+			<input type="number" class="input-small" ng-model="t1p3" ng-style="{ color: t1color }" min="0"> {{ t1p3name }}
 		</td>
-		<td><input type="number" class="input-small" ng-model="t2p4" ng-style="{ color: t2color }" min="0">
+		<td><input type="number" class="input-small" ng-model="t2p3" ng-style="{ color: t2color }" min="0"> {{ t2p3name }}
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="number" class="input-small" ng-model="t1p4" ng-style="{ color: t1color }" min="0"> {{ t1p4name }}
+		</td>
+		<td><input type="number" class="input-small" ng-model="t2p4" ng-style="{ color: t2color }" min="0"> {{ t2p4name }}
 		</td>
 	</tr>
 </table>
