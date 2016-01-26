@@ -11,8 +11,6 @@ module.exports = function(app)
 
 		console.log('received a full query (POST match id ' + id + ')');
 
-		var acceptedParams = 0;
-
 		var query = Match.find();
 		query = query.find({'id': id})
 
@@ -31,8 +29,6 @@ module.exports = function(app)
 	app.get('/api/players/:id', function(req, res) {
 		var id = req.params.id;
 		console.log('received a player query (GET player id ' + id + ')');
-
-		var acceptedParams = 0;
 
 		var query = Player.find();
 		query = query.find({'id': id})
@@ -53,9 +49,8 @@ module.exports = function(app)
 		var t1 = req.query.t1.split(',');
 		var t2 = req.query.t2.split(',');
 
-		//console.log('received odds request:');
-		//console.log(t1);
-		//console.log(t2);
+		console.log('GET odds request:');
+		console.log(t1 + ' vs. ' + t2);
 
 		var bothTeams = t1.concat(t2);
 
@@ -90,6 +85,54 @@ module.exports = function(app)
 
 				res.setHeader('Content-Type','application/json');
 				res.send('Team1 chance: ' + team1WinChance);
+			}
+		});
+	});
+
+	app.post('/api/odds', function(req, res) {
+		var t1 = req.body.t1;
+		var t2 = req.body.t2;
+
+		console.log('POST odds request:');
+		console.log(t1 + ' vs. ' + t2);
+
+		var bothTeams = t1.concat(t2);
+
+		var query = Player.find({id: {$in : bothTeams}});
+		query.exec(function (err, players)
+		{
+			if(err) {
+				console.log('error getting match odds: ' + err);
+				res.status(400).send(err);
+			}
+			else if(players.length != 10)
+			{
+				res.send('Could not find exactly ten players. (found ' + players.length + ')');
+			}
+			else
+			{
+				var t1AvgRating = 0;
+				var t2AvgRating = 0;
+
+				players.forEach(function(player)
+				{
+					if(t1.indexOf(player.id) > -1)
+						t1AvgRating += player.rating;
+					if(t2.indexOf(player.id) > -1)
+						t2AvgRating += player.rating;
+				});
+
+				t1AvgRating /= 5;
+				t2AvgRating /= 5;
+
+				var team1WinChance = ((t1AvgRating - t2AvgRating) / 850) + 0.5;
+
+				res.setHeader('Content-Type','application/json');
+
+				var response = {};
+				response.t1 = team1WinChance;
+				console.log(response.t1);
+				res.send(response);
 			}
 		});
 	});

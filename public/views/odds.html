@@ -2,19 +2,19 @@
 	<h1>csgost odds generator</h1>
 	
 	<p>{{ message }}</p>
+  	<button type="submit" ng-click="getOdds()" class="btn btn-primary">Generate Odds</button><span us-spinner="{radius:5, width:2, length: 4}" spinner-key="spinner-1"></span>
+</div>
 
-	
- <table class="table table-striped" style="width:100%">
+<table class="table table-striped" style="width:100%">
 	<thead style="text-center">
 	<tr>
-		<th>Date</th>
-		<th>Team</th>
-		<th></th>
-		<th>Team</th>
-		<th></th>
-		<th>Map</th>
-		<th>Event</th>
+		<th>Team 1 IDs</th>
+		<th>Team 2 IDs</th>
 	</tr>
-</thead>
-	<tr dir-paginate="match in matches | orderBy:date | reverse | itemsPerPage: 25">
-</div>
+	</thead>
+	<tr><td><input type="number" class="input-small" ng-model="t1p0" min="0"></td><td><input type="number" class="input-small" ng-model="t2p0" min="0"></td></tr>
+	<tr><td><input type="number" class="input-small" ng-model="t1p1" min="0"></td><td><input type="number" class="input-small" ng-model="t2p1" min="0"></td></tr>
+	<tr><td><input type="number" class="input-small" ng-model="t1p2" min="0"></td><td><input type="number" class="input-small" ng-model="t2p2" min="0"></td></tr>
+	<tr><td><input type="number" class="input-small" ng-model="t1p3" min="0"></td><td><input type="number" class="input-small" ng-model="t2p3" min="0"></td></tr>
+	<tr><td><input type="number" class="input-small" ng-model="t1p4" min="0"></td><td><input type="number" class="input-small" ng-model="t2p4" min="0"></td></tr>
+</table>
