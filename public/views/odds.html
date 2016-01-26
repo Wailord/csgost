@@ -1,5 +1,20 @@
 <div class="jumbotron text-center">
-	<h1>csgost odds generator Page</h1>
+	<h1>csgost odds generator</h1>
 	
 	<p>{{ message }}</p>
+
+	
+ <table class="table table-striped" style="width:100%">
+	<thead style="text-center">
+	<tr>
+		<th>Date</th>
+		<th>Team</th>
+		<th></th>
+		<th>Team</th>
+		<th></th>
+		<th>Map</th>
+		<th>Event</th>
+	</tr>
+</thead>
+	<tr dir-paginate="match in matches | orderBy:date | reverse | itemsPerPage: 25">
 </div>

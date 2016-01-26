@@ -67,9 +67,6 @@ app.controller('MainController', ['$scope', 'MatchService', 'usSpinnerService', 
 		});
 	$scope.teams.unshift('any team');
 
-	$scope.team_a = 'any team';
-	$scope.team_b = 'any team';
-
     $scope.maps = [
     	'cobblestone',
     	'overpass',
@@ -84,7 +81,7 @@ app.controller('MainController', ['$scope', 'MatchService', 'usSpinnerService', 
 		{
 			return a.toLowerCase().localeCompare(b.toLowerCase());	
 		});
-	$scope.maps.unshift('any map');
+	$scope.maps.unshift('any map');  
 
 	$scope.currentPage = 1;
 	$scope.pageSize = 10;

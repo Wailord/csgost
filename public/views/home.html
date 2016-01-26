@@ -2,15 +2,15 @@
     <h1>csgost - scary simple statistics</h1>
     <p>{{ tagline }}</p>
     <form class="form-inline" role="form" method="post">
-	    <select name="team_a" ng-model="team_a">
+	    <select name="team_a" ng-model="team_a" ng-init="team_a = teams[0]" ng-options="team for team in teams">
 			<option ng-repeat="team in teams" value = "{{team}}">{{team}}</option>
 	    </select>
 	    &nbsp;vs&nbsp;
-	    <select name="team_b" ng-model="team_b">
+	    <select name="team_b" ng-model="team_b" ng-init="team_b = teams[0]" ng-options="team for team in teams">
 			<option ng-repeat="team in teams" value = "{{team}}">{{team}}</option>
 	    </select>
 	    &nbsp;on&nbsp;			    
-	    <select name="map" ng-model="map">
+	    <select name="map" ng-model="map" ng-init="map = maps[0]" ng-options="map for map in maps">
 			<option ng-repeat="map in maps" value = "{{map}}">{{map}}</option>
 		</select>
 	    &nbsp;over the last&nbsp;
