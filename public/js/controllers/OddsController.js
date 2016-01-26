@@ -4,6 +4,7 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 	{
 		$scope.message = "Work-in-progress!";
 
+		$scope.res = 0;
 		$scope.t1p0 = 429;
 		$scope.t1p1 = 7170;
 		$scope.t1p2 = 2469;
@@ -24,12 +25,18 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 				var odds = response.data.t1 * 100;
 				odds = odds.toFixed(2);
 
-				if(odds > 50)
+				if(odds > 50) {
 					$scope.message = 'Team 1 is favored and has a projected ' + odds + '% chance of winning.';
-				else if(odds < 50)
+					$scope.res = 1;
+				}
+				else if(odds < 50) {
 					$scope.message = 'Team 2 is favored and has a projected ' + (100 - odds) + '% chance of winning.';
-				else
+					$scope.res = -1;
+				}
+				else {
 					$scope.message = 'Too close to call!';
+					$scope.res = 0;
+				}
 			});
 		}
 	}]
