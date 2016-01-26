@@ -34,7 +34,7 @@ var scraper = schedule.scheduleJob("*/2 * * * *",
 });
 
 // re rank all players at midnight
-var ranker = schedule.scheduleJob("0 0 * * * *",
+var ranker = schedule.scheduleJob("0 0 0 * * *",
     function() {
         rankplayers.runPlayerRanker();
    });
