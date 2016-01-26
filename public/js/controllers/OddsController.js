@@ -86,7 +86,7 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 				}
 				else
 				{
-					$scope.message = 'Please verify the player IDs you entered are correct.';
+					$scope.message = 'Please verify you have entered ten valid, distinct player IDs.';
 					$scope.messageColor = 'red';
 					$scope.t1color = 'black';
 					$scope.t2color = 'black'
