@@ -23,7 +23,7 @@
       	<h5>{{ statString }}</h5>
     </form>
 </div>
-<table class="table table-striped" style="width:100%">
+ <table class="table table-striped" style="width:100%">
 	<thead style="text-center">
 	<tr>
 		<th>Date</th>
@@ -109,8 +109,9 @@
 	</td>
 </tr>
 </table>
+<div ng-show="resultCount > 0">
 <center><dir-pagination-controls></dir-pagination-controls></center>
-<div ng-show="resultCount != -2">
+</div>
 <div ng-switch on="resultCount > 0">
 	<div ng-switch-when="true">
 		<label style="text-align:center; color:green;">
@@ -118,9 +119,17 @@
 		</label>
 	</div>
 	<div ng-switch-when="false">
-		<label style="text-align:center; color:red;">
-			no matches found :(
-		</label>
+		<div ng-switch on="ran">
+			<div ng-switch-when="true">
+				<label style="text-align:center; color:red;">
+					no matches found :(
+				</label>
+			</div>
+			<div ng-switch-when="false">
+				<label style="text-align:center; color:#424242;">
+					why don't you run a query?
+				</label>
+			</div>
+		</div>
 	</div>
-</div>
 </div>
