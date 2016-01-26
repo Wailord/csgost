@@ -20,8 +20,18 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 		$scope.t2p3 = 7168;
 		$scope.t2p4 = 3055;
 
+	    $scope.startSpin = function() {
+	        usSpinnerService.spin('spinner-1');
+	    };
+
+	    $scope.stopSpin = function() {
+	        usSpinnerService.stop('spinner-1');
+	    };
+
+
 		$scope.getOdds = function()
 		{
+			$scope.startSpin();
 			var t1 = [$scope.t1p0, $scope.t1p1, $scope.t1p2, $scope.t1p3, $scope.t1p4];
 			var t2 = [$scope.t2p0, $scope.t2p1, $scope.t2p2, $scope.t2p3, $scope.t2p4];
 
@@ -102,6 +112,8 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 					$scope.t2p3name = '';
 					$scope.t2p4name = '';
 				}
+				
+				$scope.stopSpin();
 			});
 		}
 	}]

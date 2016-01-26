@@ -27,7 +27,6 @@ app.controller('MainController', ['$scope', 'MatchService', 'usSpinnerService', 
     $scope.stopSpin = function() {
         usSpinnerService.stop('spinner-1');
     };
-    $scope.spinneractive = false;
 
     // these are intentionally hardcoded so it's not cluttered with hundreds of teams that don't exist
     $scope.teams = [
