@@ -22,15 +22,13 @@ app.controller('OddsController', ['$scope', 'OddsService', function($scope, Odds
 			var t2 = [$scope.t2p0, $scope.t2p1, $scope.t2p2, $scope.t2p3, $scope.t2p4];
 
 			OddsService.getOdds(t1, t2).then(function(response) {
-				var odds = response.data.t1 * 100;
-				odds = odds.toFixed(2);
-
+				var odds = response.data.bo1 * 100;
 				if(odds > 50) {
-					$scope.message = 'Team 1 is favored and has a projected ' + odds + '% chance of winning.';
+					$scope.message = 'Team 1 is favored and has a projected ' + (response.data.bo1 * 100).toFixed(2) + '% chance of winning a Bo1, ' + (response.data.bo3 * 100).toFixed(2) + '% chance of winning a Bo3, and ' + (response.data.bo5 * 100).toFixed(2) + '% chance of winning a Bo5.';
 					$scope.res = 1;
 				}
 				else if(odds < 50) {
-					$scope.message = 'Team 2 is favored and has a projected ' + (100 - odds) + '% chance of winning.';
+					$scope.message = 'Team 2 is favored and has a projected ' + ((1 - response.data.bo1) * 100).toFixed(2) + '% chance of winning a Bo1, ' + ((1 - response.data.bo3) * 100).toFixed(2) + '% chance of winning a Bo3, and ' + ((1 - response.data.bo5) * 100).toFixed(2) + '% chance of winning a Bo5.';
 					$scope.res = -1;
 				}
 				else {
