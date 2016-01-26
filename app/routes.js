@@ -68,7 +68,7 @@ module.exports = function(app)
 			}
 			else if(players.length != 10)
 			{
-				res.send('Could not find all players. (found ' + players.length + ')');
+				res.send('Could not find exactly ten players. (found ' + players.length + ')');
 			}
 			else
 			{
