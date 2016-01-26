@@ -1,4 +1,4 @@
-var app = angular.module('MainController', ['angularUtils.directives.dirPagination']);
+var app = angular.module('MainController', ['angularUtils.directives.dirPagination', 'angularSpinner']);
 
 app.directive('errSrc', function() {
   return {
@@ -12,13 +12,22 @@ app.directive('errSrc', function() {
   }
 });
 
-app.controller('MainController', function($scope, MatchService)
+app.controller('MainController', ['$scope', 'MatchService', 'usSpinnerService', function($scope, MatchService, usSpinnerService)
 {
 	$scope.days = 2;
 	$scope.map = 'any map';
     $scope.tagline = 'Choose your parameters below and get lightning-quick results from the HLTV database. Match data goes back to August of 2014.';
     $scope.resultCount = -2;
     $scope.ran = false;
+
+    $scope.startSpin = function() {
+        usSpinnerService.spin('spinner-1');
+    };
+
+    $scope.stopSpin = function() {
+        usSpinnerService.stop('spinner-1');
+    };
+    $scope.spinneractive = false;
 
     // these are intentionally hardcoded so it's not cluttered with hundreds of teams that don't exist
     $scope.teams = [
@@ -81,6 +90,7 @@ app.controller('MainController', function($scope, MatchService)
 	$scope.pageSize = 10;
 	$scope.getMatches = function()
 	{
+		$scope.startSpin();
 		$scope.statString = "";
         if(!isNaN($scope.days) && isFinite($scope.days))
         {
@@ -168,13 +178,15 @@ app.controller('MainController', function($scope, MatchService)
 							}
 						}
 						$scope.ran = true;
+						$scope.stopSpin();
 					},
 					function(errorResponse) {
 						$scope.resultCount = -1;
 						console.log(errorResponse);
 						$scope.ran = true;
+						$scope.stopSpin();
 				});
 			}
 		}
 	}
-);
+	]);
