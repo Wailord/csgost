@@ -1,6 +1,6 @@
 var app = angular.module('OddsController', []);
 
-app.controller('OddsController', ['$scope', 'OddsService', function($scope, OddsService)
+app.controller('OddsController', ['$scope', 'OddsService', 'usSpinnerService', function($scope, OddsService, usSpinnerService)
 	{
 		$scope.tagline = "instantly get projected odds for any five-man roster using modified glicko2 rankings.";
 		$scope.messageColor = '#424242';
