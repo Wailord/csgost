@@ -81,10 +81,21 @@ module.exports = function(app)
 				t1AvgRating /= 5;
 				t2AvgRating /= 5;
 
-				var team1WinChance = ((t1AvgRating - t2AvgRating) / 850) + 0.5;
+				var odds = ((t1AvgRating - t2AvgRating) / 850) + 0.5;
+
+				var bo3odds = (odds * odds) + 2 * (odds * odds * (1 - odds));
+
+				var bo5odds = (odds * odds * odds) * (1 - odds) * (5 + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds));;
 
 				res.setHeader('Content-Type','application/json');
-				res.send('Team1 chance: ' + team1WinChance);
+
+				response.bo1 = odds;
+				response.bo3 = bo3odds;
+				response.bo5 = bo5odds;
+				response.t1rating = t1AvgRating;
+				response.t2rating = t2AvgRating;
+
+				res.send(response);
 			}
 		});
 	});
@@ -140,6 +151,8 @@ module.exports = function(app)
 				response.bo1 = odds;
 				response.bo3 = bo3odds;
 				response.bo5 = bo5odds;
+				response.t1rating = t1AvgRating;
+				response.t2rating = t2AvgRating;
 
 				res.send(response);
 			}

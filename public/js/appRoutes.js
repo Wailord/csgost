@@ -10,5 +10,10 @@ angular.module('appRoutes', []).config(['$routeProvider', '$locationProvider', f
             controller: 'OddsController'
         })
 
+        .when('/teams', {
+            templateUrl: 'views/teams.html',
+            controller: 'TeamLeaderboardController'
+        })
+
     $locationProvider.html5Mode(true);
 }]);
