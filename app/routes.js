@@ -84,17 +84,20 @@ module.exports = function(app)
 				var odds = 1 / (1 + Math.pow(10, (t2AvgRating - t1AvgRating) / 400 )); 
 
 				var w = odds;
-				var l = (1 - odds);
+				var l = (1 - w);
 
 				var bo3odds = (w * w) + (w * l * w) + (l * w * w);
-				var bo5odds = 	(l *l * w * w * w) +
-								(l * w * l * w * w) +
-								(l * w * w * l * w) +	
-								(w * l * l * w * w) +
-								(w * l * w * l * w) +
-								(w * w * l * l  * w) +
-								(w * w * w);
-								
+				var bo5odds = 	(l * l * w * w * w) + 	// w^3 + l^2
+								(l * w * l * w * w) + 	// w^3 + l^2
+								(l * w * w * l * w) + 	// w^3 + l^2
+								(w * l * l * w * w) + 	// w^3 + l^2
+								(w * l * w * l * w) + 	// w^3 + l^2
+								(w * w * l * l * w) + 	// w^3 + l^2
+								(w * w * l * w) +		// w^3 + l^1
+								(w * l * w * w) +		// w^3 + l^1
+								(l * w * w * w) + 		// w^3 + l^1
+								(w * w * w);			// w^3
+
 				res.setHeader('Content-Type','application/json');
 
 				response.bo1 = odds;
@@ -154,13 +157,16 @@ module.exports = function(app)
 				var l = (1 - odds);
 
 				var bo3odds = (w * w) + (w * l * w) + (l * w * w);
-				var bo5odds = 	(l *l * w * w * w) +
-								(l * w * l * w * w) +
-								(l * w * w * l * w) +	
-								(w * l * l * w * w) +
-								(w * l * w * l * w) +
-								(w * w * l * l  * w) +
-								(w * w * w);
+				var bo5odds = 	(l * l * w * w * w) + 	// w^3 + l^2
+								(l * w * l * w * w) + 	// w^3 + l^2
+								(l * w * w * l * w) + 	// w^3 + l^2
+								(w * l * l * w * w) + 	// w^3 + l^2
+								(w * l * w * l * w) + 	// w^3 + l^2
+								(w * w * l * l * w) + 	// w^3 + l^2
+								(w * w * l * w) +		// w^3 + l^1
+								(w * l * w * w) +		// w^3 + l^1
+								(l * w * w * w) + 		// w^3 + l^1
+								(w * w * w);			// w^3
 
 				res.setHeader('Content-Type','application/json');
 
