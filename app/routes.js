@@ -81,7 +81,7 @@ module.exports = function(app)
 				t1AvgRating /= 5;
 				t2AvgRating /= 5;
 
-				var odds = ((t1AvgRating - t2AvgRating) / 850) + 0.5;
+				var odds = 1 / (1 + Math.pow(10, (t1AvgRating - t2AvgRating) / 400 )); 
 
 				var bo3odds = (odds * odds) + 2 * (odds * odds * (1 - odds));
 
@@ -140,7 +140,7 @@ module.exports = function(app)
 				t1AvgRating /= 5;
 				t2AvgRating /= 5;
 
-				var odds = ((t1AvgRating - t2AvgRating) / 850) + 0.5;
+				var odds = 1 / (1 + Math.pow(10, (t1AvgRating - t2AvgRating) / 400 )); 
 
 				var bo3odds = (odds * odds) + 2 * (odds * odds * (1 - odds));
 
