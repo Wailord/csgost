@@ -9,16 +9,17 @@ app.controller('OddsController', ['$scope', 'OddsService', 'usSpinnerService', f
 		$scope.message = 'why don\'t you generate some odds?';
 
 		$scope.res = 0;
-		$scope.t1p0 = 429;
-		$scope.t1p1 = 7170;
-		$scope.t1p2 = 2469;
-		$scope.t1p3 = 7347;
-		$scope.t1p4 = 7398;
-		$scope.t2p0 = 4954;
-		$scope.t2p1 = 7592;
-		$scope.t2p2 = 4959;
-		$scope.t2p3 = 7168;
-		$scope.t2p4 = 3055;
+		$scope.t1p0 = 3055;
+		$scope.t1p1 = 3849;
+		$scope.t1p2 = 885;
+		$scope.t1p3 = 7528;
+		$scope.t1p4 = 1146;
+
+		$scope.t2p0 = 429;
+		$scope.t2p1 = 2469;
+		$scope.t2p2 = 4954;
+		$scope.t2p3 = 7398;
+		$scope.t2p4 = 7592;
 
 	    $scope.startSpin = function() {
 	        usSpinnerService.spin('spinner-1');

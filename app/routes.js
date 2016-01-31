@@ -81,12 +81,20 @@ module.exports = function(app)
 				t1AvgRating /= 5;
 				t2AvgRating /= 5;
 
-				var odds = 1 / (1 + Math.pow(10, (t1AvgRating - t2AvgRating) / 400 )); 
+				var odds = 1 / (1 + Math.pow(10, (t2AvgRating - t1AvgRating) / 400 )); 
 
-				var bo3odds = (odds * odds) + 2 * (odds * odds * (1 - odds));
+				var w = odds;
+				var l = (1 - odds);
 
-				var bo5odds = (odds * odds * odds) * (1 - odds) * (5 + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds));;
-
+				var bo3odds = (w * w) + (w * l * w) + (l * w * w);
+				var bo5odds = 	(l *l * w * w * w) +
+								(l * w * l * w * w) +
+								(l * w * w * l * w) +	
+								(w * l * l * w * w) +
+								(w * l * w * l * w) +
+								(w * w * l * l  * w) +
+								(w * w * w);
+								
 				res.setHeader('Content-Type','application/json');
 
 				response.bo1 = odds;
@@ -140,11 +148,19 @@ module.exports = function(app)
 				t1AvgRating /= 5;
 				t2AvgRating /= 5;
 
-				var odds = 1 / (1 + Math.pow(10, (t1AvgRating - t2AvgRating) / 400 )); 
+				var odds = 1 / (1 + Math.pow(10, (t2AvgRating - t1AvgRating) / 400 ));
 
-				var bo3odds = (odds * odds) + 2 * (odds * odds * (1 - odds));
+				var w = odds;
+				var l = (1 - odds);
 
-				var bo5odds = (odds * odds * odds) * (1 - odds) * (5 + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds) + (1 - odds));;
+				var bo3odds = (w * w) + (w * l * w) + (l * w * w);
+				var bo5odds = 	(l *l * w * w * w) +
+								(l * w * l * w * w) +
+								(l * w * w * l * w) +	
+								(w * l * l * w * w) +
+								(w * l * w * l * w) +
+								(w * w * l * l  * w) +
+								(w * w * w);
 
 				res.setHeader('Content-Type','application/json');
 
