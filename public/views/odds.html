@@ -17,6 +17,15 @@
 			</tr>
 		</thead>
 		<tr>
+			<td>				    
+			    <select name="team1" ng-model="team1" ng-options="team.name for team in teams" ng-change="update()"></select>
+			</td>
+			<center>
+			<td>		    
+			    <select name="team2" ng-model="team2" ng-options="team.name for team in teams" ng-change="update()"></select>
+			</td>
+		</tr>
+		<tr>
 			<td>
 				<input type="number" class="input-small" ng-model="t1p0" ng-style="{ color: t1color }" min="0"> {{ t1p0name }}
 			</td>

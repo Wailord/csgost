@@ -1,6 +1,7 @@
 var Match = require('./models/match');
 	MatchSummary = require('./models/match_summary');
 	Player = require('./models/player');
+	Team = require('./models/team')
 var path = require('path');
 
 module.exports = function(app)
@@ -22,6 +23,24 @@ module.exports = function(app)
 			{
 				res.setHeader('Content-Type','application/json');
 				res.send(match);
+			}
+		});
+	});
+	
+	app.post('/api/teams', function(req, res) 
+	{
+		console.log('received a full query (POST all teams)');
+
+		var query = Team.find();
+
+		query.exec(function (err, teamList)
+		{
+			if(err)
+				res.status(400).send(err);
+			else
+			{
+				res.setHeader('Content-Type','application/json');
+				res.send(teamList);
 			}
 		});
 	});

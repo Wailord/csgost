@@ -1,7 +1,13 @@
 var app = angular.module('OddsController', []);
 
-app.controller('OddsController', ['$scope', 'OddsService', 'usSpinnerService', function($scope, OddsService, usSpinnerService)
+app.controller('OddsController', ['$scope', 'OddsService', 'TeamService', 'usSpinnerService', function($scope, OddsService, TeamService, usSpinnerService)
 	{
+		$scope.teams = [];
+
+		TeamService.getTeams().then(function(response) {
+			$scope.teams = response.data;
+		});
+
 		$scope.tagline = "instantly get projected odds for any five-man roster using modified glicko2 rankings.";
 		$scope.messageColor = '#424242';
 		$scope.t1color = '#424242';
@@ -9,17 +15,26 @@ app.controller('OddsController', ['$scope', 'OddsService', 'usSpinnerService', f
 		$scope.message = 'why don\'t you generate some odds?';
 
 		$scope.res = 0;
-		$scope.t1p0 = 3055;
-		$scope.t1p1 = 3849;
-		$scope.t1p2 = 885;
-		$scope.t1p3 = 7528;
-		$scope.t1p4 = 1146;
 
-		$scope.t2p0 = 429;
-		$scope.t2p1 = 2469;
-		$scope.t2p2 = 4954;
-		$scope.t2p3 = 7398;
-		$scope.t2p4 = 7592;
+		$scope.update = function()
+		{
+			if($scope.team1)
+			{
+				$scope.t1p0 = $scope.team1.players[0];
+				$scope.t1p1 = $scope.team1.players[1];
+				$scope.t1p2 = $scope.team1.players[2];
+				$scope.t1p3 = $scope.team1.players[3];
+				$scope.t1p4 = $scope.team1.players[4];
+			}
+			if($scope.team2)
+			{
+				$scope.t2p0 = $scope.team2.players[0];
+				$scope.t2p1 = $scope.team2.players[1];
+				$scope.t2p2 = $scope.team2.players[2];
+				$scope.t2p3 = $scope.team2.players[3];
+				$scope.t2p4 = $scope.team2.players[4];
+			}
+		}
 
 	    $scope.startSpin = function() {
 	        usSpinnerService.spin('spinner-1');
@@ -28,7 +43,6 @@ app.controller('OddsController', ['$scope', 'OddsService', 'usSpinnerService', f
 	    $scope.stopSpin = function() {
 	        usSpinnerService.stop('spinner-1');
 	    };
-
 
 		$scope.getOdds = function()
 		{
