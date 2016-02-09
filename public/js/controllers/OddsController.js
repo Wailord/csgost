@@ -15,11 +15,14 @@ app.controller('OddsController', ['$scope', 'OddsService', 'TeamService', 'usSpi
 		$scope.message = 'why don\'t you generate some odds?';
 
 		$scope.res = 0;
+		$scope.t1header = 'Team 1';
+		$scope.t2header = 'Team 2';
 
 		$scope.update = function()
 		{
 			if($scope.team1)
 			{
+				$scope.t1header = $scope.team1.name;
 				$scope.t1p0 = $scope.team1.players[0];
 				$scope.t1p1 = $scope.team1.players[1];
 				$scope.t1p2 = $scope.team1.players[2];
@@ -28,6 +31,7 @@ app.controller('OddsController', ['$scope', 'OddsService', 'TeamService', 'usSpi
 			}
 			if($scope.team2)
 			{
+				$scope.t2header = $scope.team2.name;
 				$scope.t2p0 = $scope.team2.players[0];
 				$scope.t2p1 = $scope.team2.players[1];
 				$scope.t2p2 = $scope.team2.players[2];
@@ -53,9 +57,9 @@ app.controller('OddsController', ['$scope', 'OddsService', 'TeamService', 'usSpi
 			OddsService.getOdds(t1, t2).then(function(response) {
 				var odds = response.data.bo1 * 100;
 				if(odds > 50) {
-					$scope.message = 'Team 1 (' + response.data.t1rating.toFixed(2) + ')  is favored and has a projected ' + (response.data.bo1 * 100).toFixed(2)
+					$scope.message = $scope.team1.name + ' (' + response.data.t1rating.toFixed(2) + ')  is favored and has a projected ' + (response.data.bo1 * 100).toFixed(2)
 					+ '% chance of winning a Bo1, ' + (response.data.bo3 * 100).toFixed(2) + '% chance of winning a Bo3, and ' + (response.data.bo5 * 100).toFixed(2)
-					+ '% chance of winning a Bo5 over Team 2 (' + response.data.t2rating .toFixed(2)+ ') .';
+					+ '% chance of winning a Bo5 over ' + $scope.team2.name + ' (' + response.data.t2rating .toFixed(2)+ ') .';
 					$scope.res = 1;
 					$scope.messageColor = '#424242';
 					$scope.t1color = 'green';
@@ -76,9 +80,9 @@ app.controller('OddsController', ['$scope', 'OddsService', 'TeamService', 'usSpi
 					$scope.t2p4name = response.data.players[$scope.t2p4].name;
 				}
 				else if(odds < 50) {
-					$scope.message = 'Team 2 (' + response.data.t2rating.toFixed(2) + ') is favored and has a projected ' + ((1 - response.data.bo1) * 100).toFixed(2)
+					$scope.message = $scope.team2.name + ' (' + response.data.t2rating.toFixed(2) + ') is favored and has a projected ' + ((1 - response.data.bo1) * 100).toFixed(2)
 					+ '% chance of winning a Bo1, ' + ((1 - response.data.bo3) * 100).toFixed(2) + '% chance of winning a Bo3, and ' + ((1 - response.data.bo5) * 100).toFixed(2)
-					+ '% chance of winning a Bo5 over Team 1 (' + response.data.t1rating.toFixed(2) + ').';
+					+ '% chance of winning a Bo5 over ' + $scope.team1.name + ' (' + response.data.t1rating.toFixed(2) + ').';
 					$scope.res = -1;
 					$scope.messageColor = '#424242';
 					$scope.t1color = 'red';
