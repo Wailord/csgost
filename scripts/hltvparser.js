@@ -335,7 +335,15 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 				// until i find out otherwise, i'm not doing checks here (as i don't know what can break)
 				var playerName = playerelement.text().substring(1);
 				var playerURL = 'http://www.hltv.org' + playerelement.children().next().attr('href');
-				var playerID = playerURL.substring(playerURL.indexOf('&') + 10);
+				var playerID;
+				if(playerURL.indexOf('&') >= 0)
+					playerID = playerURL.substring(playerURL.indexOf('&') + 10);
+				else
+				{
+					var start = playerURL.indexOf('/player/') + 8;
+					var end = playerURL.indexOf('-');
+					playerID =  playerURL.substring(start, end);
+				}
 				player.id = playerID;
 				player.name = playerName;
 				player.url = playerURL;
