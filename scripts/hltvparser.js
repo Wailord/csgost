@@ -439,9 +439,23 @@ var getPlayerInfo = function(id, match, insertMatchInDatabase, $) {
 
 
 			playerurl = 'http://www.hltv.org' + playerurl;
-			var playerid = playerurl.substring(playerurl.indexOf('playerid=') + 9);
-			//console.log(playerid);
-			player.id = playerid;
+			var playerID;
+			console.log('playerURL = ' + playerURL);
+			if(playerURL.indexOf('&') >= 0)
+			{
+				console.log('detected an ampersand, so using old player URL logic');
+				playerID = playerurl.substring(playerurl.indexOf('playerid=') + 9);
+			}
+			else
+			{
+				console.log('detected no ampersand, so using new player URL logic');
+				var start = playerURL.indexOf('/player/') + 8;
+				var end = playerURL.indexOf('-');
+				playerID =  playerURL.substring(start, end);
+			}
+
+			//console.log(playerID);
+			player.id = playerID;
 			player.name = playername;
 			player.url = playerurl;
 		}
