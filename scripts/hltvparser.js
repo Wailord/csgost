@@ -336,10 +336,15 @@ var getFullPlayerInfo = function(statID, team1name, team2name, insertMatchInData
 				var playerName = playerelement.text().substring(1);
 				var playerURL = 'http://www.hltv.org' + playerelement.children().next().attr('href');
 				var playerID;
+				console.log('playerURL = ' + playerURL);
 				if(playerURL.indexOf('&') >= 0)
+				{
+					console.log('detected an ampersand, so using old player URL logic');
 					playerID = playerURL.substring(playerURL.indexOf('&') + 10);
+				}
 				else
 				{
+					console.log('detected no ampersand, so using new player URL logic');
 					var start = playerURL.indexOf('/player/') + 8;
 					var end = playerURL.indexOf('-');
 					playerID =  playerURL.substring(start, end);
