@@ -8,7 +8,9 @@ var rankplayers = module.exports = {};
 rankplayers.runPlayerRanker = function() {
 	console.log('ranking all players');
 	Player.remove({}, function() {
-   	Match.find().sort({date: 1}).exec(function (err, docs) {
+	var ninetyDaysAgo = new Date();
+   	ninetyDaysAgo.setDate(ninetyDaysAgo.getDate() - 180);
+   	Match.find({"date": {"$gte": ninetyDaysAgo}}).sort({date: 1}).exec(function (err, docs) {
    		if(err)
    			console.log('Error finding matches: ' + err);
    		else {
